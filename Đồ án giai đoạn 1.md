@@ -1,5 +1,8 @@
 Đề bài: thực hiện làm một cơ sở dữ liệu theo yêu cầu
 
+## Công cụ cần thiết
+https://app.diagrams.net/ : Sử dụng để vẽ ER
+
 ## Công việc chung 
 1. Lên ý tưởng về danh sách chức năng của cơ sở dữ liệu và phần mềm tương ứng.
 2. Đánh giá đề bài và thảo luận về tần suất sử dụng của hệ thống.
