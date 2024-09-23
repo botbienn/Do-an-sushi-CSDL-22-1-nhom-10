@@ -1,5 +1,5 @@
-#Giai đoạn 1:
-##Đoạn đầu
+# Giai đoạn 1:
+## Đoạn đầu
 - Hệ thống nhà hàng có nhiều chi nhánh, thông tin chi nhánh gồm 
     - Tên chi nhánh, 
     - Địa chỉ, 
