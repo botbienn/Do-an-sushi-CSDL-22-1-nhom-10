@@ -18,7 +18,7 @@
     - Số điện thoại,
     - Email, 
     - Số cccd, 
-    Giới tính.
+    - Giới tính.
 ---
 - Thẻ khách hàng có thông tin gồm:
     - Mã thẻ cụ thể, 
