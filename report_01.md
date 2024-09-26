@@ -38,5 +38,14 @@
                 - Tên chi nhánh(Menu) --> Tên chi nhánh(Chi Nhánh)
 
     3. Xác định liên kết, mối quan hệ giữa các tập thực thể của cơ sở dữ liệu
-        - 
+        - Phiếu đặt món ăn <thuộc> Hoá đơn
+        - Phiếu đặt bàn <đặt> Menu
+        - Phiếu đặt món ăn <đặt> Menu
+        - Menu <thuộc> Chi nhánh
+        - Đánh giá <về> Chi nhánh
+        - Chi nhánh <có> Bộ phận
+        - Nhân viên <thuộc> Bộ phận
+        - Nhân viên <quản lý> Chi nhánh
+        - Nhân viên <có> Địa chỉ nhân viên
+        - Nhân viên <có> Điện thoại nhân viên
 
