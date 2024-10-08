@@ -42,3 +42,4 @@ Tính mở rộng và bảo trì
 6. Những cải thiện có thể thực hiện:
 Hiện tại với yêu cầu trên thì mô hình ER cơ bản đã đáp ứng được các yêu cầu đã cho. Tuy nhiên, nếu có thêm yêu cầu về các điều kiện khác để mở rộng cơ sở dữ liệu, ta có thể mở rộng bằng cách như thêm thực thể mới, thêm các mối kết hợp mới để lưu trữ chi tiết hơn. Ví dụ:
 Chi tiết thông tin về Thẻ: Hiện tại, thuộc tính Loại thẻ có thể lưu trữ thông tin về các loại thẻ (Thành viên, Silver, Gold). Tuy nhiên, nếu có thêm yêu cầu về các điều kiện khác liên quan đến tiêu dùng, hoặc các ưu đãi đặc biệt cho từng loại thẻ, ta có thể mở rộng thêm bảng riêng cho Loại thẻ để lưu trữ chi tiết hơn.
+7. ()
