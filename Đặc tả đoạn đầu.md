@@ -8,7 +8,9 @@
     - Số điện thoại chi nhánh, 
     - Nơi gửi xe.
 ---
-- Mỗi thực đơn phụ thuộc vào khu vực, nhưng mỗi chi nhánh trong khu vực sẽ ghi nhận có hoặc không món ăn trong thực đơn. Thực đơn có nhiều mục, mỗi mục có nhiều loại thức ăn. Thông tin thức ăn gồm:
+- Mỗi thực đơn phụ thuộc vào khu vực, nhưng mỗi chi nhánh trong khu vực sẽ ghi nhận có hoặc không món ăn trong thực đơn. Thực đơn có nhiều mục, mỗi mục có nhiều loại thức ăn.
+---
+- Thông tin thức ăn gồm:
     - Mã món, 
     - Tên món, 
     - Giá tiền hiện tại.
