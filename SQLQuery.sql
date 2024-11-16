@@ -3,9 +3,9 @@
 -- KhachHang
 create table khach_hang(
 	CCCD varchar(12) not null, 
-	HoTen nvarchar(100),
-	SDT varchar(10),
-	Email nvarchar(100),
+	HoTen nvarchar(100) not null,
+	SDT varchar(10) not null,
+	Email nvarchar(100) not null,
 	Phai nvarchar(3)
 
 	primary key(CCCD)
@@ -14,11 +14,11 @@ create table khach_hang(
 -- the
 create table the(
 	MaThe varchar(10) not null,
-	CCCD varchar(12),
-	NgayLap datetime,
-	LoaiThe varchar(10),
+	CCCD varchar(12) not null,
+	NgayLap datetime not null,
+	LoaiThe varchar(10) not null,
 	TieuDung float,
-	NhanVienLap varchar(10),
+	NhanVienLap varchar(10) not null,
 	CapNhat nvarchar(100),
 
 	primary key(MaThe)
@@ -27,8 +27,8 @@ create table the(
 -- chuong trinh
 create table chuong_trinh(
 	MaChuongTrinh varchar(10) not null,
-	NgayBD datetime,
-	NgayKT datetime,
+	NgayBD datetime not null,
+	NgayKT datetime not null,
 
 	primary key(MaChuongTrinh)
 )
@@ -36,7 +36,7 @@ create table chuong_trinh(
 -- giam gia
 create table giam_gia(
 	MaChuongTrinh varchar(10) not null,
-	LoaiThe varchar(10),
+	LoaiThe varchar(10) not null,
 	UuDaiChietKhau float,
 	GiamGia float,
 	TangSP varchar(10),
@@ -46,8 +46,8 @@ create table giam_gia(
 
 -- tham gia chuong trinh
 create table tham_gia_chuong_trinh(
-	MaPhieu varchar(10),
-	MaChuongTrinh varchar(10)
+	MaPhieu varchar(10) not null,
+	MaChuongTrinh varchar(10) not null
 
 	primary key(MaPhieu, MaChuongTrinh)
 )
