@@ -41,36 +41,36 @@ INSERT INTO chi_nhanh(TenCN, DiaChi, GioMo, GioDong, SDT, GiaoHang, XeMay, XeHoi
 ('Chi nhanh 6', '103 Pham Ngoc Thach', '8:00', '17:00', '912987654', '0', '1', '0', 'NV030', '3')
 
 INSERT INTO nhan_vien(MaNV, HoTen, SoNha, Duong, Quan, ThanhPho, NgaySinh, Phai, BoPhan, ChiNhanh) VALUES
-('NV001', 'Nguyen Van A', '12 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1990-05-15', 'Nam', '1', 'CN001'),
-('NV002', 'Tran Thi B', '22 Nguyen Du', 'Nguyen Du', 'Quan 1', 'TP HCM', '1992-08-20', 'Nu', '2', 'CN001'),
-('NV003', 'Le Thi C', '32 Tran Hung Dao', 'Tran Hung Dao', 'Quan 3', 'TP HCM', '1988-10-05', 'Nu', '3', 'CN001'),
-('NV004', 'Pham Minh D', '42 Bach Dang', 'Bach Dang', 'Quan 5', 'TP HCM', '1991-01-12', 'Nam', '4', 'CN001'),
-('NV005', 'Nguyen Thi E', '52 Nguyen Trai', 'Nguyen Trai', 'Quan 7', 'TP HCM', '1985-03-25', 'Nu', '5', 'CN001'),
-('NV006', 'Hoang Thi F', '62 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1989-07-19', 'Nam', '1', 'CN002'),
-('NV007', 'Truong Thi G', '72 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1993-11-04', 'Nu', '2', 'CN002'),
-('NV008', 'Nguyen Thi H', '82 Nguyen Du', 'Nguyen Du', 'Quan 1', 'TP HCM', '1990-01-28', 'Nam', '3', 'CN002'),
-('NV009', 'Le Thi I', '92 Tran Hung Dao', 'Tran Hung Dao', 'Quan 3', 'TP HCM', '1994-04-18', 'Nu', '4', 'CN002'),
-('NV010', 'Hoang Thi K', '102 Bach Dang', 'Bach Dang', 'Quan 5', 'TP HCM', '1992-07-01', 'Nam', '5', 'CN002'),
-('NV011', 'Truong Thi L', '112 Nguyen Trai', 'Nguyen Trai', 'Quan 5', 'TP HCM', '1992-03-15', 'Nu', '1', 'CN003'),
-('NV012', 'Nguyen Thi M', '122 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 7', 'TP HCM', '1987-05-05', 'Nam', '2', 'CN003'),
-('NV013', 'Le Thi N', '132 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1990-09-21', 'Nu', '3', 'CN003'),
-('NV014', 'Nguyen Thi O', '142 Nguyen Du', 'Nguyen Du', 'Quan 5', 'TP HCM', '1993-11-02', 'Nam', '4', 'CN003'),
-('NV015', 'Pham Minh P', '152 Bach Dang', 'Bach Dang', 'Quan 3', 'TP HCM', '1988-03-22', 'Nam', '5', 'CN003'),
-('NV016', 'Nguyen Thi Q', '162 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1994-06-30', 'Nam', '1', 'CN004'),
-('NV017', 'Hoang Thi R', '172 Le Lai', 'Le Lai', 'Quan 4', 'TP HCM', '1990-08-14', 'Nam', '2', 'CN004'),
-('NV018', 'Le Thi S', '182 Nguyen Du', 'Nguyen Du', 'Quan 6', 'TP HCM', '1989-02-20', 'Nu', '3', 'CN004'),
-('NV019', 'Pham Thi T', '192 Tran Hung Dao', 'Tran Hung Dao', 'Quan 2', 'TP HCM', '1995-01-25', 'Nu', '4', 'CN004'),
-('NV020', 'Nguyen Minh U', '202 Bach Dang', 'Bach Dang', 'Quan 3', 'TP HCM', '1986-04-05', 'Nam', '5', 'CN004'),
-('NV021', 'Nguyen Thi V', '212 Nguyen Trai', 'Nguyen Trai', 'Quan 5', 'TP HCM', '1990-03-17', 'Nu', '1', 'CN005'),
-('NV022', 'Tran Thi W', '222 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 7', 'TP HCM', '1987-08-09', 'Nu', '2', 'CN005'),
-('NV023', 'Hoang Minh X', '232 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1993-11-15', 'Nam', '3', 'CN005'),
-('NV024', 'Le Thi Y', '242 Nguyen Du', 'Nguyen Du', 'Quan 4', 'TP HCM', '1992-06-01', 'Nu', '4', 'CN005'),
-('NV025', 'Pham Thi Z', '252 Bach Dang', 'Bach Dang', 'Quan 6', 'TP HCM', '1985-02-14', 'Nam', '5', 'CN005'),
-('NV026', 'Nguyen Thi AA', '262 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1991-10-12', 'Nu', '1', 'CN006'),
-('NV027', 'Le Minh AB', '272 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1994-07-23', 'Nam', '2', 'CN006'),
-('NV028', 'Tran Thi AC', '282 Nguyen Du', 'Nguyen Du', 'Quan 3', 'TP HCM', '1990-11-19', 'Nu', '3', 'CN006'),
-('NV029', 'Hoang Thi AD', '292 Tran Hung Dao', 'Tran Hung Dao', 'Quan 2', 'TP HCM', '1988-01-03', 'Nam', '4', 'CN006'),
-('NV030', 'Nguyen Thi AE', '302 Bach Dang', 'Bach Dang', 'Quan 4', 'TP HCM', '1992-12-08', 'Nu', '5', 'CN006')
+('NV001', 'Nguyen Van A', '12 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1990-05-15', 'Nam', '1', '1'),
+('NV002', 'Tran Thi B', '22 Nguyen Du', 'Nguyen Du', 'Quan 1', 'TP HCM', '1992-08-20', 'Nu', '2', '1'),
+('NV003', 'Le Thi C', '32 Tran Hung Dao', 'Tran Hung Dao', 'Quan 3', 'TP HCM', '1988-10-05', 'Nu', '3', '1'),
+('NV004', 'Pham Minh D', '42 Bach Dang', 'Bach Dang', 'Quan 5', 'TP HCM', '1991-01-12', 'Nam', '4', '1'),
+('NV005', 'Nguyen Thi E', '52 Nguyen Trai', 'Nguyen Trai', 'Quan 7', 'TP HCM', '1985-03-25', 'Nu', '5', '1'),
+('NV006', 'Hoang Thi F', '62 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1989-07-19', 'Nam', '1', '2'),
+('NV007', 'Truong Thi G', '72 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1993-11-04', 'Nu', '2', '2'),
+('NV008', 'Nguyen Thi H', '82 Nguyen Du', 'Nguyen Du', 'Quan 1', 'TP HCM', '1990-01-28', 'Nam', '3', '2'),
+('NV009', 'Le Thi I', '92 Tran Hung Dao', 'Tran Hung Dao', 'Quan 3', 'TP HCM', '1994-04-18', 'Nu', '4', '2'),
+('NV010', 'Hoang Thi K', '102 Bach Dang', 'Bach Dang', 'Quan 5', 'TP HCM', '1992-07-01', 'Nam', '5', '2'),
+('NV011', 'Truong Thi L', '112 Nguyen Trai', 'Nguyen Trai', 'Quan 5', 'TP HCM', '1992-03-15', 'Nu', '1', '3'),
+('NV012', 'Nguyen Thi M', '122 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 7', 'TP HCM', '1987-05-05', 'Nam', '2', '3'),
+('NV013', 'Le Thi N', '132 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1990-09-21', 'Nu', '3', '3'),
+('NV014', 'Nguyen Thi O', '142 Nguyen Du', 'Nguyen Du', 'Quan 5', 'TP HCM', '1993-11-02', 'Nam', '4', '3'),
+('NV015', 'Pham Minh P', '152 Bach Dang', 'Bach Dang', 'Quan 3', 'TP HCM', '1988-03-22', 'Nam', '5', '3'),
+('NV016', 'Nguyen Thi Q', '162 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1994-06-30', 'Nam', '1', '4'),
+('NV017', 'Hoang Thi R', '172 Le Lai', 'Le Lai', 'Quan 4', 'TP HCM', '1990-08-14', 'Nam', '2', '4'),
+('NV018', 'Le Thi S', '182 Nguyen Du', 'Nguyen Du', 'Quan 6', 'TP HCM', '1989-02-20', 'Nu', '3', '4'),
+('NV019', 'Pham Thi T', '192 Tran Hung Dao', 'Tran Hung Dao', 'Quan 2', 'TP HCM', '1995-01-25', 'Nu', '4', '4'),
+('NV020', 'Nguyen Minh U', '202 Bach Dang', 'Bach Dang', 'Quan 3', 'TP HCM', '1986-04-05', 'Nam', '5', '4'),
+('NV021', 'Nguyen Thi V', '212 Nguyen Trai', 'Nguyen Trai', 'Quan 5', 'TP HCM', '1990-03-17', 'Nu', '1', '5'),
+('NV022', 'Tran Thi W', '222 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 7', 'TP HCM', '1987-08-09', 'Nu', '2', '5'),
+('NV023', 'Hoang Minh X', '232 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1993-11-15', 'Nam', '3', '5'),
+('NV024', 'Le Thi Y', '242 Nguyen Du', 'Nguyen Du', 'Quan 4', 'TP HCM', '1992-06-01', 'Nu', '4', '5'),
+('NV025', 'Pham Thi Z', '252 Bach Dang', 'Bach Dang', 'Quan 6', 'TP HCM', '1985-02-14', 'Nam', '5', '5'),
+('NV026', 'Nguyen Thi AA', '262 Pham Ngoc Thach', 'Pham Ngoc Thach', 'Quan 8', 'TP HCM', '1991-10-12', 'Nu', '1', '6'),
+('NV027', 'Le Minh AB', '272 Le Lai', 'Le Lai', 'Quan 1', 'TP HCM', '1994-07-23', 'Nam', '2', '6'),
+('NV028', 'Tran Thi AC', '282 Nguyen Du', 'Nguyen Du', 'Quan 3', 'TP HCM', '1990-11-19', 'Nu', '3', '6'),
+('NV029', 'Hoang Thi AD', '292 Tran Hung Dao', 'Tran Hung Dao', 'Quan 2', 'TP HCM', '1988-01-03', 'Nam', '4', '6'),
+('NV030', 'Nguyen Thi AE', '302 Bach Dang', 'Bach Dang', 'Quan 4', 'TP HCM', '1992-12-08', 'Nu', '5', '6')
 
 INSERT INTO lich_su_lam_viec(MaNV, ChiNhanh, NgayBatDau, NgayKetThuc) VALUES
 ('NV001', '1', '1/1/2024', ''),
@@ -446,7 +446,7 @@ INSERT INTO mon_an_chi_nhanh(MaCN, MaMon, GiaoHang) VALUES
 ('6', 'MM018', '0'),
 ('6', 'MM019', '1')
 
-INSERT INTO order(MaPhieu, NgayDat, MaCN, NhanVienLap, CCCD) VALUES
+INSERT INTO "order"(MaPhieu, NgayDat, MaCN, NhanVienLap, CCCD) VALUES
 ('MP001', '1/10/2024', '1', 'NV003', '12345678901'),
 ('MP002', '2/15/2024', '1', 'NV003', '98765432112'),
 ('MP003', '3/5/2024', '1', 'NV003', '123456789012'),
@@ -563,7 +563,7 @@ INSERT INTO ma_mon_phieu_dat(MaPhieu, MaMon, SoLuong, DatTruoc) VALUES
 ('MP020', 'MM005', '5', '0'),
 ('MP020', 'MM007', '5', '0')
 
-INSERT INTO the(MaThe, CCCD, NgayLap, LoạiThe, TieuDung, NhanVienLap, CapNhat) VALUES
+INSERT INTO the(MaThe, CCCD, NgayLap, LoaiThe, TieuDung, NhanVienLap, CapNhat) VALUES
 ('MT001', '778899001122', '11/01/2023', 'member', '150000', 'NV001', '11/02/2023 '),
 ('MT002', '334455667788', '11/05/2023', 'silver', '250000', 'NV002', '11/06/2023 '),
 ('MT003', '890123456789', '11/07/2023', 'gold', '500000', 'NV003', '11/08/2023 '),
