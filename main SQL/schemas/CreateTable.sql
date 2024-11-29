@@ -75,20 +75,21 @@ CREATE TABLE nhan_vien
 );
 GO
 
+
 ALTER TABLE nhan_vien ADD CONSTRAINT FK_nhanvien_bophan FOREIGN KEY(BoPhan) REFERENCES bo_phan(MaBoPhan);
 ALTER TABLE  nhan_vien ADD CONSTRAINT FK_nhanvien_chinhanh FOREIGN KEY(ChiNhanh) REFERENCES chi_nhanh(MaCN);
--- Bang chi nhanh phai chieu khoa ngoai toi nhan vien sau 
-ALTER TABLE chi_nhanh ADD CONSTRAINT FK_chinhanh_nhanvien FOREIGN KEY(NVQuanLy) REFERENCES nhan_vien(MaNV);
+-- -- Bang chi nhanh phai chieu khoa ngoai toi nhan vien sau 
+-- ALTER TABLE chi_nhanh ADD CONSTRAINT FK_chinhanh_nhanvien FOREIGN KEY(NVQuanLy) REFERENCES nhan_vien(MaNV);
 
 GO
 CREATE TABLE lich_su_lam_viec
 (
     MaNV        CHAR(5),
     ChiNhanh    INT,
-    NgayBatDau  DATE,
-    NgayKetThuc DATE NOT NULL,
+    NgayBatDau  DATE NOT NULL,
+    NgayKetThuc DATE,
     PRIMARY KEY(MaNV, ChiNhanh, NgayBatDau),
-    CONSTRAINT CK_NgayBatDau_NgayKetThuc CHECK (NgayBatDau < NgayKetThuc),
+    CONSTRAINT CK_NgayBatDau_NgayKetThuc CHECK (NgayBatDau < NgayKetThuc OR NgayKetThuc = NULL), 
     CONSTRAINT FK_lich_su_lam_viec_nhan_vien_MaNV FOREIGN KEY (MaNV) REFERENCES nhan_vien (MaNV),
     CONSTRAINT FK_lich_su_lam_viec_chi_nhanh_MaCN FOREIGN KEY (ChiNhanh) REFERENCES chi_nhanh (MaCN),
 );
@@ -124,12 +125,10 @@ GO
 CREATE TABLE mon_an_chi_nhanh
 (
     MaCN     INT,
-    MaKhuVuc INT,
     MaMon    CHAR(5),
     GiaoHang BIT NOT NULL,
-    PRIMARY KEY (MaCN, MaKhuVuc, MaMon),
+    PRIMARY KEY (MaCN, MaMon),
     CONSTRAINT FK_mon_an_chi_nhanh_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
-    CONSTRAINT FK_mon_an_chi_nhanh_mon_an_khu_vuc_MaKhuVuc_MaMon FOREIGN KEY (MaKhuVuc, MaMon) REFERENCES mon_an_khu_vuc (MaKhuVuc, MaMon),
 );
 GO
 
@@ -147,7 +146,7 @@ CREATE TABLE "order"
     MaCN        INT NOT NULL,
     NhanVienLap CHAR(5) NOT NULL,
     CCCD        CHAR(12) NOT NULL,
-    CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
+    -- CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
     CONSTRAINT FK_order_nhan_vien_NhanVienLap FOREIGN KEY (NhanVienLap) REFERENCES nhan_vien (MaNV),
     CONSTRAINT FK_order_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
     CONSTRAINT FK_order_khach_hang_NhanVienLap FOREIGN KEY (CCCD) REFERENCES khach_hang (CCCD),
