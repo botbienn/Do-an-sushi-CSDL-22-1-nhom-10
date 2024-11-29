@@ -1,3 +1,10 @@
+USE MASTER 
+GO
+ALTER DATABASE [SushiStore_management] SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+
+DROP DATABASE [SushiStore_management]
+GO
+
 CREATE DATABASE SushiStore_management
 GO
 
@@ -21,14 +28,14 @@ GO
 
 CREATE TABLE khu_vuc
 (
-    MaKhuVuc  IDENTITY(1,1) PRIMARY KEY,
+    MaKhuVuc  INT IDENTITY(1,1) PRIMARY KEY,
     TenKhuVuc NVARCHAR(50) NOT NULL
 );
 GO
 
 CREATE TABLE bo_phan
 (
-    MaBoPhan  IDENTITY(1,1) PRIMARY KEY,
+    MaBoPhan  INT IDENTITY(1,1) PRIMARY KEY,
     TenBoPhan NVARCHAR(50) NOT NULL,
     MucLuong  FLOAT NOT NULL CHECK (MucLuong > 0)
 );
@@ -36,7 +43,7 @@ GO
 
 CREATE TABLE chi_nhanh
 (
-    MaCN     IDENTITY(1,1) PRIMARY KEY,
+    MaCN     INT IDENTITY(1,1) PRIMARY KEY,
     TenCN    NVARCHAR(50) NOT NULL,
     DiaChi   NVARCHAR(100) NOT NULL,
     GioMo    TIME NOT NULL,
@@ -46,7 +53,7 @@ CREATE TABLE chi_nhanh
     XeMay    BIT NOT NULL,
     XeHoi    BIT NOT NULL,
     NVQuanLy CHAR(5) NOT NULL,
-    MaKhuVuc CHAR(5) NOT NULL,
+    MaKhuVuc INT NOT NULL,
 );
 GO
 
@@ -63,8 +70,8 @@ CREATE TABLE nhan_vien
     ThanhPho NVARCHAR(50) NOT NULL,
     NgaySinh DATE NOT NULL CHECK (DATEDIFF(year, NgaySinh, getdate()) >= 15),
     Phai     NVARCHAR(3) NOT NULL CHECK (Phai IN ('Nam', 'Nu')),
-    BoPhan   CHAR(5) NOT NULL,
-    ChiNhanh CHAR(5) NOT NULL,
+    BoPhan   INT NOT NULL,
+    ChiNhanh INT NOT NULL,
 );
 GO
 
@@ -77,7 +84,7 @@ GO
 CREATE TABLE lich_su_lam_viec
 (
     MaNV        CHAR(5),
-    ChiNhanh    CHAR(5),
+    ChiNhanh    INT,
     NgayBatDau  DATE,
     NgayKetThuc DATE NOT NULL,
     PRIMARY KEY(MaNV, ChiNhanh, NgayBatDau),
@@ -106,7 +113,7 @@ GO
 
 CREATE TABLE mon_an_khu_vuc
 (
-    MaKhuVuc CHAR(5),
+    MaKhuVuc INT,
     MaMon    CHAR(5),
     PRIMARY KEY (MaKhuVuc, MaMon),
     CONSTRAINT FK_mon_an_khu_vuc_khu_vuc_MaKhuVuc FOREIGN KEY (MaKhuVuc) REFERENCES khu_vuc (MaKhuVuc),
@@ -116,16 +123,14 @@ GO
 
 CREATE TABLE mon_an_chi_nhanh
 (
-    MaCN     CHAR(5),
-    MaKhuVuc CHAR(5),
+    MaCN     INT,
+    MaKhuVuc INT,
     MaMon    CHAR(5),
     GiaoHang BIT NOT NULL,
     PRIMARY KEY (MaCN, MaKhuVuc, MaMon),
     CONSTRAINT FK_mon_an_chi_nhanh_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
     CONSTRAINT FK_mon_an_chi_nhanh_mon_an_khu_vuc_MaKhuVuc_MaMon FOREIGN KEY (MaKhuVuc, MaMon) REFERENCES mon_an_khu_vuc (MaKhuVuc, MaMon),
 );
-
-
 GO
 
 
@@ -139,7 +144,7 @@ CREATE TABLE "order"
 (
     MaPhieu     CHAR(5) PRIMARY KEY,
     NgayDat     DATE NOT NULL,
-    MaCN        CHAR(5) NOT NULL,
+    MaCN        INT NOT NULL,
     NhanVienLap CHAR(5) NOT NULL,
     CCCD        CHAR(12) NOT NULL,
     CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
@@ -160,7 +165,7 @@ GO
 CREATE TABLE dat_ban_online
 (
     MaPhieu      CHAR(5) PRIMARY KEY,
-    KhuVuc       CHAR(5) NOT NULL,
+    KhuVuc       INT NOT NULL,
     SoLuongKhach INT NOT NULL,
     GioDen       TIME NOT NULL,
     GhiChu       NVARCHAR(100),
@@ -193,33 +198,6 @@ CREATE TABLE ma_mon_phieu_dat
 GO
 
 
-CREATE FUNCTION calc_bill(@MaPhieu CHAR(5))
-RETURNS TABLE
-AS
-(
-  SELECT SUM(mon.Gia * mmpd.SoLuong) AS tongtien
-  FROM ma_mon_phieu_dat mmpd JOIN
-       ma_mon mon ON mmpd.mamon = mon.mamon 
-  WHERE mmpd.MaPhieu = @MaPhieu
-);
-GO
-
-
-CREATE PROCEDURE hoa_don
-    @MaPhieu CHAR(5)
-AS
-  SELECT @MaPhieu,
-         bill.tongtien AS TongTien, 
-         bill.tongtien * gg.giamgia AS GiamGia, 
-         bill.tongtien * (1 - gg.giamgia) AS ThanhTien, 
-         ThanhTien / 10000 AS DiemTichLuy
-  FROM calc_bill(@MaPhieu) AS bill JOIN 
-        tham_gia_chuong_trinh tgct ON tgct.MaPhieu = @MaPhieu JOIN
-        chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
-        "order" o                  ON o.MaPhieu = @MaPhieu JOIN 
-        The t                      ON t.CCCD = o.CCCD JOIN 
-        giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
-GO
 -- CREATE TABLE hoa_don (
 --         MaPhieu CHAR(5) PRIMARY KEY,
 --         TongTien INT NOT NULL,
@@ -253,7 +231,7 @@ GO
 -- chuong trinh
 CREATE TABLE chuong_trinh
 (
-    MaChuongTrinh IDENTITY(1,1) NOT NULL,
+    MaChuongTrinh INT IDENTITY(1,1) NOT NULL,
     NgayBD DATETIME NOT NULL,
     NgayKT DATETIME NOT NULL,
     PRIMARY KEY(MaChuongTrinh)
@@ -278,12 +256,12 @@ GO
 CREATE TABLE tham_gia_chuong_trinh
 (
     MaPhieu CHAR(5) NOT NULL,
-    MaChuongTrinh CHAR(5) NOT NULL
+    MaChuongTrinh INT NOT NULL,
     PRIMARY KEY(MaPhieu, MaChuongTrinh),
     CONSTRAINT FK_thamGiaChuongTrinh_chuongTrinh_MaChuongTrinh
     FOREIGN KEY (MaChuongTrinh) REFERENCES chuong_trinh(MaChuongTrinh),
     CONSTRAINT FK_thamGiaChuongTrinh_hoaDon_MaPhieu
-    FOREIGN KEY (MaPhieu) REFERENCES hoa_don(MaPhieu),
+    FOREIGN KEY (MaPhieu) REFERENCES "order"(MaPhieu),
 )
 GO
 
@@ -320,3 +298,40 @@ CREATE TABLE danh_gia
         )
 );
 GO
+
+
+CREATE FUNCTION calc_bill(@MaPhieu CHAR(5))
+RETURNS TABLE
+AS
+RETURN
+(
+  SELECT SUM(mon.Gia * mmpd.SoLuong) AS tongtien
+  FROM ma_mon_phieu_dat mmpd JOIN
+       mon_an mon ON mmpd.mamon = mon.mamon 
+  WHERE mmpd.MaPhieu = @MaPhieu
+);
+GO
+
+
+CREATE FUNCTION hoa_don 
+(
+    @MaPhieu CHAR(5)
+)
+RETURNS TABLE
+AS
+RETURN 
+(
+  SELECT @MaPhieu AS MaPhieu,
+         bill.tongtien AS TongTien, 
+         bill.tongtien * gg.giamgia AS GiamGia, 
+         bill.tongtien * (1 - gg.giamgia) AS ThanhTien, 
+         bill.tongtien * (1 - gg.giamgia) / 10000 AS DiemTichLuy
+  FROM calc_bill(@MaPhieu) AS bill JOIN 
+        tham_gia_chuong_trinh tgct ON tgct.MaPhieu = @MaPhieu JOIN
+        chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
+        "order" o                  ON o.MaPhieu = @MaPhieu JOIN 
+        The t                      ON t.CCCD = o.CCCD JOIN 
+        giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
+);
+GO
+
