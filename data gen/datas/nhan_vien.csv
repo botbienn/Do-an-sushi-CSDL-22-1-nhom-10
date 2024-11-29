@@ -1,6 +1,31 @@
 MaNV,HoTen,SoNha,Duong,Quan,ThanhPho,NgaySinh,Phai,BoPhan,ChiNhanh
-NV001,Nguyen Van F,123,Duong G,Quan 1,TP.HCM,1990-01-01,Nam,BP005,CN001
-NV002,Le Thi H,456,Duong H,Quan 2,TP.HCM,1992-05-05,Nu,BP003,CN002
-NV003,Pham Van I,789,Duong I,Quan 3,TP.HCM,1994-09-09,Nam,BP002,CN003
-NV004,Tran Thi J,101,Duong J,Quan 4,TP.HCM,1996-12-12,Nu,BP004,CN004
-NV005,Ngo Van K,202,Duong K,Quan 5,TP.HCM,1988-08-08,Nam,BP001,CN005
+NV001,Nguyen Van A,12 Le Lai,Le Lai,Quan 1,TP HCM,1990-05-15,Nam,1,CN001
+NV002,Tran Thi B,22 Nguyen Du,Nguyen Du,Quan 1,TP HCM,1992-08-20,Nu,2,CN001
+NV003,Le Thi C,32 Tran Hung Dao,Tran Hung Dao,Quan 3,TP HCM,1988-10-05,Nu,3,CN001
+NV004,Pham Minh D,42 Bach Dang,Bach Dang,Quan 5,TP HCM,1991-01-12,Nam,4,CN001
+NV005,Nguyen Thi E,52 Nguyen Trai,Nguyen Trai,Quan 7,TP HCM,1985-03-25,Nu,5,CN001
+NV006,Hoang Thi F,62 Pham Ngoc Thach,Pham Ngoc Thach,Quan 8,TP HCM,1989-07-19,Nam,1,CN002
+NV007,Truong Thi G,72 Le Lai,Le Lai,Quan 1,TP HCM,1993-11-04,Nu,2,CN002
+NV008,Nguyen Thi H,82 Nguyen Du,Nguyen Du,Quan 1,TP HCM,1990-01-28,Nam,3,CN002
+NV009,Le Thi I,92 Tran Hung Dao,Tran Hung Dao,Quan 3,TP HCM,1994-04-18,Nu,4,CN002
+NV010,Hoang Thi K,102 Bach Dang,Bach Dang,Quan 5,TP HCM,1992-07-01,Nam,5,CN002
+NV011,Truong Thi L,112 Nguyen Trai,Nguyen Trai,Quan 5,TP HCM,1992-03-15,Nu,1,CN003
+NV012,Nguyen Thi M,122 Pham Ngoc Thach,Pham Ngoc Thach,Quan 7,TP HCM,1987-05-05,Nam,2,CN003
+NV013,Le Thi N,132 Le Lai,Le Lai,Quan 1,TP HCM,1990-09-21,Nu,3,CN003
+NV014,Nguyen Thi O,142 Nguyen Du,Nguyen Du,Quan 5,TP HCM,1993-11-02,Nam,4,CN003
+NV015,Pham Minh P,152 Bach Dang,Bach Dang,Quan 3,TP HCM,1988-03-22,Nam,5,CN003
+NV016,Nguyen Thi Q,162 Pham Ngoc Thach,Pham Ngoc Thach,Quan 8,TP HCM,1994-06-30,Nam,1,CN004
+NV017,Hoang Thi R,172 Le Lai,Le Lai,Quan 4,TP HCM,1990-08-14,Nam,2,CN004
+NV018,Le Thi S,182 Nguyen Du,Nguyen Du,Quan 6,TP HCM,1989-02-20,Nu,3,CN004
+NV019,Pham Thi T,192 Tran Hung Dao,Tran Hung Dao,Quan 2,TP HCM,1995-01-25,Nu,4,CN004
+NV020,Nguyen Minh U,202 Bach Dang,Bach Dang,Quan 3,TP HCM,1986-04-05,Nam,5,CN004
+NV021,Nguyen Thi V,212 Nguyen Trai,Nguyen Trai,Quan 5,TP HCM,1990-03-17,Nu,1,CN005
+NV022,Tran Thi W,222 Pham Ngoc Thach,Pham Ngoc Thach,Quan 7,TP HCM,1987-08-09,Nu,2,CN005
+NV023,Hoang Minh X,232 Le Lai,Le Lai,Quan 1,TP HCM,1993-11-15,Nam,3,CN005
+NV024,Le Thi Y,242 Nguyen Du,Nguyen Du,Quan 4,TP HCM,1992-06-01,Nu,4,CN005
+NV025,Pham Thi Z,252 Bach Dang,Bach Dang,Quan 6,TP HCM,1985-02-14,Nam,5,CN005
+NV026,Nguyen Thi AA,262 Pham Ngoc Thach,Pham Ngoc Thach,Quan 8,TP HCM,1991-10-12,Nu,1,CN006
+NV027,Le Minh AB,272 Le Lai,Le Lai,Quan 1,TP HCM,1994-07-23,Nam,2,CN006
+NV028,Tran Thi AC,282 Nguyen Du,Nguyen Du,Quan 3,TP HCM,1990-11-19,Nu,3,CN006
+NV029,Hoang Thi AD,292 Tran Hung Dao,Tran Hung Dao,Quan 2,TP HCM,1988-01-03,Nam,4,CN006
+NV030,Nguyen Thi AE,302 Bach Dang,Bach Dang,Quan 4,TP HCM,1992-12-08,Nu,5,CN006

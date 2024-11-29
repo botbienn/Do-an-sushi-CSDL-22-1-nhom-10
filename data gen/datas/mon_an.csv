@@ -1,11 +1,44 @@
 MaMon,TenMon,Gia,Loai
-MM001,Goi ngo sen tom thit,120000,Mon khai vi
-MM002,Sup cua,150000,Mon khai vi
-MM003,Cha gio,70000,Mon khai vi
-MM004,Lau thai,250000,Mon chinh
-MM005,Lau thai,250000,Mon chinh
-
-
-
-
-
+MM001,Trứng Hấp,50000,Khai Vị
+MM002,Súp Miso,35000,Khai Vị
+MM003,Súp Chay,40000,Khai Vị
+MM004,Trứng Cá Hồi,70000,Khai Vị
+MM020,Gỏi Cuốn,45000,Khai Vị
+MM021,Bánh Xèo,55000,Khai Vị
+MM022,Canh Chua,35000,Khai Vị
+MM005,Sashimi Tổng Hợp,150000,Sashimi Combo
+MM006,Sashimi Cá Hồi Đặc Biệt,200000,Sashimi Combo
+MM023,Sashimi Cá Hồi Cắt Lát Mỏng,120000,Sashimi Combo
+MM024,Sashimi Cá Ngừ Cắt Lát Mỏng,130000,Sashimi Combo
+MM025,Sashimi Mực,140000,Sashimi Combo
+MM007,Cá Ngừ (2 miếng),60000,Nigiri
+MM008,Cá Hồi (2 miếng),70000,Nigiri
+MM009,Lườn Cá Hồi Nướng Sốt (2 miếng),80000,Nigiri
+MM026,Cá Ngừ Nướng (2 miếng),75000,Nigiri
+MM027,Cá Hồi Nướng (2 miếng),85000,Nigiri
+MM028,Mực Nướng (2 miếng),95000,Nigiri
+MM010,Tempura Tôm,90000,Tempura
+MM011,Tempura Rau,60000,Tempura
+MM029,Tempura Cá Hồi,95000,Tempura
+MM030,Tempura Cua,100000,Tempura
+MM031,Tempura Nấm,70000,Tempura
+MM012,Udon Nước,50000,Udon
+MM013,Udon Xào,55000,Udon
+MM032,Udon Hải Sản,65000,Udon
+MM033,Udon Thịt Bò,60000,Udon
+MM034,Udon Mì Cải Chíp,58000,Udon
+MM014,Lẩu Cá Hồi,250000,Hotpot
+MM015,Lẩu Hải Sản,300000,Hotpot
+MM035,Lẩu Nấm,220000,Hotpot
+MM036,Lẩu Thập Cẩm,280000,Hotpot
+MM037,Lẩu Chay,200000,Hotpot
+MM016,Lunch Set 1,120000,Lunch Set
+MM017,Lunch Set 2,130000,Lunch Set
+MM038,Lunch Set 3,140000,Lunch Set
+MM039,Lunch Set 4,150000,Lunch Set
+MM040,Lunch Set 5,160000,Lunch Set
+MM018,Nước Mơ,20000,Các Món Nước
+MM019,Nước Chanh Đá,25000,Các Món Nước
+MM041,Nước Dưa Hấu,25000,Các Món Nước
+MM042,Nước Cam,20000,Các Món Nước
+MM043,Nước Cà Chua,22000,Các Món Nước
