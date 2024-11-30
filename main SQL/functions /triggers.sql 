@@ -1,0 +1,31 @@
+-- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
+CREATE TRIGGER ma_mon_phieu_dat_check_giao_hang
+ON ma_mon_phieu_dat
+AFTER INSERT, UPDATE 
+AS 
+BEGIN 
+    DECLARE @MaPhieu CHAR(5) 
+    -- SELECT @MaPhieu = NEW.MaPhieu
+    SELECT * FROM 
+        INSERTED new JOIN
+        "order" o ON new.MaPhieu = o.MaPhieu JOIN 
+        giao_hang gh ON new.MaPhieu = gh.MaPhieu JOIN
+        mon_an_chi_nhanh mcn ON mcn.MaCN = o.MaCN
+        WHERE mcn.MaMon = new.MaMon AND
+        mcn.GiaoHang = 0 AND 
+        o.LoaiPhieu = 3
+
+    IF EXISTS (SELECT 1 FROM 
+                INSERTED new JOIN
+                "order" o ON new.MaPhieu = o.MaPhieu JOIN 
+                mon_an_chi_nhanh mcn ON mcn.MaCN = o.MaCN
+                WHERE mcn.MaMon = new.MaMon AND
+                mcn.GiaoHang = 0 AND 
+                o.LoaiPhieu = 3)
+    BEGIN 
+            RAISERROR(N'Món ăn đặt trong order giao hàng phải được giao bởi chi nhánh',16, 1);
+        ROLLBACK TRANSACTION;
+    END 
+    
+END;
+GO

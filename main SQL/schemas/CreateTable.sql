@@ -146,10 +146,12 @@ CREATE TABLE "order"
     MaCN        INT NOT NULL,
     NhanVienLap CHAR(5) NOT NULL,
     CCCD        CHAR(12) NOT NULL,
+    LoaiPhieu   INT NOT NULL,
     -- CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
     CONSTRAINT FK_order_nhan_vien_NhanVienLap FOREIGN KEY (NhanVienLap) REFERENCES nhan_vien (MaNV),
     CONSTRAINT FK_order_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
     CONSTRAINT FK_order_khach_hang_NhanVienLap FOREIGN KEY (CCCD) REFERENCES khach_hang (CCCD),
+    CONSTRAINT CK_order_LoaiPhieu CHECK (LoaiPhieu IN (1,2,3)),
 ); 
 GO
 -- bảng order_tai_cho
