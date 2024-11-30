@@ -1,4 +1,4 @@
--- SELECT * from hoa_don('MP001')
+SELECT * from hoa_don('MP001')
 
 
 SELECT 1 FROM 
