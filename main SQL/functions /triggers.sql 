@@ -6,14 +6,6 @@ AS
 BEGIN 
     DECLARE @MaPhieu CHAR(5) 
     -- SELECT @MaPhieu = NEW.MaPhieu
-    SELECT * FROM 
-        INSERTED new JOIN
-        "order" o ON new.MaPhieu = o.MaPhieu JOIN 
-        giao_hang gh ON new.MaPhieu = gh.MaPhieu JOIN
-        mon_an_chi_nhanh mcn ON mcn.MaCN = o.MaCN
-        WHERE mcn.MaMon = new.MaMon AND
-        mcn.GiaoHang = 0 AND 
-        o.LoaiPhieu = 3
 
     IF EXISTS (SELECT 1 FROM 
                 INSERTED new JOIN
@@ -27,5 +19,23 @@ BEGIN
         ROLLBACK TRANSACTION;
     END 
     
+END;
+GO
+
+--  Mọi món ăn nằm trong chi nhánh phải nằm trong danh sách món của khu vực mà chi nhánh thuộc về 
+CREATE TRIGGER mon_an_chi_nhanh_trigger
+ON mon_an_chi_nhanh
+AFTER INSERT, UPDATE 
+AS
+BEGIN 
+    IF(0 >= ANY (SELECT COUNT(distinct mkv.MaMon) FROM INSERTED new JOIN 
+                chi_nhanh cn ON new.MaCN = cn.MaCN LEFT JOIN
+                mon_an_khu_vuc mkv ON mkv.MaKhuVuc = cn.MaKhuVuc AND
+                                        new.MaMon = mkv.MaMon
+                GROUP BY new.MaMon, new.MaCN))
+    BEGIN
+        RAISERROR(N'Món ăn của chi nhánh không có tại khu vực mà chi nhánh thuộc về', 16, 1)
+        ROLLBACK TRANSACTION
+    END
 END;
 GO
