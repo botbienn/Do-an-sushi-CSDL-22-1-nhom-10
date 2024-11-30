@@ -18,9 +18,10 @@ CREATE TABLE khach_hang
     HoTen NVARCHAR(100) NOT NULL,
     SDT   CHAR(10) NOT NULL,
     Email VARCHAR(100) NOT NULL,
-    Phai  NVARCHAR(3)
+    Phai  NVARCHAR(3),
+    PRIMARY KEY(CCCD),
+    CONSTRAINT ck_khach_hang_phai CHECK (Phai in (N'Nam', N'Nu'))
 
-    PRIMARY KEY(CCCD)
 )
 GO
 -- 2. cai dat khoa ngoai
@@ -235,7 +236,8 @@ CREATE TABLE chuong_trinh
     MaChuongTrinh INT IDENTITY(1,1) NOT NULL,
     NgayBD DATETIME NOT NULL,
     NgayKT DATETIME NOT NULL,
-    PRIMARY KEY(MaChuongTrinh)
+    PRIMARY KEY(MaChuongTrinh),
+    CONSTRAINT ck_chuong_trinh_date CHECK (NgayBD < NgayKT)
 )
 GO
 
