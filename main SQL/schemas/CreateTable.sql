@@ -323,8 +323,8 @@ RETURN
   SELECT @MaPhieu AS MaPhieu,
          bill.tongtien AS TongTien, 
          bill.tongtien * gg.giamgia AS GiamGia, 
-         bill.tongtien * (1 - gg.giamgia) AS ThanhTien, 
-         bill.tongtien * (1 - gg.giamgia) / 10000 AS DiemTichLuy
+         bill.tongtien * (1 - gg.giamgia / 100) AS ThanhTien, 
+         CAST((bill.tongtien * (1 - gg.giamgia / 100) / 10000) AS INT) AS DiemTichLuy
   FROM calc_bill(@MaPhieu) AS bill JOIN 
         tham_gia_chuong_trinh tgct ON tgct.MaPhieu = @MaPhieu JOIN
         chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
@@ -333,4 +333,5 @@ RETURN
         giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
 );
 GO
+
 
