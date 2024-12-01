@@ -9,3 +9,8 @@ SELECT 1 FROM
     WHERE mcn.GiaoHang = 0 AND 
             o.LoaiPhieu = 3 AND 
             o.MaPhieu = 'MP005'
+
+
+exec hoa_don @MaPhieu = "MP001";
+
+SELECT * FROM the 

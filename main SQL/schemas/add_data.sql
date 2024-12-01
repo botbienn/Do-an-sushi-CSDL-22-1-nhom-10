@@ -471,7 +471,7 @@ INSERT INTO order_tai_cho(MaPhieu, SoBan) VALUES
 (N'MP016', N'1')
 
 INSERT INTO dat_ban_online(MaPhieu, KhuVuc, SoLuongKhach, GioDen, GhiChu) VALUES
-(N'MP002', N'1', N'4', N'18:00:00', N'Chuyen giao hang lon'),
+(N'MP002', N'1', N'4', N'16:00:00', N'Chuyen giao hang lon'),
 (N'MP003', N'1', N'3', N'12:30:00', N'Mong doi lau'),
 (N'MP005', N'1', N'2', N'9:15:00', N'Thich mon dac biet'),
 (N'MP006', N'1', N'5', N'15:00:00', N'Yeu can cho ngoi gan cua'),
@@ -479,9 +479,9 @@ INSERT INTO dat_ban_online(MaPhieu, KhuVuc, SoLuongKhach, GioDen, GhiChu) VALUES
 (N'MP009', N'2', N'7', N'13:45:00', N'Yeu cau an nhanh'),
 (N'MP011', N'2', N'8', N'16:00:00', N'An voi gia dinh'),
 (N'MP014', N'3', N'10', N'11:30:00', N'Dat tiec sinh nhat'),
-(N'MP015', N'3', N'12', N'18:30:00', N'Yeu cau khong gian rieng tu'),
+(N'MP015', N'3', N'12', N'16:30:00', N'Yeu cau khong gian rieng tu'),
 (N'MP017', N'3', N'3', N'10:00:00', N'Buoi hop nhom'),
-(N'MP019', N'1', N'2', N'20:00:00', N'Thuc don dac biet')
+(N'MP019', N'1', N'2', N'10:00:00', N'Thuc don dac biet')
 
 INSERT INTO giao_hang(MaPhieu, ThoiDiemOnline, ThoiGianOnline) VALUES
 (N'MP012', N'09:00:00', N'01:30:00'),

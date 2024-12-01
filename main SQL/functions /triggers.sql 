@@ -60,3 +60,31 @@ BEGIN
     END
 END;
 GO
+
+-- Giờ đến của đặt bàn online phải nằm trong khung giờ hoạt động của chi nhánh
+CREATE TRIGGER dat_ban_online_trigger 
+ON dat_ban_online
+AFTER INSERT, UPDATE
+AS
+BEGIN 
+    -- SELECT new.MaPhieu, o.MaCN, COUNT(DISTINCT cn.MaCN)  
+    --         FROM INSERTED new JOIN 
+    --         "order" o ON new.MaPhieu = o.MaPhieu JOIN
+    --         chi_nhanh cn ON o.MaCN = cn.MaCN  
+    --         WHERE new.GioDen < cn.GioMo OR 
+    --                 new.GioDen > cn.GioDong
+    --         GROUP BY new.MaPhieu, o.MaCN
+
+    IF (1 <= ANY(SELECT COUNT(DISTINCT cn.MaCN)  
+                FROM INSERTED new JOIN 
+                "order" o ON new.MaPhieu = o.MaPhieu JOIN
+                chi_nhanh cn ON o.MaCN = cn.MaCN  
+                WHERE new.GioDen < cn.GioMo OR 
+                        new.GioDen > cn.GioDong
+                GROUP BY new.MaPhieu, o.MaCN))
+    BEGIN 
+        RAISERROR(N'Giờ đến của đặt bàn online phải nằm trong giờ hoạt động của chi nhánh', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
+GO

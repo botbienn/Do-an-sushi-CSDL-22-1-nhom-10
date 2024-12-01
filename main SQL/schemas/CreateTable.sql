@@ -315,30 +315,43 @@ RETURN
 );
 GO
 
-
-CREATE FUNCTION hoa_don (@MaPhieu CHAR(5))
-RETURNS @bang_hoa_don TABLE
+CREATE FUNCTION tong_giam_gia(@MaPhieu CHAR(5))
+RETURNS TABLE AS 
+RETURN
 (
-    MaPhieu Char(5),
-    TongTien INT, 
-    GiamGia INT, 
-    ThanhTien INT, 
-    DiemTichLuy INT
-)
+    SELECT tgct.MaPhieu, SUM(gg.GiamGia) AS giamgia FROM 
+    tham_gia_chuong_trinh tgct JOIN
+    chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
+    "order" o                  ON o.MaPhieu = @MaPhieu JOIN 
+    The t                      ON t.CCCD = o.CCCD JOIN 
+    giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
+    WHERE tgct.MaPhieu = @MaPhieu
+    GROUP BY (tgct.MaPhieu)
+);
+GO
+
+CREATE PROCEDURE hoa_don (@MaPhieu CHAR(5))
 AS
 BEGIN
+    DECLARE @bang_hoa_don TABLE
+    (
+        MaPhieu Char(5),
+        TongTien INT, 
+        GiamGia INT, 
+        ThanhTien INT, 
+        DiemTichLuy INT
+    )
+
     INSERT INTO @bang_hoa_don(MaPhieu, TongTien, GiamGia, ThanhTien, DiemTichLuy)
     SELECT @MaPhieu AS MaPhieu,
             bill.tongtien AS TongTien, 
-            bill.tongtien * gg.giamgia AS GiamGia, 
-            bill.tongtien * (1 - gg.giamgia / 100) AS ThanhTien, 
-            CAST((bill.tongtien * (1 - gg.giamgia / 100) / 10000) AS INT) AS DiemTichLuy
+            bill.tongtien * tgg.giamgia AS GiamGia, 
+            bill.tongtien * (1 - tgg.giamgia / 100) AS ThanhTien, 
+            CAST((bill.tongtien * (1 - tgg.giamgia / 100) / 10000) AS INT) AS DiemTichLuy
     FROM calc_bill(@MaPhieu) AS bill JOIN 
-            tham_gia_chuong_trinh tgct ON tgct.MaPhieu = @MaPhieu JOIN
-            chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
-            "order" o                  ON o.MaPhieu = @MaPhieu JOIN 
-            The t                      ON t.CCCD = o.CCCD JOIN 
-            giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
+          tong_giam_gia(@MaPhieu) AS tgg ON tgg.MaPhieu = @MaPhieu 
+    
+    SELECT * FROM @bang_hoa_don
 
     DECLARE @cccd_khach_hang CHAR(12)
     DECLARE @tich_luy FLOAT(24)
@@ -354,8 +367,6 @@ BEGIN
     UPDATE the
     SET TieuDung = TieuDung + @tich_luy
     WHERE CCCD = @cccd_khach_hang
-
-    RETURN;
 END;
 GO
 
