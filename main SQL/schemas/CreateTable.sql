@@ -302,6 +302,15 @@ CREATE TABLE danh_gia
 );
 GO
 
+CREATE TABLE account(
+    userID INT IDENTITY(1,1) PRIMARY KEY, 
+    accUserName VARCHAR(50) UNIQUE,
+    accPassword VARCHAR(50),
+    userType INT, 
+    CONSTRAINT ck_account_type CHECK (userType in (0,1,2,3,4))
+);
+GO
+
 
 CREATE FUNCTION calc_bill(@MaPhieu CHAR(5))
 RETURNS TABLE
@@ -369,5 +378,7 @@ BEGIN
     WHERE CCCD = @cccd_khach_hang
 END;
 GO
+
+
 
 
