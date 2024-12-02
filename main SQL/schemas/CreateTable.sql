@@ -98,7 +98,7 @@ GO
 CREATE TABLE dien_thoai_nhan_vien
 (
     MaNV      CHAR(5),
-    DienThoai NVARCHAR(11),
+    DienThoai NVARCHAR(11) UNIQUE,
     PRIMARY KEY (MaNV, DienThoai),
     CONSTRAINT FK_dien_thoai_nhan_vien_nhan_vien_MaNV FOREIGN KEY (MaNV) REFERENCES nhan_vien (MaNV),
 );

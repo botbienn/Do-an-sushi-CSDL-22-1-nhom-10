@@ -163,28 +163,28 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER check_so_dien_thoai_unique
-ON dien_thoai_nhan_vien
-FOR INSERT, UPDATE
-AS
-BEGIN
-    -- Khai báo biến để chứa số điện thoại mới thêm vào hoặc cập nhật
-    DECLARE @DienThoai NVARCHAR(11);
-    DECLARE @MaNV CHAR(5);
+-- CREATE TRIGGER check_so_dien_thoai_unique
+-- ON dien_thoai_nhan_vien
+-- FOR INSERT, UPDATE
+-- AS
+-- BEGIN
+--     -- Khai báo biến để chứa số điện thoại mới thêm vào hoặc cập nhật
+--     DECLARE @DienThoai NVARCHAR(11);
+--     DECLARE @MaNV CHAR(5);
 
-    -- Lấy số điện thoại và mã nhân viên từ bảng INSERTED (chứa các bản ghi vừa được thêm hoặc cập nhật)
-    SELECT @DienThoai = DienThoai, @MaNV = MaNV
-    FROM INSERTED;
+--     -- Lấy số điện thoại và mã nhân viên từ bảng INSERTED (chứa các bản ghi vừa được thêm hoặc cập nhật)
+--     SELECT @DienThoai = DienThoai, @MaNV = MaNV
+--     FROM INSERTED;
 
-    -- Kiểm tra xem số điện thoại này đã tồn tại trong bảng nhan_vien hay chưa
-    IF EXISTS (SELECT 1 FROM dien_thoai_nhan_vien WHERE DienThoai = @DienThoai AND MaNV <> @MaNV)
-    BEGIN
-        -- Nếu số điện thoại đã tồn tại cho nhân viên khác, hủy thao tác và thông báo lỗi
-        RAISERROR('Số điện thoại này đã được sử dụng bởi nhân viên khác!', 16, 1);
-        ROLLBACK TRANSACTION;
-    END
-END;
-GO
+--     -- Kiểm tra xem số điện thoại này đã tồn tại trong bảng nhan_vien hay chưa
+--     IF EXISTS (SELECT 1 FROM dien_thoai_nhan_vien WHERE DienThoai = @DienThoai AND MaNV <> @MaNV)
+--     BEGIN
+--         -- Nếu số điện thoại đã tồn tại cho nhân viên khác, hủy thao tác và thông báo lỗi
+--         RAISERROR('Số điện thoại này đã được sử dụng bởi nhân viên khác!', 16, 1);
+--         ROLLBACK TRANSACTION;
+--     END
+-- END;
+-- GO
 
 -- CREATE TRIGGER trg_CheckEndDateBeforeStartDate
 -- ON lich_su_lam_viec
