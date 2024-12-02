@@ -1,8 +1,8 @@
 --Giờ đóng cửa phải lớn hơn giờ mở cửa của chi nhánh
 
-ALTER TABLE chi_nhanh
-ADD CONSTRAINT CK_GioMo_GioDong CHECK (GioMo < GioDong);
-GO
+-- ALTER TABLE chi_nhanh
+-- ADD CONSTRAINT CK_GioMo_GioDong CHECK (GioMo < GioDong);
+-- GO
 
 --Ngày sinh của nhân viên phải là ngày hợp lệ và trước ngày hiện tại
 ALTER TABLE nhan_vien
@@ -29,7 +29,7 @@ BEGIN
     )
     BEGIN
         -- Nếu ngày kết thúc tại chi nhánh cũ không trước ngày bắt đầu tại chi nhánh mới
-        RAISERROR ('End date at the old branch must be before start date at the new branch.', 16, 1);
+        RAISERROR ('Ngày kết thúc phải trước ngày bắt đầu trong lịch sử làm việc của nhân viên', 16, 1);
         ROLLBACK TRANSACTION; -- Hoàn tác giao dịch
     END
 END
@@ -58,7 +58,7 @@ BEGIN
     )
     BEGIN
         -- Nếu có thời gian chồng chéo, đưa ra thông báo lỗi
-        RAISERROR ('The employee cannot work at multiple branches during the same time period.', 16, 1);
+        RAISERROR ('Ngày kết thúc và bắt đầu của 1 nhân viên tại 2 chi nhánh khác nhau không được trùng lên nhau', 16, 1);
         ROLLBACK TRANSACTION; -- Hoàn tác giao dịch
     END
 END
@@ -84,7 +84,7 @@ BEGIN
     IF @MaBoPhan <> 'BP01'
     BEGIN
         -- Nếu không thuộc bộ phận quản lý, thông báo lỗi và hoàn tác giao dịch
-        RAISERROR ('The manager must belong to the management department.', 16, 1);
+        RAISERROR ('Nhân viên quản lý phải thuộc về bộ phận quản lý', 16, 1);
         ROLLBACK TRANSACTION;
     END
 END;
@@ -115,7 +115,7 @@ BEGIN
     )
     BEGIN
         -- Nếu nhân viên quản lý không đang làm việc tại chi nhánh trong thời gian hiện tại, đưa ra thông báo lỗi
-        RAISERROR ('The manager must be working at the branch during the current time.', 16, 1);
+        RAISERROR ('Nhân viên quản lý phải đang làm việc tại chi nhánh mình quản lý', 16, 1);
         ROLLBACK TRANSACTION; -- Hoàn tác giao dịch
     END
 END;

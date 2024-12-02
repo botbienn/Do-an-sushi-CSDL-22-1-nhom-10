@@ -1,61 +1,62 @@
 ﻿-- 1. Phái của khách hàng phải là “Nam” hoặc “Nữ’
-ALTER TABLE khach_hang 
-ADD CONSTRAINT Check_Phai CHECK (khach_hang.Phai in (N'Nam', N'Nữ'));
+-- ALTER TABLE khach_hang 
+-- ADD CONSTRAINT Check_Phai CHECK (khach_hang.Phai in (N'Nam', N'Nữ'));
+-- GO
 
 -- 2. Điểm tích lũy trong hóa đơn phải bằng thành tiền (tổng tiền sau giảm) / 100000 
-GO
-CREATE TRIGGER trgUpdateDiemTichLuy
-ON hoa_don
-AFTER INSERT, UPDATE
-AS IF UPDATE(DiemTichLuy) OR UPDATE (ThanhTien)
-BEGIN
-		UPDATE hoa_don
-		SET DiemTichLuy = floor(i.ThanhTien/100000)	
-		FROM hoa_don hd join inserted i
-		ON hd.MaPhieu = i.MaPhieu
-		WHERE hd.DiemTichLuy != floor(i.ThanhTien/100000)	-- cập nhật
-END
+
+-- CREATE TRIGGER trgUpdateDiemTichLuy
+-- ON hoa_don
+-- AFTER INSERT, UPDATE
+-- AS IF UPDATE(DiemTichLuy) OR UPDATE (ThanhTien)
+-- BEGIN
+-- 		UPDATE hoa_don
+-- 		SET DiemTichLuy = floor(i.ThanhTien/100000)	
+-- 		FROM hoa_don hd join inserted i
+-- 		ON hd.MaPhieu = i.MaPhieu
+-- 		WHERE hd.DiemTichLuy != floor(i.ThanhTien/100000)	-- cập nhật
+-- END
+-- GO
 
 
 -- 3. Ngày kết thúc chương trình phải sau ngày bắt đầu.
-GO
-ALTER TABLE chuong_trinh
-ADD CONSTRAINT CK_NgayKT_NgayBD CHECK (NgayKT > NgayBD)
+-- ALTER TABLE chuong_trinh
+-- ADD CONSTRAINT CK_NgayKT_NgayBD CHECK (NgayKT > NgayBD)
+-- GO
 
 
 -- 4 Số tiền GiamGia phải lớn hơn 0.
-GO
-ALTER TABLE giam_gia
-ADD CONSTRAINT CK_giamGia CHECK (GiamGia > 0)
+-- ALTER TABLE giam_gia
+-- ADD CONSTRAINT CK_giamGia CHECK (GiamGia > 0)
+-- GO
 
 
 -- 5. Tiêu dùng tích lũy trên thẻ khách hàng phải luôn được cập nhật 
 -- từ điểm tích lũy trên hóa đơn (bằng tổng hóa đơn của khách hàng)
-GO
-CREATE TRIGGER Trg_CapNhatTieuDung
-ON hoa_don
-AFTER INSERT, UPDATE
-AS
-BEGIN
-	-- Cập nhật TieuDung trong bảng 'the' dựa trên DiemTichLuy từ hoa_don
-	UPDATE t
-	SET TieuDung = TieuDung + sub.TotalDiem
-	FROM the t
-	join (
-		-- Tính tổng DiemTichLuy từ các bản ghi mới hoặc cập nhật trong 'hoa_don'
-		SELECT kh.CCCD, SUM(i.DiemTichLuy) AS TotalDiem
-		FROM inserted i
-		join "order" o ON i.MaPhieu = o.MaPhieu
-		join khach_hang kh ON o.CCCD = kh.CCCD
-		GROUP BY kh.CCCD
-	) sub ON t.CCCD = sub.CCCD
-END;
+-- CREATE TRIGGER Trg_CapNhatTieuDung
+-- ON hoa_don
+-- AFTER INSERT, UPDATE
+-- AS
+-- BEGIN
+-- 	-- Cập nhật TieuDung trong bảng 'the' dựa trên DiemTichLuy từ hoa_don
+-- 	UPDATE t
+-- 	SET TieuDung = TieuDung + sub.TotalDiem
+-- 	FROM the t
+-- 	join (
+-- 		-- Tính tổng DiemTichLuy từ các bản ghi mới hoặc cập nhật trong 'hoa_don'
+-- 		SELECT kh.CCCD, SUM(i.DiemTichLuy) AS TotalDiem
+-- 		FROM inserted i
+-- 		join "order" o ON i.MaPhieu = o.MaPhieu
+-- 		join khach_hang kh ON o.CCCD = kh.CCCD
+-- 		GROUP BY kh.CCCD
+-- 	) sub ON t.CCCD = sub.CCCD
+-- END;
+-- GO
 
 
 -- 6. loại thẻ phải được điều chỉnh dựa trên tiêu dùng tích lũy này theo các tiêu chí định trước và loại thẻ sẽ ảnh hưởng tới mức ưu đãi, giảm giá cho hóa đơn. 
 	-- silver (10 triệu không tính ngày giới hạn) , ngày hôm nay - ngày cập nhật >= 1 năm -> tiêu dùng phải >= 5 triệu -> sau đó đặt tiêu dùng về 0
 	-- gold ( phải có silver) trong vòng 1 năm phải 10 triệu 
-GO
 CREATE TRIGGER Trg_CapNhatLoaiThe
 ON the
 AFTER UPDATE, INSERT

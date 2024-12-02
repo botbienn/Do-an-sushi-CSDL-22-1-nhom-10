@@ -32,13 +32,13 @@ INSERT INTO bo_phan(TenBoPhan, MucLuong) VALUES
 (N'Ve sinh', N'5000000'),
 (N'Quan ly', N'15000000')
 
-INSERT INTO chi_nhanh(TenCN, DiaChi, GioMo, GioDong, SDT, GiaoHang, XeMay, XeHoi, NVQuanLy, MaKhuVuc) VALUES
-(N'Chi nhanh 1', N'123 Le Lai', N'8:00', N'17:00', N'123456789', N'1', N'1', N'0', N'NV005', N'1'),
-(N'Chi nhanh 2', N'456 Nguyen Du', N'9:00', N'18:00', N'987654321', N'1', N'0', N'1', N'NV010', N'1'),
-(N'Chi nhanh 3', N'789 Tran Hung Dao', N'8:30', N'17:30', N'123987654', N'0', N'1', N'1', N'NV015', N'2'),
-(N'Chi nhanh 4', N'101 Bach Dang', N'10:00', N'19:00', N'912345678', N'1', N'1', N'0', N'NV020', N'2'),
-(N'Chi nhanh 5', N'102 Nguyen Trai', N'7:30', N'16:30', N'932123456', N'1', N'0', N'1', N'NV025', N'3'),
-(N'Chi nhanh 6', N'103 Pham Ngoc Thach', N'8:00', N'17:00', N'912987654', N'0', N'1', N'0', N'NV030', N'3')
+INSERT INTO chi_nhanh(TenCN, DiaChi, GioMo, GioDong, SDT, GiaoHang, XeMay, XeHoi, MaKhuVuc) VALUES
+(N'Chi nhanh 1', N'123 Le Lai', N'8:00', N'17:00', N'123456789', N'1', N'1', N'0', N'1'),
+(N'Chi nhanh 2', N'456 Nguyen Du', N'9:00', N'18:00', N'987654321', N'1', N'0', N'1', N'1'),
+(N'Chi nhanh 3', N'789 Tran Hung Dao', N'8:30', N'17:30', N'123987654', N'0', N'1', N'1', N'2'),
+(N'Chi nhanh 4', N'101 Bach Dang', N'10:00', N'19:00', N'912345678', N'1', N'1', N'0', N'2'),
+(N'Chi nhanh 5', N'102 Nguyen Trai', N'7:30', N'16:30', N'932123456', N'1', N'0', N'1', N'3'),
+(N'Chi nhanh 6', N'103 Pham Ngoc Thach', N'8:00', N'17:00', N'912987654', N'0', N'1', N'0', N'3')
 
 INSERT INTO nhan_vien(MaNV, HoTen, SoNha, Duong, Quan, ThanhPho, NgaySinh, Phai, BoPhan, ChiNhanh) VALUES
 (N'NV001', N'Nguyen Van A', N'12 Le Lai', N'Le Lai', N'Quan 1', N'TP HCM', N'1990-05-15', N'Nam', N'1', N'1'),
@@ -71,6 +71,18 @@ INSERT INTO nhan_vien(MaNV, HoTen, SoNha, Duong, Quan, ThanhPho, NgaySinh, Phai,
 (N'NV028', N'Tran Thi AC', N'282 Nguyen Du', N'Nguyen Du', N'Quan 3', N'TP HCM', N'1990-11-19', N'Nu', N'3', N'6'),
 (N'NV029', N'Hoang Thi AD', N'292 Tran Hung Dao', N'Tran Hung Dao', N'Quan 2', N'TP HCM', N'1988-01-03', N'Nam', N'4', N'6'),
 (N'NV030', N'Nguyen Thi AE', N'302 Bach Dang', N'Bach Dang', N'Quan 4', N'TP HCM', N'1992-12-08', N'Nu', N'5', N'6')
+
+UPDATE chi_nhanh
+SET NVQuanLy = CASE MaCN
+WHEN 1 THEN 'NV005'
+WHEN 2 THEN 'NV010'
+WHEN 3 THEN 'NV015'
+WHEN 4 THEN 'NV020'
+WHEN 5 THEN 'NV025'
+WHEN 6 THEN 'NV030'END
+WHERE MaCN IN(1,2,3,4,5,6);
+
+ALTER TABLE chi_nhanh ADD CONSTRAINT FK_chinhanh_nhanvien FOREIGN KEY(NVQuanLy) REFERENCES nhan_vien(MaNV);
 
 INSERT INTO lich_su_lam_viec(MaNV, ChiNhanh, NgayBatDau, NgayKetThuc) VALUES
 (N'NV001', N'1', N'1/1/2024', N''),
