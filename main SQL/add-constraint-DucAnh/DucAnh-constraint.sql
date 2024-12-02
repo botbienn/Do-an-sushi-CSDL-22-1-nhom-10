@@ -27,38 +27,38 @@ BEGIN
 END;
 GO
 --Món ăn được đặt(mamon_phieudat) phải nằm trong danh sách thực đơn của chi nhánh(mamon_chinhanh).
--- CREATE TRIGGER check_ma_mon_phieu_dat
--- ON ma_mon_phieu_dat
--- AFTER INSERT, UPDATE 
--- AS
--- BEGIN 
---     IF(0 >= ANY (SELECT COUNT(distinct mcn.MaMon) 
--- 				 FROM INSERTED new 
--- 				 JOIN "order" o ON new.MaPhieu = o.MaPhieu
--- 				 JOIN chi_nhanh cn ON o.MaCN = cn.MaCN 
--- 				 JOIN mon_an_chi_nhanh mcn ON new.MaMon = mcn.MaMon
---                  GROUP BY new.MaMon, mcn.MaCN))
---     BEGIN
---         RAISERROR(N'Món ăn được đặt không nằm trong danh sách thực đơn của chi nhánh', 16, 1)
---         ROLLBACK TRANSACTION
---     END
--- END;
--- GO
+CREATE TRIGGER check_ma_mon_phieu_dat
+ON ma_mon_phieu_dat
+AFTER INSERT, UPDATE 
+AS
+BEGIN 
+    IF(0 >= ANY (SELECT COUNT(distinct mcn.MaMon) 
+				 FROM INSERTED new 
+				 JOIN "order" o ON new.MaPhieu = o.MaPhieu
+				 JOIN chi_nhanh cn ON o.MaCN = cn.MaCN 
+				 JOIN mon_an_chi_nhanh mcn ON new.MaMon = mcn.MaMon
+                 GROUP BY new.MaMon, mcn.MaCN))
+    BEGIN
+        RAISERROR(N'Món ăn được đặt không nằm trong danh sách thực đơn của chi nhánh', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END;
+GO
 --Mã món đặt trước (mamon_phieudat) phải có mã phiếu trùng với mã phiếu của order đặt bàn online 
--- CREATE TRIGGER check_mon_dat_truoc
--- ON ma_mon_phieu_dat
--- AFTER INSERT, UPDATE 
--- AS
--- BEGIN 
---     IF NOT EXISTS (SELECT 1
--- 			       FROM INSERTED new
--- 			       JOIN dat_ban_online dbol on dbol.MaPhieu = new.MaPhieu
--- 			       WHERE new.DatTruoc = 1
--- 			       )
---     BEGIN
---         RAISERROR(N'Mã phiếu của món ăn đặt trước không trùng với mã phiếu của order đặt bàn online', 16, 1)
---         ROLLBACK TRANSACTION
---     END
--- END;
+CREATE TRIGGER check_mon_dat_truoc
+ON ma_mon_phieu_dat
+AFTER INSERT, UPDATE 
+AS
+BEGIN 
+    IF NOT EXISTS (SELECT 1
+			       FROM INSERTED new
+			       JOIN dat_ban_online dbol on dbol.MaPhieu = new.MaPhieu
+			       WHERE new.DatTruoc = 1
+			       )
+    BEGIN
+        RAISERROR(N'Mã phiếu của món ăn đặt trước không trùng với mã phiếu của order đặt bàn online', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END;
 
 --Lương của nhân viên phải bằng lương của bộ phận nhân viên thuộc về 
