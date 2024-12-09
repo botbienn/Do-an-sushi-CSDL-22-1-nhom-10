@@ -24,9 +24,9 @@ update ma_mon_chi_nhanh
 
 <BS>
 
-CREATE NONCLUSTERED INDEX macn_chi_nhanh_idx ON chi_nhanh(MaCN)
-CREATE NONCLUSTERED INDEX cccd_the_idx ON the(CCCD)
-CREATE NONCLUSTERED INDEX maphieu_phieu_giao_hang_idx ON giao_hang(MaPhieu); 
-CREATE NONCLUSTERED INDEX maphieu_phieu_dat_online_idx ON dat_ban_online(MaPhieu); 
-CREATE NONCLUSTERED INDEX maphieu_phieu_dat_idx ON PhieuDat(MaPhieu); 
-CREATE NONCLUSTERED INDEX maphieu_phieu_dat_tai_cho_idx ON order_tai_cho(MaPhieu); 
+- CREATE NONCLUSTERED INDEX macn_chi_nhanh_idx ON chi_nhanh(MaCN)
+- CREATE NONCLUSTERED INDEX cccd_the_idx ON the(CCCD)
+- CREATE NONCLUSTERED INDEX maphieu_phieu_giao_hang_idx ON giao_hang(MaPhieu); 
+- CREATE NONCLUSTERED INDEX maphieu_phieu_dat_online_idx ON dat_ban_online(MaPhieu); 
+- CREATE NONCLUSTERED INDEX maphieu_phieu_dat_idx ON PhieuDat(MaPhieu); 
+- CREATE NONCLUSTERED INDEX maphieu_phieu_dat_tai_cho_idx ON order_tai_cho(MaPhieu); 
