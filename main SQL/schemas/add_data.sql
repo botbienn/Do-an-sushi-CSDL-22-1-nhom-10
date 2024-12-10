@@ -452,7 +452,7 @@ INSERT INTO mon_an_chi_nhanh(MaCN, MaMon, GiaoHang) VALUES
 (N'6', N'MM018', N'0'),
 (N'6', N'MM019', N'1')
 
-INSERT INTO "order"(MaPhieu, NgayDat, MaCN, NhanVienLap, CCCD, LoaiPhieu) VALUES
+INSERT INTO phieu_dat(MaPhieu, NgayDat, MaCN, NhanVienLap, CCCD, LoaiPhieu) VALUES
 (N'MP001', N'1/10/2024', N'1', N'NV003', N'12345678901', N'1'),
 (N'MP002', N'2/15/2024', N'1', N'NV003', N'98765432112', N'2'),
 (N'MP003', N'3/5/2024', N'1', N'NV003', N'123456789012', N'2'),

@@ -140,7 +140,7 @@ GO
 -- bảng mon_an_khu_vuc
 
 -- bảng order
-CREATE TABLE "order"
+CREATE TABLE phieu_dat
 (
     MaPhieu     CHAR(5) PRIMARY KEY,
     NgayDat     DATE NOT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE order_tai_cho
 (
     MaPhieu char(5) primary key,
     SoBan int not null,
-    CONSTRAINT FK_order_tai_cho_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+    CONSTRAINT FK_order_tai_cho_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
 );
 GO
 -- bảng dat_ban_online
@@ -173,7 +173,7 @@ CREATE TABLE dat_ban_online
     GhiChu       NVARCHAR(100),
     CONSTRAINT CK_SoLuongKhach                  CHECK (SoLuongKhach > 0),
     constraint CK_GioDen                        CHECK (GioDen between '00:00:00' and '23:59:59'),
-    CONSTRAINT FK_dat_ban_online_order_MaPhieu  FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+    CONSTRAINT FK_dat_ban_online_order_MaPhieu  FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
     CONSTRAINT FK_dat_ban_online_khu_vuc_KhuVuc FOREIGN KEY (KhuVuc) REFERENCES khu_vuc (MaKhuVuc),
 );
 
@@ -182,7 +182,7 @@ CREATE TABLE giao_hang
     MaPhieu        CHAR(5) PRIMARY KEY,
     ThoiDiemOnline TIME NOT NULL,
     ThoiGianOnline TIME NOT NULL,
-    CONSTRAINT FK_giao_hang_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+    CONSTRAINT FK_giao_hang_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
     CONSTRAINT CK_ThoiGianOnline CHECK (ThoiGianOnline > '00:00:00')
 ); 
 GO
@@ -192,7 +192,7 @@ CREATE TABLE ma_mon_phieu_dat
     MaMon    CHAR(5),
     SoLuong  INT NOT NULL,
     DatTruoc BIT NOT NULL DEFAULT (0),
-    CONSTRAINT FK_ma_mon_phieu_dat_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+    CONSTRAINT FK_ma_mon_phieu_dat_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
     CONSTRAINT FK_ma_mon_phieu_dat_mon_an_MaMon FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon),
     CONSTRAINT CK_SoLuong CHECK (SoLuong >= 0),
     PRIMARY KEY (MaPhieu, MaMon),
@@ -206,7 +206,7 @@ GO
 --         GiamGia FLOAT (24) NOT NULL,
 --         ThanhTien INT NOT NULL,
 --         DiemTichLuy INT NOT NULL,
---         CONSTRAINT FK_hoa_don_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+--         CONSTRAINT FK_hoa_don_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
 --         CONSTRAINT CK_GiamGia CHECK (GiamGia >= 0),
 --         CONSTRAINT CK_TongTien_ThanhTien CHECK (ThanhTien <= TongTien)
 -- );
@@ -264,7 +264,7 @@ CREATE TABLE tham_gia_chuong_trinh
     CONSTRAINT FK_thamGiaChuongTrinh_chuongTrinh_MaChuongTrinh
     FOREIGN KEY (MaChuongTrinh) REFERENCES chuong_trinh(MaChuongTrinh),
     CONSTRAINT FK_thamGiaChuongTrinh_hoaDon_MaPhieu
-    FOREIGN KEY (MaPhieu) REFERENCES "order"(MaPhieu),
+    FOREIGN KEY (MaPhieu) REFERENCES phieu_dat(MaPhieu),
 )
 GO
 
@@ -278,7 +278,7 @@ CREATE TABLE danh_gia
     DiemKhongGian INT NOT NULL,
     BinhLuan NVARCHAR (100),
     CONSTRAINT FK_danh_gia_order_MaPhieu 
-        FOREIGN KEY (MaPhieu) REFERENCES "order" (MaPhieu),
+        FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
     CONSTRAINT CK_DiemPhucVu CHECK (
             DiemPhucVu >= 0
         AND DiemPhucVu <= 10
@@ -331,7 +331,7 @@ RETURN
     SELECT tgct.MaPhieu, SUM(gg.GiamGia) AS giamgia FROM 
     tham_gia_chuong_trinh tgct JOIN
     chuong_trinh ct            ON ct.MaChuongTrinh = tgct.MaChuongTrinh JOIN 
-    "order" o                  ON o.MaPhieu = @MaPhieu JOIN 
+    phieu_dat o                  ON o.MaPhieu = @MaPhieu JOIN 
     The t                      ON t.CCCD = o.CCCD JOIN 
     giam_gia gg                ON gg.MaChuongTrinh = ct.MaChuongTrinh AND gg.LoaiThe = t.LoaiThe
     WHERE tgct.MaPhieu = @MaPhieu
@@ -367,7 +367,7 @@ BEGIN
 
     SELECT @cccd_khach_hang = t.CCCD 
     FROM the t JOIN 
-    "order" o ON t.CCCD = o.CCCD 
+    phieu_dat o ON t.CCCD = o.CCCD 
     WHERE o.MaPhieu = @MaPhieu
 
     SELECT @tich_luy = hd.DiemTichLuy

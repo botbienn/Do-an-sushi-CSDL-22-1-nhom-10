@@ -24,7 +24,7 @@ AS
 BEGIN 
     IF(0 >= ANY (SELECT COUNT(distinct mcn.MaMon) 
 				 FROM INSERTED new 
-				 JOIN "order" o ON new.MaPhieu = o.MaPhieu
+				 JOIN phieu_dat o ON new.MaPhieu = o.MaPhieu
 				 JOIN chi_nhanh cn ON o.MaCN = cn.MaCN 
 				 JOIN mon_an_chi_nhanh mcn ON new.MaMon = mcn.MaMon
                  GROUP BY new.MaMon, mcn.MaCN))
@@ -56,7 +56,7 @@ BEGIN
 
     IF EXISTS (SELECT 1 FROM 
                 INSERTED new JOIN
-                "order" o ON new.MaPhieu = o.MaPhieu JOIN 
+                phieu_dat o ON new.MaPhieu = o.MaPhieu JOIN 
                 mon_an_chi_nhanh mcn ON mcn.MaCN = o.MaCN
                 WHERE mcn.MaMon = new.MaMon AND
                 mcn.GiaoHang = 0 AND 
@@ -90,7 +90,7 @@ GO
 -- Nhân viên lập phiếu phải là nhân viên của chi nhánh và đang làm việc tại chi nhánh trong thời gian lập phiếu
 
 CREATE TRIGGER order_trigger
-ON "order"
+ON phieu_dat
 AFTER INSERT, UPDATE
 AS 
 BEGIN 
@@ -116,7 +116,7 @@ AS
 BEGIN 
     -- SELECT new.MaPhieu, o.MaCN, COUNT(DISTINCT cn.MaCN)  
     --         FROM INSERTED new JOIN 
-    --         "order" o ON new.MaPhieu = o.MaPhieu JOIN
+    --         phieu_dat o ON new.MaPhieu = o.MaPhieu JOIN
     --         chi_nhanh cn ON o.MaCN = cn.MaCN  
     --         WHERE new.GioDen < cn.GioMo OR 
     --                 new.GioDen > cn.GioDong
@@ -124,7 +124,7 @@ BEGIN
 
     IF (1 <= ANY(SELECT COUNT(DISTINCT cn.MaCN)  
                 FROM INSERTED new JOIN 
-                "order" o ON new.MaPhieu = o.MaPhieu JOIN
+                phieu_dat o ON new.MaPhieu = o.MaPhieu JOIN
                 chi_nhanh cn ON o.MaCN = cn.MaCN  
                 WHERE new.GioDen < cn.GioMo OR 
                         new.GioDen > cn.GioDong
