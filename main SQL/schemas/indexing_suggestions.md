@@ -37,34 +37,34 @@ update ma_mon_chi_nhanh
     - dat_ban_online(MaPhieu)
 
 - CREATE OR ALTER TRIGGER trg_Check_Manager_Working_Current
-    - PhieuDat(MaPhieu)
-    - ChiNhanh(MaCN)
+    - phieu_dat(MaPhieu)
+    - chi_nhanh(MaCN)
     - mon_an_chi_nhanh(MaMon)
 
 - CREATE OR ALTER TRIGGER ma_mon_phieu_dat_check_giao_hang
     - dat_ban_online(MaPhieu)
-    - PhieuDat(MaPhieu)
-    - PhieuDat(MaCN)
-    - PhieuDat(LoaiPhieu)
+    - phieu_dat(MaPhieu)
+    - phieu_dat(MaCN)
+    - phieu_dat(LoaiPhieu)
     - mon_an_chi_nhanh(MaMon)
     - mon_an_chi_nhanh(MaCN)
     - mon_an_chi_nhanh(GiaoHang) // nah 
     
 - CREATE OR ALTER TRIGGER mon_an_chi_nhanh_trigger
-    - ChiNhanh(MaCN)
-    - ChiNhanh(MaKhuVuc)
+    - chi_nhanh(MaCN)
+    - chi_nhanh(MaKhuVuc)
     - mon_an_khu_vuc(MaKhuVuc)
     - mon_an_khu_vuc(MaMon)
 
 - CREATE OR ALTER TRIGGER order_trigger
-    - ChiNhanh(MaKhuVuc)
+    - chi_nhanh(MaKhuVuc)
     - nhan_vien(MaNV)
     - nhan_vien(ChiNhanh)
 
 - CREATE OR ALTER TRIGGER dat_ban_online_trigger 
-    - PhieuDat(MaPhieu)
+    - phieu_dat(MaPhieu)
     - chi_nhanh(MaCN)
-    - ChiNhanh(GioMo)
+    - chi_nhanh(GioMo)
     - chi_nhanh(GioDong)
 
 - CREATE OR ALTER TRIGGER Trg_CapNhatLoaiThe
