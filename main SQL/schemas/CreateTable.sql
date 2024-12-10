@@ -73,7 +73,7 @@ CREATE TABLE nhan_vien
     Phai     NVARCHAR(3) NOT NULL CHECK (Phai IN ('Nam', 'Nu')),
     BoPhan   INT NOT NULL,
     ChiNhanh INT NOT NULL,
-    Luong INT NOT NULL,  
+    Luong INT NULL,  
 );
 GO
 
@@ -201,17 +201,17 @@ CREATE TABLE ma_mon_phieu_dat
 GO
 
 
--- CREATE TABLE hoa_don (
---         MaPhieu CHAR(5) PRIMARY KEY,
---         TongTien INT NOT NULL,
---         GiamGia FLOAT (24) NOT NULL,
---         ThanhTien INT NOT NULL,
---         DiemTichLuy INT NOT NULL,
---         CONSTRAINT FK_hoa_don_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
---         CONSTRAINT CK_GiamGia CHECK (GiamGia >= 0),
---         CONSTRAINT CK_TongTien_ThanhTien CHECK (ThanhTien <= TongTien)
--- );
--- GO
+CREATE TABLE hoa_don (
+        MaPhieu CHAR(5) PRIMARY KEY,
+        TongTien INT NOT NULL,
+        GiamGia FLOAT (24) NOT NULL,
+        ThanhTien INT NOT NULL,
+        DiemTichLuy INT NOT NULL,
+        CONSTRAINT FK_hoa_don_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
+        CONSTRAINT CK_GiamGia CHECK (GiamGia >= 0),
+        CONSTRAINT CK_TongTien_ThanhTien CHECK (ThanhTien <= TongTien)
+);
+GO
 
 -- the
 CREATE TABLE the
@@ -340,19 +340,11 @@ RETURN
 );
 GO
 
-CREATE PROCEDURE hoa_don (@MaPhieu CHAR(5))
+CREATE PROCEDURE calc_hoa_don(@MaPhieu CHAR(5))
 AS
 BEGIN
-    DECLARE @bang_hoa_don TABLE
-    (
-        MaPhieu Char(5),
-        TongTien INT, 
-        GiamGia INT, 
-        ThanhTien INT, 
-        DiemTichLuy INT
-    )
 
-    INSERT INTO @bang_hoa_don(MaPhieu, TongTien, GiamGia, ThanhTien, DiemTichLuy)
+    INSERT INTO hoa_don (MaPhieu, TongTien, GiamGia, ThanhTien, DiemTichLuy)
     SELECT @MaPhieu AS MaPhieu,
             bill.tongtien AS TongTien, 
             bill.tongtien * tgg.giamgia AS GiamGia, 
@@ -361,21 +353,23 @@ BEGIN
     FROM calc_bill(@MaPhieu) AS bill JOIN 
           tong_giam_gia(@MaPhieu) AS tgg ON tgg.MaPhieu = @MaPhieu 
     
-    SELECT * FROM @bang_hoa_don
+    SELECT * FROM hoa_don h WHERE
+    h.MaPhieu = @MaPhieu
 
     DECLARE @cccd_khach_hang CHAR(12)
-    DECLARE @tich_luy FLOAT(24)
+    DECLARE @DiemTichLuy FLOAT(24)
 
     SELECT @cccd_khach_hang = t.CCCD 
     FROM the t JOIN 
     phieu_dat o ON t.CCCD = o.CCCD 
     WHERE o.MaPhieu = @MaPhieu
 
-    SELECT @tich_luy = hd.DiemTichLuy
-    FROM @bang_hoa_don hd
+    SELECT @DiemTichLuy = h.DiemTichLuy 
+    FROM hoa_don h 
+    WHERE h.MaPhieu = @MaPhieu
 
     UPDATE the
-    SET TieuDung = TieuDung + @tich_luy
+    SET TieuDung = TieuDung + @DiemTichLuy
     WHERE CCCD = @cccd_khach_hang
 END;
 GO

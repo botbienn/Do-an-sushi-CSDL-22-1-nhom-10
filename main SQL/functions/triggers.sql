@@ -380,14 +380,14 @@ END;
 GO
 
 
-CREATE OR ALTER TRIGGER ck_luong_nhan_vien
+CREATE TRIGGER ck_luong_nhan_vien
 ON nhan_vien
 AFTER INSERT, UPDATE 
 AS
 BEGIN
     if EXISTS( SELECT 1 
                 FROM INSERTED new JOIN 
-                BoPhan bp ON new.BoPhan = bp.MaBoPhan
+                bo_phan bp ON new.BoPhan = bp.MaBoPhan
                 WHERE new.Luong < bp.MucLuong * 0.95 OR 
                         new.Luong > bp.MucLuong * 1.15)
     BEGIN
