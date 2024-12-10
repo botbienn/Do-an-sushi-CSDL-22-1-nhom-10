@@ -73,6 +73,7 @@ CREATE TABLE nhan_vien
     Phai     NVARCHAR(3) NOT NULL CHECK (Phai IN ('Nam', 'Nu')),
     BoPhan   INT NOT NULL,
     ChiNhanh INT NOT NULL,
+    Luong INT NOT NULL,  
 );
 GO
 

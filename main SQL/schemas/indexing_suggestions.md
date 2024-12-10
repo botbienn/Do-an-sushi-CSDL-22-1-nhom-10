@@ -83,3 +83,5 @@ update ma_mon_chi_nhanh
 - CREATE OR ALTER TRIGGER trg_Check_Manager_Working_Current
     - nhan_vien(MaNV)
     - nhan_vien(ChiNhanh)
+
+
