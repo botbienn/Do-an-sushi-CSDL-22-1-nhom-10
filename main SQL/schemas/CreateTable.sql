@@ -73,6 +73,7 @@ CREATE TABLE nhan_vien
     BoPhan   INT NOT NULL,
     ChiNhanh INT NOT NULL,
     Luong INT NULL,  
+    DangLamViec BIT DEFAULT 1,
 );
 go
 
@@ -157,7 +158,7 @@ CREATE TABLE phieu_dat
     MaPhieu     CHAR(5) PRIMARY KEY,
     NgayDat     DATE NOT NULL,
     MaCN        INT NOT NULL,
-    NhanVienLap CHAR(5) NOT NULL,
+    NhanVienLap CHAR(5) NULL,
     CCCD        CHAR(12) NOT NULL,
     LoaiPhieu   INT NOT NULL,
 -- CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
@@ -235,7 +236,7 @@ CREATE TABLE the
     NgayLap     DATETIME NOT NULL,
     LoaiThe     VARCHAR(10) NOT NULL,
     TieuDung    FLOAT(24) DEFAULT(0),
-    NhanVienLap CHAR(5) NOT NULL,
+    NhanVienLap CHAR(5) NULL,
     CapNhat     DATETIME,
 
     PRIMARY KEY(MaThe),
