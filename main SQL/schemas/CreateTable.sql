@@ -134,7 +134,10 @@ CREATE TABLE mon_an_khu_vuc
     MaMon    CHAR(5),
     PRIMARY KEY (MaKhuVuc, MaMon),
     CONSTRAINT FK_mon_an_khu_vuc_khu_vuc_MaKhuVuc FOREIGN KEY (MaKhuVuc) REFERENCES khu_vuc (MaKhuVuc),
-    CONSTRAINT FK_mon_an_khu_vuc_mon_an_MaMon FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon),
+
+    CONSTRAINT FK_mon_an_khu_vuc_mon_an_MaMon 
+    FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon)
+    ON DELETE NO ACTION,
 );
 go
 
@@ -145,6 +148,10 @@ CREATE TABLE mon_an_chi_nhanh
     GiaoHang BIT NOT NULL,
     PRIMARY KEY (MaCN, MaMon),
     CONSTRAINT FK_mon_an_chi_nhanh_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
+
+    CONSTRAINT FK_mon_an_chi_nhanh_mon_an_MaMon 
+    FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon)
+    ON DELETE NO ACTION, 
 );
 go
 
@@ -209,7 +216,11 @@ CREATE TABLE ma_mon_phieu_dat
     SoLuong  INT NOT NULL,
     DatTruoc BIT NOT NULL DEFAULT (0),
     CONSTRAINT FK_ma_mon_phieu_dat_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
-    CONSTRAINT FK_ma_mon_phieu_dat_mon_an_MaMon FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon),
+
+    CONSTRAINT FK_ma_mon_phieu_dat_mon_an_MaMon 
+    FOREIGN KEY (MaMon) REFERENCES mon_an (MaMon)
+    ON DELETE NO ACTION,
+
     CONSTRAINT CK_SoLuong CHECK (SoLuong >= 0),
     PRIMARY KEY (MaPhieu, MaMon),
 );

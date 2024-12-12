@@ -2,7 +2,10 @@ CREATE OR ALTER PROCEDURE xoa_mon_an
     @MaMon   CHAR(5)
 AS
 BEGIN
-    DELETE FROM mon_an 
+    DELETE FROM mon_an_khu_vuc
+    WHERE MaMon = @MaMon
+
+    DELETE FROM mon_an_chi_nhanh 
     WHERE MaMon = @MaMon
 END;
 go 

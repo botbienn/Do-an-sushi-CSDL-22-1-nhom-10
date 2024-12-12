@@ -1,20 +1,11 @@
 --Mã món đặt trước (mamon_phieudat) phải có mã phiếu trùng với mã phiếu của order đặt bàn online 
-CREATE TRIGGER check_mon_dat_truoc
-ON ma_mon_phieu_dat
-AFTER INSERT, UPDATE 
-AS
-BEGIN 
-    IF NOT EXISTS (SELECT 1
-			       FROM INSERTED new
-			       JOIN dat_ban_online dbol on dbol.MaPhieu = new.MaPhieu
-			       WHERE new.DatTruoc = 1
-			       )
-    BEGIN
-        RAISERROR(N'Mã phiếu của món ăn đặt trước không trùng với mã phiếu của order đặt bàn online', 16, 1)
-        ROLLBACK TRANSACTION
-    END
-END;
-GO
+-- CREATE TRIGGER check_mon_dat_truoc
+-- ON ma_mon_phieu_dat
+-- AFTER INSERT, UPDATE 
+-- AS
+-- BEGIN 
+-- END;
+-- GO
 
 --Món ăn được đặt(mamon_phieudat) phải nằm trong danh sách thực đơn của chi nhánh(mamon_chinhanh).
 CREATE TRIGGER check_ma_mon_phieu_dat
@@ -22,6 +13,16 @@ ON ma_mon_phieu_dat
 AFTER INSERT, UPDATE 
 AS
 BEGIN 
+
+    IF EXISTS (SELECT 1 
+                FROM INSERTED new JOIN
+                phieu_dat pd ON pd.MaPhieu = new.MaPhieu
+                WHERE new.DatTruoc = 1 AND pd.LoaiPhieu != 2)
+    BEGIN
+        RAISERROR(N'Mã phiếu của món ăn đặt trước không trùng với mã phiếu của order đặt bàn online', 16, 1)
+        ROLLBACK TRANSACTION;
+    END
+
     IF(0 >= ANY (SELECT COUNT(distinct mcn.MaMon) 
 				 FROM INSERTED new 
 				 JOIN phieu_dat o ON new.MaPhieu = o.MaPhieu
@@ -30,28 +31,7 @@ BEGIN
                  GROUP BY new.MaMon, mcn.MaCN))
     BEGIN
         RAISERROR(N'Món ăn được đặt không nằm trong danh sách thực đơn của chi nhánh', 16, 1)
-        ROLLBACK TRANSACTION
-    END
-END;
-GO
-
--- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
-CREATE TRIGGER ma_mon_phieu_dat_check_giao_hang
-ON ma_mon_phieu_dat
-AFTER INSERT, UPDATE 
-AS 
-BEGIN 
-    DECLARE @MaPhieu CHAR(5) 
-    -- SELECT @MaPhieu = NEW.MaPhieu
-
-    IF NOT EXISTS (SELECT 1
-			       FROM INSERTED new
-			       JOIN dat_ban_online dbol on dbol.MaPhieu = new.MaPhieu
-			       WHERE new.DatTruoc = 1
-			       )
-    BEGIN
-        RAISERROR(N'Mã phiếu của món ăn đặt trước không trùng với mã phiếu của order đặt bàn online', 16, 1)
-        ROLLBACK TRANSACTION
+        ROLLBACK TRANSACTION;
     END
 
     IF EXISTS (SELECT 1 FROM 
@@ -65,9 +45,21 @@ BEGIN
             RAISERROR(N'Món ăn đặt trong order giao hàng phải được giao bởi chi nhánh',16, 1);
         ROLLBACK TRANSACTION;
     END 
-    
 END;
 GO
+
+-- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
+-- CREATE TRIGGER ma_mon_phieu_dat_check_giao_hang
+-- ON ma_mon_phieu_dat
+-- AFTER INSERT, UPDATE 
+-- AS 
+-- BEGIN 
+--     -- DECLARE @MaPhieu CHAR(5) 
+--     -- SELECT @MaPhieu = NEW.MaPhieu
+--
+--
+-- END;
+-- GO
 
 --  Mọi món ăn nằm trong chi nhánh phải nằm trong danh sách món của khu vực mà chi nhánh thuộc về 
 CREATE TRIGGER mon_an_chi_nhanh_trigger
@@ -87,6 +79,42 @@ BEGIN
 END;
 GO
 
+CREATE TRIGGER mon_an_khu_vuc_del_trigger
+ON mon_an_khu_vuc
+AFTER DELETE
+AS
+BEGIN
+    DECLARE @cur CURSOR;
+    DECLARE @macn INT;
+    DECLARE @mamon char(5);
+
+    SET @cur = CURSOR FOR 
+    SELECT distinct macn.MaCN, macn.MaMon 
+    FROM chi_nhanh cn JOIN
+    DELETED del ON del.MaKhuVuc = cn.MaKhuVuc JOIN
+    mon_an_chi_nhanh macn ON macn.MaCN = cn.MaCN AND
+                            macn.MaMon = del.MaMon
+
+    OPEN @cur
+    FETCH NEXT FROM @cur 
+    INTO @macn, @mamon
+    
+    WHILE @@FETCH_STATUS = 0
+    BEGIN 
+
+        DELETE FROM mon_an_chi_nhanh
+        WHERE MaCN = @macn AND 
+            MaMon = @mamon                   
+
+        FETCH NEXT FROM @cur 
+        INTO @macn, @mamon
+    END
+    CLOSE @cur;
+    DEALLOCATE @cur;
+END
+go
+--
+                            
 -- Nhân viên lập phiếu phải là nhân viên của chi nhánh và đang làm việc tại chi nhánh trong thời gian lập phiếu
 
 CREATE TRIGGER order_trigger
