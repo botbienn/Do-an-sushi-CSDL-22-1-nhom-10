@@ -1,7 +1,7 @@
 # Query
 
 
-### TV1: Xoá nhân viên 
+### TV1: Xoá nhân viên (không đáng kể)
 Bảng: nhan_vien
 Loại TV: xoá 
     - Câu truy vấn: 
@@ -62,7 +62,7 @@ WHERE (mm.TenMon) like N'%' + @input_str + N'%'
 - khối lượng: 200
 - Tần xuất: 4000 lần / giờ
 
-### TV6: Thêm món an vào hệ thống 
+### TV6: Thêm món an vào hệ thống (không đáng kể)
 Bảng: mon_an
 - Loại TV: Thêm, INSERT
 - Câu truy vấn: 
@@ -71,10 +71,10 @@ Bảng: mon_an
     VALUES
     (@TenMon, @Gia, @Loai)
 ```
-Khối lượng: 
-Tần xuất: 
+Khối lượng: 200
+Tần xuất: 1-2 l
 
-### TV7: Thêm món an vào chi nhánh 
+### TV7: Thêm món an vào chi nhánh (không đáng kể)
 Bảng: mon_an_chi_nhanh
 - Loại TV: Thêm, INSERT
 - Câu truy vấn: 
@@ -86,7 +86,7 @@ Bảng: mon_an_chi_nhanh
 Khối lượng: 
 Tần xuất: 
 
-### TV8: Thêm món an vào khu vực 
+### TV8: Thêm món an vào khu vực (không đáng kể)
 Bảng: mon_an_khu_vuc
 - Loại TV: Thêm, INSERT
 - Câu truy vấn: 
