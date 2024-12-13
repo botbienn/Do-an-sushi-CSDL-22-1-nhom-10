@@ -5,9 +5,9 @@ CREATE OR ALTER PROCEDURE them_mon_an
     @Loai    NVARCHAR(50)
 AS
 BEGIN
-    INSERT INTO mon_an (TenMon, Gia, Loai)
+    INSERT INTO mon_an (MaMon,TenMon, Gia, Loai)
     VALUES
-    (@TenMon, @Gia, @Loai)
+    (@MaMon, @TenMon, @Gia, @Loai)
 END;
 go 
 
