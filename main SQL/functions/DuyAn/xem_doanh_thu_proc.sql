@@ -6,28 +6,6 @@ CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh
     @Ngay DATE      -- Ngày cần xem doanh thu
 AS
 BEGIN
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT MaPhieu
-    FROM phieu_dat
-    WHERE MaCN = @MaCN AND NgayDat = @Ngay;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
-
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
@@ -48,27 +26,6 @@ CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_thang
     @Nam INT        -- Năm cần xem doanh thu
 AS
 BEGIN
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT MaPhieu
-    FROM phieu_dat
-    WHERE MaCN = @MaCN AND MONTH(NgayDat) = @Thang AND YEAR(NgayDat) = @Nam;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
 
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT SUM(hd.ThanhTien) AS DoanhThu
@@ -90,28 +47,6 @@ CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_quy
     @Nam INT        -- Năm cần xem doanh thu
 AS
 BEGIN
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT MaPhieu
-    FROM phieu_dat
-    WHERE MaCN = @MaCN AND DATEPART(QUARTER, NgayDat) = @Quy AND YEAR(NgayDat) = @Nam;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
-
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
@@ -131,28 +66,6 @@ CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_nam
     @Nam INT        -- Năm cần xem doanh thu
 AS
 BEGIN
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT MaPhieu
-    FROM phieu_dat
-    WHERE MaCN = @MaCN AND YEAR(NgayDat) = @Nam;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
-
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
@@ -178,29 +91,6 @@ BEGIN
         SELECT value AS MaChiNhanh FROM STRING_SPLIT(@MaCN, ',')
     )
     SELECT MaChiNhanh INTO #TempChiNhanh FROM DSChiNhanh;
-
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT pd.MaPhieu
-    FROM phieu_dat pd
-    JOIN #TempChiNhanh cn ON pd.MaCN = cn.MaChiNhanh
-    WHERE pd.NgayDat = @Ngay;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
 
     -- Tính tổng doanh thu
     SELECT pd.MaCN, SUM(hd.ThanhTien) AS DoanhThu
@@ -236,34 +126,6 @@ BEGIN
     -- Lưu kết quả từ CTE vào bảng tạm
     SELECT MaChiNhanh INTO #TempChiNhanh FROM DSChiNhanh;
 
-    -- Khai báo biến để lưu mã phiếu trong quá trình duyệt con trỏ
-    DECLARE @MaPhieu CHAR(5);
-
-    -- Khai báo con trỏ để duyệt qua danh sách phiếu đặt thuộc các chi nhánh trong tháng và năm đã chỉ định
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT pd.MaPhieu
-    FROM phieu_dat pd
-    JOIN #TempChiNhanh cn ON pd.MaCN = cn.MaChiNhanh
-    WHERE MONTH(pd.NgayDat) = @Thang AND YEAR(pd.NgayDat) = @Nam;
-
-    -- Mở con trỏ và lấy giá trị đầu tiên
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    -- Duyệt qua từng giá trị trong con trỏ
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don cho MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        -- Lấy giá trị tiếp theo từ con trỏ
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    -- Đóng và giải phóng con trỏ
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
-
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT pd.MaCN, SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
@@ -297,28 +159,6 @@ BEGIN
     )
     SELECT MaChiNhanh INTO #TempChiNhanh FROM DSChiNhanh; -- Lưu kết quả vào bảng tạm
 
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt theo các chi nhánh
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT pd.MaPhieu
-    FROM phieu_dat pd
-    JOIN #TempChiNhanh cn ON pd.MaCN = cn.MaChiNhanh
-    WHERE DATEPART(QUARTER, pd.NgayDat) = @Quy AND YEAR(pd.NgayDat) = @Nam;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
 
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT pd.MaCN, SUM(hd.ThanhTien) AS DoanhThu
@@ -351,29 +191,6 @@ BEGIN
         FROM STRING_SPLIT(@MaCN, ',')
     )
     SELECT MaChiNhanh INTO #TempChiNhanh FROM DSChiNhanh; -- Lưu kết quả vào bảng tạm
-
-    -- Khai báo con trỏ để duyệt qua các phiếu đặt theo các chi nhánh
-    DECLARE @MaPhieu CHAR(5);
-
-    DECLARE phieu_cursor CURSOR FOR
-    SELECT pd.MaPhieu
-    FROM phieu_dat pd
-    JOIN #TempChiNhanh cn ON pd.MaCN = cn.MaChiNhanh
-    WHERE YEAR(pd.NgayDat) = @Nam;
-
-    OPEN phieu_cursor;
-    FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- Gọi thủ tục calc_hoa_don để cập nhật bảng hoa_don với MaPhieu hiện tại
-        EXEC calc_hoa_don @MaPhieu;
-
-        FETCH NEXT FROM phieu_cursor INTO @MaPhieu;
-    END;
-
-    CLOSE phieu_cursor;
-    DEALLOCATE phieu_cursor;
 
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
     SELECT pd.MaCN, SUM(hd.ThanhTien) AS DoanhThu
