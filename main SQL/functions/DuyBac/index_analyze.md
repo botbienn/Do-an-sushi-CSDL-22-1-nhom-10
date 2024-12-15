@@ -99,3 +99,81 @@ Bảng: mon_an_khu_vuc
 Khối lượng: 
 Tần xuất: 
 
+### TV9:Thống kê doanh thu theo món ăn (từng chi nhánh trong 1 khoảng thời gian) 
+
+Bảng: chi_nhanh, mon_an, ma_mon_phieu_dat, phieu_dat
+
+Câu truy vấn 
+```sql
+SELECT cn.TenCN AS ChiNhanh,
+        ma.TenMon AS MonAn,
+        SUM(mmpd.SoLuong) AS SoLuong,
+        SUM(ma.Gia * mmpd.SoLuong) AS DoanhThu
+FROM phieu_dat pd
+JOIN ma_mon_phieu_dat mmpd ON pd.MaPhieu = mmpd.MaPhieu
+JOIN mon_an ma ON mmpd.MaMon = ma.MaMon
+JOIN chi_nhanh cn ON pd.MaCN = cn.MaCN
+WHERE pd.NgayDat BETWEEN @StartDate AND @EndDate
+```
+Khối lượng: 
+Tần xuất: 
+### TV10: Món bán chậm nhất theo chi nhánh
+
+Bảng: phieu_dat, ma_mon_phieu_dat, mon_an
+
+Câu truy vấn: 
+```sql
+SELECT ma.TenMon,
+        pd.MaCN,
+        SUM(mmpd.SoLuong) AS SoLuong
+FROM phieu_dat pd
+JOIN ma_mon_phieu_dat mmpd ON pd.MaPhieu = mmpd.MaPhieu
+JOIN mon_an ma ON mmpd.MaMon = ma.MaMon
+GROUP BY ma.TenMon, pd.MaCN
+HAVING SUM(mmpd.SoLuong) >= all (
+		SELECT SUM(mmpd2.SoLuong)
+		 FROM phieu_dat pd2
+		 JOIN ma_mon_phieu_dat mmpd2 ON pd2.MaPhieu = mmpd2.MaPhieu
+		 WHERE pd2.MaCN = pd.MaCN
+		 GROUP BY mmpd2.MaMon
+	 );
+```
+khối lượng: 
+tần xuất: 
+
+### TV11: Món bán chậm nhất theo khu vực
+Bảng: phieu_dat, ma_mon_phieu_dat, mon_an, chi_nhanh, khu_vuc
+
+Câu truy vấn: 
+```sql
+SELECT ma.MaMon,
+        ma.TenMon,
+        kv.TenKhuVuc,
+        kv.MaKhuVuc,
+        SUM(mmpd.SoLuong) AS SoLuong
+FROM phieu_dat pd
+JOIN ma_mon_phieu_dat mmpd ON pd.MaPhieu = mmpd.MaPhieu
+JOIN mon_an ma ON mmpd.MaMon = ma.MaMon
+JOIN chi_nhanh cn ON pd.MaCN = cn.MaCN
+JOIN khu_vuc kv ON cn.MaKhuVuc = kv.MaKhuVuc
+GROUP BY ma.MaMon, ma.TenMon, kv.TenKhuVuc, kv.MaKhuVuc
+HAVING SUM(mmpd.SoLuong) >= all (
+		SELECT SUM(mmpd2.SoLuong)
+		 FROM 
+             phieu_dat pd2
+         JOIN 
+             ma_mon_phieu_dat mmpd2 ON pd2.MaPhieu = mmpd2.MaPhieu
+         JOIN 
+             chi_nhanh cn2 ON pd2.MaCN = cn2.MaCN
+         JOIN 
+             khu_vuc kv2 ON cn2.MaKhuVuc = kv2.MaKhuVuc
+		 WHERE kv.MaKhuVuc = kv2.MaKhuVuc
+		 GROUP BY mmpd2.MaMon
+	 );
+
+```
+
+khối lượng: 
+tần xuất: 
+
+### Món ăn chậm nhất theo chi nhánh trong 1 khoảng thời gian 
