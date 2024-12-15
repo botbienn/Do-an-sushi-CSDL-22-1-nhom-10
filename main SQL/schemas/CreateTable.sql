@@ -54,6 +54,7 @@ CREATE TABLE chi_nhanh
     XeHoi    BIT NOT NULL,
     NVQuanLy CHAR(5) NOT NULL DEFAULT '', -- Khóa ngoại vòng tròn 
     MaKhuVuc INT NOT NULL,
+    DangHoatDong BIT NOT NULL DEFAULT 1
 );
 go
 
