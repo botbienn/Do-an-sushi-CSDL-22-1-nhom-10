@@ -1,39 +1,49 @@
 
 --- viết truy vấn xem daonh thu theo ngày của 1 chi nhánh
-GO
 CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh
     @MaCN INT,      -- Mã chi nhánh
-    @Ngay DATE      -- Ngày cần xem doanh thu
+    @Ngay1 DATE,      -- Ngày cần xem doanh thu
+    @Ngay2 DATE      -- Ngày cần xem doanh thu
 AS
 BEGIN
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
-    SELECT SUM(hd.ThanhTien) AS DoanhThu
+    SELECT pd.MaCN AS MaChiNhanh,
+        pd.NgayDat AS Ngay, 
+        SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
     JOIN phieu_dat pd ON hd.MaPhieu = pd.MaPhieu
-    WHERE pd.MaCN = @MaCN AND pd.NgayDat = @Ngay;
+    WHERE pd.MaCN = @MaCN AND pd.NgayDat >= @Ngay1 AND pd.NgayDat <= @Ngay2
+    GROUP BY pd.MaCN, pd.NgayDat
 END;
 GO
---Test
---EXEC xem_doanh_thu_chi_nhanh 1, '2024-03-05'
 
---------------------------------------------------------------------------------------------------
+-- EXEC xem_doanh_thu_chi_nhanh @MaCN = 1, @Ngay1 = '02/15/2024', @Ngay2 = '04/12/2024'
 
---Viết truy vấn xem doanh thu theo tháng của 1 chi nhánh 
+-- SELECT * FROM hoa_don;
+
 GO
 CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_thang
     @MaCN INT,      -- Mã chi nhánh
-    @Thang INT,     -- Tháng cần xem doanh thu
-    @Nam INT        -- Năm cần xem doanh thu
+    @Ngay1 DATE,      -- Ngày cần xem doanh thu
+    @Ngay2 DATE      -- Ngày cần xem doanh thu
 AS
 BEGIN
 
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
-    SELECT SUM(hd.ThanhTien) AS DoanhThu
+    SELECT 
+        pd.MaCN AS MaChiNhanh,
+        CONCAT(MONTH(pd.NgayDat),'/', YEAR(pd.NgayDat)) AS Thang,
+        SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
     JOIN phieu_dat pd ON hd.MaPhieu = pd.MaPhieu
-    WHERE pd.MaCN = @MaCN AND MONTH(pd.NgayDat) = @Thang AND YEAR(pd.NgayDat) = @Nam;
+    WHERE 
+        pd.MaCN = @MaCN AND
+        DATEDIFF(MONTH, pd.NgayDat, @Ngay1) <= 0 AND 
+        DATEDIFF(MONTH, pd.NgayDat, @Ngay2) >= 0
+    GROUP BY MONTH(pd.NgayDat), YEAR(pd.NgayDat), pd.MaCN;  
 END;
 GO
+
 --Test
 --EXEC xem_doanh_thu_chi_nhanh_thang 1, 3, 2024
 
