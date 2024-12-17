@@ -1,5 +1,3 @@
-
---- viết truy vấn xem daonh thu theo ngày của 1 chi nhánh
 CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh
     @MaCN INT,      -- Mã chi nhánh
     @Ngay1 DATE,      -- Ngày cần xem doanh thu
@@ -44,45 +42,58 @@ BEGIN
 END;
 GO
 
---Test
---EXEC xem_doanh_thu_chi_nhanh_thang 1, 3, 2024
+-- EXEC xem_doanh_thu_chi_nhanh @MaCN = 1, @Ngay1 = '02/15/2024', @Ngay2 = '04/12/2024'
+-- EXEC xem_doanh_thu_chi_nhanh_thang @MaCN = 1, @Ngay1 = '02/15/2024', @Ngay2 = '04/12/2024'
 
---------------------------------------------------------------------------------------------------
-
---Viết truy vấn xem doanh thu theo quý của 1 chi nhánh
 GO
 CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_quy
     @MaCN INT,      -- Mã chi nhánh
-    @Quy INT,       -- Quý cần xem doanh thu
-    @Nam INT        -- Năm cần xem doanh thu
+    @Ngay1 DATE,      -- Ngày cần xem doanh thu
+    @Ngay2 DATE      -- Ngày cần xem doanh thu
 AS
 BEGIN
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
-    SELECT SUM(hd.ThanhTien) AS DoanhThu
+    SELECT 
+        pd.MaCN AS MaChiNhanh,
+        CONCAT('Q',DATEPART(QUARTER, pd.NgayDat),' ', YEAR(pd.NgayDat)) AS Quy,
+        SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
     JOIN phieu_dat pd ON hd.MaPhieu = pd.MaPhieu
-    WHERE pd.MaCN = @MaCN AND DATEPART(QUARTER, pd.NgayDat) = @Quy AND YEAR(pd.NgayDat) = @Nam;
+    WHERE 
+        pd.MaCN = @MaCN AND
+        DATEDIFF(YEAR, pd.NgayDat, @Ngay1) <= 0 AND 
+        DATEDIFF(YEAR, pd.NgayDat, @Ngay2) >= 0
+    GROUP BY 
+        DATEPART(QUARTER, pd.NgayDat),
+        YEAR(pd.NgayDat),
+        pd.MaCN;
 END;
 GO
---Test
---EXEC xem_doanh_thu_chi_nhanh_quy 1, 1, 2024
 
---------------------------------------------------------------------------------------------------
+-- EXEC xem_doanh_thu_chi_nhanh_quy @MaCN = 1, @Ngay1 = '02/15/2024', @Ngay2 = '04/12/2024'
 
---Viết truy vấn xem doanh thu theo năm của 1 chi nhánh
-GO
 CREATE OR ALTER PROCEDURE xem_doanh_thu_chi_nhanh_nam
     @MaCN INT,      -- Mã chi nhánh
-    @Nam INT        -- Năm cần xem doanh thu
+    @Ngay1 DATE,      -- Ngày cần xem doanh thu
+    @Ngay2 DATE      -- Ngày cần xem doanh thu
 AS
 BEGIN
+
     -- Tính tổng doanh thu sau khi cập nhật bảng hoa_don
-    SELECT SUM(hd.ThanhTien) AS DoanhThu
+    SELECT 
+        pd.MaCN AS MaChiNhanh,
+        YEAR(pd.NgayDat) AS Nam,
+        SUM(hd.ThanhTien) AS DoanhThu
     FROM hoa_don hd
     JOIN phieu_dat pd ON hd.MaPhieu = pd.MaPhieu
-    WHERE pd.MaCN = @MaCN AND YEAR(pd.NgayDat) = @Nam;
+    WHERE 
+        pd.MaCN = @MaCN AND
+        DATEDIFF(YEAR, pd.NgayDat, @Ngay1) <= 0 AND 
+        DATEDIFF(YEAR, pd.NgayDat, @Ngay2) >= 0
+    GROUP BY YEAR(pd.NgayDat), pd.MaCN;  
 END;
 GO
+
 --Test
 --exec xem_doanh_thu_chi_nhanh_nam 1, 2024
 
