@@ -20,7 +20,7 @@ CREATE TABLE khach_hang
     Email VARCHAR(100) NOT NULL,
     Phai  NVARCHAR(3),
     PRIMARY KEY(CCCD),
-    CONSTRAINT ck_khach_hang_phai CHECK (Phai in (N'Nam', N'Nu'))
+    CONSTRAINT ck_khach_hang_phai CHECK (Phai in (N'Nam', N'Nữ'))
 
 )
 GO
