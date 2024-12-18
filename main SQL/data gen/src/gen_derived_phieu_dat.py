@@ -11,7 +11,6 @@ START_DATE = "03/01/2023"
 END_DATE = "05/01/2024"
 
 phieuDat_df = pd.read_csv(DATA_PATH + "/phieu_dat.csv", sep=',', encoding='utf-8',dtype=object)
-print(DATA_PATH + "/phieu_dat.csv")
 
 type_list = phieuDat_df["LoaiPhieu"].to_list()
 MaPhieu_list = phieuDat_df["MaPhieu"].to_list()
