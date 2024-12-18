@@ -57,8 +57,8 @@ for i in range(num_rows):
     cap_nhat = ngay_lap + timedelta(days=random.randint(1, 30))
 
     # Chuyển định dạng ngày thành chuỗi
-    ngay_lap_str = ngay_lap.strftime("%d/%m/%Y")
-    cap_nhat_str = cap_nhat.strftime("%d/%m/%Y")
+    ngay_lap_str = ngay_lap.strftime("%m/%d/%Y")
+    cap_nhat_str = cap_nhat.strftime("%m/%d/%Y")
 
     # Append vào danh sách
     mathe_list.append(mathe)

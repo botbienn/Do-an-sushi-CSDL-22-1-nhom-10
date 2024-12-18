@@ -42,7 +42,7 @@ def generate_birth_date():
     end_date = datetime.now() - timedelta(days=15*365)
     start_date = datetime.now() - timedelta(days=60*365)
     random_days = random.randint(0, (end_date - start_date).days)
-    return (start_date + timedelta(days=random_days)).strftime("%d/%m/%Y")
+    return (start_date + timedelta(days=random_days)).strftime("%m/%d/%Y")
 
 
 # Hàm tạo họ tên ngẫu nhiên
@@ -65,7 +65,7 @@ def generate_address():
 
 # Tạo dữ liệu ngẫu nhiên
 data = {
-    "MaNV": [generate_manv(i + 1) for i in range(num_rows)],
+    "MaNV": [str(generate_manv(i + 1)) for i in range(num_rows)],
     "HoTen": [generate_full_name() for _ in range(num_rows)],
     "SoNha": [generate_address()[0] for _ in range(num_rows)],
     "Duong": [generate_address()[1] for _ in range(num_rows)],
@@ -74,7 +74,7 @@ data = {
     "NgaySinh": [generate_birth_date() for _ in range(num_rows)],
     "Phai": [random.choice(gender_choices) for _ in range(num_rows)],
     "BoPhan": [random.choice(bo_phan_choices) for _ in range(num_rows)],
-    "ChiNhanh": [random.choice(chi_nhanh_choices) for _ in range(num_rows)],
+    "ChiNhanh": [str(i // (num_rows // 15) + 1) for i in range(num_rows)],
     "Luong": [random.randint(7000000, 30000000) for _ in range(num_rows)],
     "DangLamViec": [random.choice([0, 1]) for _ in range(num_rows)]
 }

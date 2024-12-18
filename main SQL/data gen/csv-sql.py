@@ -37,7 +37,7 @@ def read_and_convert():
     for filename in FILE_ORDER:
         # Get the full path to the file
         table_names.append(filename)
-        df = pd.read_csv(folder_path + "/" + filename + ".csv", encoding="utf-8")
+        df = pd.read_csv(folder_path + "/" + filename + ".csv", encoding="utf-8", dtype=object)
 
         # special files
         if filename == "order":
@@ -70,7 +70,7 @@ def read_and_convert():
 
         # alter table because loop foreign key
         if filename == "nhan_vien":
-            chi_nhanh_df = pd.read_csv(folder_path + "/chi_nhanh.csv", encoding="utf-8")
+            chi_nhanh_df = pd.read_csv(folder_path + "/chi_nhanh.csv", encoding="utf-8", dtype=object)
 
             nv_col = chi_nhanh_df["NVQuanLy"].tolist()
             nv_col = [x if str(x) != "nan" else "" for x in nv_col]

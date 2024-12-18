@@ -1,61 +1,61 @@
 MaChuongTrinh,LoaiThe,UuDaiChietKhau,GiamGia,TangSP
-MA001,gold,50,100,Salmon Roll
-MA001,member,30,50,California Roll
-MA001,silver,20,40,Tempura Roll
-MA002,gold,50,100,California Roll
-MA002,member,20,30,Spicy Tuna Roll
-MA002,silver,25,50,Seaweed Salad
-MA003,silver,20,40,Spicy Tuna Roll
-MA003,member,40,70,Chirashi Sushi
-MA003,gold,80,80,Spicy Salmon Roll
-MA004,silver,20,40,Spicy Tuna Roll
-MA004,member,30,50,Miso Soup
-MA004,gold,100,90,Salmon Sashimi
-MA005,member,10,20,Sushi Rice
-MA005,gold,30,60,Unagi Roll
-MA005,silver,15,30,Vegetable Tempura Roll
-MA006,member,30,50,Avocado Roll
-MA006,gold,40,70,Dragon Roll
-MA006,silver,20,40,Ebi Tempura Roll
-MA007,gold,100,90,Salmon Sashimi
-MA007,silver,20,40,Tempura Roll
-MA007,member,15,25,Seaweed Salad
-MA008,gold,80,80,Spicy Salmon Roll
-MA008,member,30,50,Soft Shell Crab Roll
-MA008,silver,25,50,Vegetable Tempura Roll
-MA009,silver,15,30,Seaweed Salad
-MA009,member,50,80,Salmon Nigiri
-MA009,gold,100,90,Tuna Tartare
-MA010,silver,25,50,Miso Soup
-MA010,member,40,70,Chirashi Sushi
-MA010,gold,90,100,Seafood Platter
-MA011,member,40,70,Chirashi Sushi
-MA011,silver,20,40,Spicy Tuna Roll
-MA011,gold,100,100,Yellowtail Sashimi
-MA012,member,60,80,Unagi Roll
-MA012,silver,25,50,Ebi Tempura Roll
-MA012,gold,80,80,Spicy Tuna Roll
-MA013,gold,120,100,Dragon Roll
-MA013,member,30,60,California Roll
-MA013,silver,50,80,Seafood Platter
-MA014,gold,150,100,Yellowtail Sashimi
-MA014,silver,25,50,Spicy Salmon Roll
-MA014,member,20,40,Soft Shell Crab Roll
-MA015,silver,10,20,Ebi Tempura Roll
-MA015,member,30,60,Vegetable Tempura Roll
-MA015,gold,70,90,Salmon Sashimi
-MA016,silver,30,60,Vegetable Tempura Roll
-MA016,member,50,80,Dragon Roll
-MA016,gold,100,100,Salmon Nigiri
-MA017,member,25,40,Soft Shell Crab Roll
-MA017,silver,20,40,Tempura Roll
-MA017,gold,60,80,Spicy Salmon Roll
-MA018,member,50,90,Salmon Nigiri
-MA018,silver,20,30,Seaweed Salad
-MA018,gold,70,80,Tuna Tartare
-MA019,gold,80,70,Tuna Tartare
-MA019,member,25,40,Soft Shell Crab Roll
-MA019,silver,30,60,Seaweed Salad
-MA020,gold,200,100,Seafood Platter
-MA020,member,50,90,California Roll
-MA020,silver,40,70,Spicy Tuna Roll
+1,gold,50,100,Salmon Roll
+1,member,30,50,California Roll
+1,silver,20,40,Tempura Roll
+2,gold,50,100,California Roll
+2,member,20,30,Spicy Tuna Roll
+2,silver,25,50,Seaweed Salad
+3,silver,20,40,Spicy Tuna Roll
+3,member,40,70,Chirashi Sushi
+3,gold,80,80,Spicy Salmon Roll
+4,silver,20,40,Spicy Tuna Roll
+4,member,30,50,Miso Soup
+4,gold,100,90,Salmon Sashimi
+5,member,10,20,Sushi Rice
+5,gold,30,60,Unagi Roll
+5,silver,15,30,Vegetable Tempura Roll
+6,member,30,50,Avocado Roll
+6,gold,40,70,Dragon Roll
+6,silver,20,40,Ebi Tempura Roll
+7,gold,100,90,Salmon Sashimi
+7,silver,20,40,Tempura Roll
+7,member,15,25,Seaweed Salad
+8,gold,80,80,Spicy Salmon Roll
+8,member,30,50,Soft Shell Crab Roll
+8,silver,25,50,Vegetable Tempura Roll
+9,silver,15,30,Seaweed Salad
+9,member,50,80,Salmon Nigiri
+9,gold,100,90,Tuna Tartare
+10,silver,25,50,Miso Soup
+10,member,40,70,Chirashi Sushi
+10,gold,90,100,Seafood Platter
+11,member,40,70,Chirashi Sushi
+11,silver,20,40,Spicy Tuna Roll
+11,gold,100,100,Yellowtail Sashimi
+12,member,60,80,Unagi Roll
+12,silver,25,50,Ebi Tempura Roll
+12,gold,80,80,Spicy Tuna Roll
+13,gold,120,100,Dragon Roll
+13,member,30,60,California Roll
+13,silver,50,80,Seafood Platter
+14,gold,150,100,Yellowtail Sashimi
+14,silver,25,50,Spicy Salmon Roll
+14,member,20,40,Soft Shell Crab Roll
+15,silver,10,20,Ebi Tempura Roll
+15,member,30,60,Vegetable Tempura Roll
+15,gold,70,90,Salmon Sashimi
+16,silver,30,60,Vegetable Tempura Roll
+16,member,50,80,Dragon Roll
+16,gold,100,100,Salmon Nigiri
+17,member,25,40,Soft Shell Crab Roll
+17,silver,20,40,Tempura Roll
+17,gold,60,80,Spicy Salmon Roll
+18,member,50,90,Salmon Nigiri
+18,silver,20,30,Seaweed Salad
+18,gold,70,80,Tuna Tartare
+19,gold,80,70,Tuna Tartare
+19,member,25,40,Soft Shell Crab Roll
+19,silver,30,60,Seaweed Salad
+20,gold,200,100,Seafood Platter
+20,member,50,90,California Roll
+20,silver,40,70,Spicy Tuna Roll

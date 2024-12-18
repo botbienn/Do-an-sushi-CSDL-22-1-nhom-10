@@ -70,7 +70,7 @@ CREATE TABLE nhan_vien
     Quan     NVARCHAR(50) NOT NULL,
     ThanhPho NVARCHAR(50) NOT NULL,
     NgaySinh DATE NOT NULL CHECK (DATEDIFF(year, NgaySinh, getdate()) >= 15),
-    Phai     NVARCHAR(3) NOT NULL CHECK (Phai IN ('Nam', 'Nu')),
+    Phai     NVARCHAR(3) NOT NULL CHECK (Phai IN (N'Nam', N'Nữ')),
     BoPhan   INT NOT NULL,
     ChiNhanh INT NOT NULL,
     Luong INT NULL,  

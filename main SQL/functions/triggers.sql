@@ -408,20 +408,20 @@ END;
 GO
 
 
-CREATE TRIGGER ck_luong_nhan_vien
-ON nhan_vien
-AFTER INSERT, UPDATE 
-AS
-BEGIN
-    if EXISTS( SELECT 1 
-                FROM INSERTED new JOIN 
-                bo_phan bp ON new.BoPhan = bp.MaBoPhan
-                WHERE new.Luong < bp.MucLuong * 0.95 OR 
-                        new.Luong > bp.MucLuong * 1.15)
-    BEGIN
-        RAISERROR ('Lương của nhân viên không được lớn hơn hoặc nhỏ hơn lương của bộ phận 15%',16,1);
-        ROLLBACK TRANSACTION; 
-    END
-
-END;
-GO
+-- CREATE TRIGGER ck_luong_nhan_vien
+-- ON nhan_vien
+-- AFTER INSERT, UPDATE 
+-- AS
+-- BEGIN
+--     if EXISTS( SELECT 1 
+--                 FROM INSERTED new JOIN 
+--                 bo_phan bp ON new.BoPhan = bp.MaBoPhan
+--                 WHERE new.Luong < bp.MucLuong * 0.95 OR 
+--                         new.Luong > bp.MucLuong * 1.15)
+--     BEGIN
+--         RAISERROR ('Lương của nhân viên không được lớn hơn hoặc nhỏ hơn lương của bộ phận 15%',16,1);
+--         ROLLBACK TRANSACTION; 
+--     END
+--
+-- END;
+-- GO
