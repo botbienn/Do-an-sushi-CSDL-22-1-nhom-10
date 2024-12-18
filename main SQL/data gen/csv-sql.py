@@ -13,7 +13,7 @@ FILE_ORDER = [
     "mon_an",
     "mon_an_khu_vuc",
     "mon_an_chi_nhanh",
-    # "order",
+    "order",
     # "order_tai_cho",
     # "dat_ban_online",
     # "giao_hang",

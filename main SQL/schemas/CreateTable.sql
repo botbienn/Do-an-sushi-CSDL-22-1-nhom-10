@@ -52,7 +52,7 @@ CREATE TABLE chi_nhanh
     GiaoHang BIT NOT NULL,
     XeMay    BIT NOT NULL,
     XeHoi    BIT NOT NULL,
-    NVQuanLy CHAR(5) NOT NULL DEFAULT '', -- Khóa ngoại vòng tròn 
+    NVQuanLy CHAR(6) NOT NULL DEFAULT '', -- Khóa ngoại vòng tròn 
     MaKhuVuc INT NOT NULL,
     DangHoatDong BIT NOT NULL DEFAULT 1
 );
@@ -63,7 +63,7 @@ go
 
 CREATE TABLE nhan_vien
 (
-    MaNV     CHAR(5) PRIMARY KEY,
+    MaNV     CHAR(6) PRIMARY KEY,
     HoTen    NVARCHAR(50) NOT NULL,
     SoNha    NVARCHAR(50) NOT NULL,
     Duong    NVARCHAR(50) NOT NULL,
@@ -92,7 +92,7 @@ FOREIGN KEY(ChiNhanh) REFERENCES chi_nhanh(MaCN);
 go
 CREATE TABLE lich_su_lam_viec
 (
-    MaNV        CHAR(5),
+    MaNV        CHAR(6),
     ChiNhanh    INT,
     NgayBatDau  DATE NOT NULL,
     NgayKetThuc DATE,
@@ -110,7 +110,7 @@ CREATE TABLE lich_su_lam_viec
 go
 CREATE TABLE dien_thoai_nhan_vien
 (
-    MaNV      CHAR(5),
+    MaNV      CHAR(6),
     DienThoai NVARCHAR(11) UNIQUE,
     PRIMARY KEY (MaNV, DienThoai),
 
@@ -121,7 +121,7 @@ CREATE TABLE dien_thoai_nhan_vien
 go
 CREATE TABLE mon_an
 (
-    MaMon   CHAR(5) PRIMARY KEY,
+    MaMon   CHAR(6) PRIMARY KEY,
     TenMon  NVARCHAR(50) NOT NULL,
     Gia     INT NOT NULL,
     Loai    NVARCHAR(50) NOT NULL,
@@ -132,7 +132,7 @@ go
 CREATE TABLE mon_an_khu_vuc
 (
     MaKhuVuc INT,
-    MaMon    CHAR(5),
+    MaMon    CHAR(6),
     PRIMARY KEY (MaKhuVuc, MaMon),
     CONSTRAINT FK_mon_an_khu_vuc_khu_vuc_MaKhuVuc FOREIGN KEY (MaKhuVuc) REFERENCES khu_vuc (MaKhuVuc),
 
@@ -145,7 +145,7 @@ go
 CREATE TABLE mon_an_chi_nhanh
 (
     MaCN     INT,
-    MaMon    CHAR(5),
+    MaMon    CHAR(6),
     GiaoHang BIT NOT NULL,
     PRIMARY KEY (MaCN, MaMon),
     CONSTRAINT FK_mon_an_chi_nhanh_chi_nhanh_MaCN FOREIGN KEY (MaCN) REFERENCES chi_nhanh (MaCN),
@@ -163,10 +163,10 @@ go
 -- bảng order
 CREATE TABLE phieu_dat
 (
-    MaPhieu     CHAR(5) PRIMARY KEY,
+    MaPhieu     CHAR(6) PRIMARY KEY,
     NgayDat     DATE NOT NULL,
     MaCN        INT NOT NULL,
-    NhanVienLap CHAR(5) NULL,
+    NhanVienLap CHAR(6) NULL,
     CCCD        CHAR(12) NOT NULL,
     LoaiPhieu   INT NOT NULL,
 -- CONSTRAINT CK_NgayDat CHECK (NgayDat >= GETDATE()),
@@ -182,7 +182,7 @@ go
 -- bảng order_tai_cho
 CREATE TABLE order_tai_cho
 (
-    MaPhieu char(5) primary key,
+    MaPhieu char(6) primary key,
     SoBan int not null,
     CONSTRAINT FK_order_tai_cho_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
 );
@@ -190,7 +190,7 @@ go
 -- bảng dat_ban_online
 CREATE TABLE dat_ban_online
 (
-    MaPhieu      CHAR(5) PRIMARY KEY,
+    MaPhieu      CHAR(6) PRIMARY KEY,
     KhuVuc       INT NOT NULL,
     SoLuongKhach INT NOT NULL,
     GioDen       TIME NOT NULL,
@@ -203,7 +203,7 @@ CREATE TABLE dat_ban_online
 
 CREATE TABLE giao_hang
 (
-    MaPhieu        CHAR(5) PRIMARY KEY,
+    MaPhieu        CHAR(6) PRIMARY KEY,
     ThoiDiemOnline TIME NOT NULL,
     ThoiGianOnline TIME NOT NULL,
     CONSTRAINT FK_giao_hang_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
@@ -212,8 +212,8 @@ CREATE TABLE giao_hang
 go
 CREATE TABLE ma_mon_phieu_dat
 (
-    MaPhieu  CHAR(5),
-    MaMon    CHAR(5),
+    MaPhieu  CHAR(6),
+    MaMon    CHAR(6),
     SoLuong  INT NOT NULL,
     DatTruoc BIT NOT NULL DEFAULT (0),
     CONSTRAINT FK_ma_mon_phieu_dat_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
@@ -229,7 +229,7 @@ go
 
 
 CREATE TABLE hoa_don (
-        MaPhieu CHAR(5) PRIMARY KEY,
+        MaPhieu CHAR(6) PRIMARY KEY,
         TongTien INT NOT NULL,
         GiamGia FLOAT (24) NOT NULL,
         ThanhTien INT NOT NULL,
@@ -243,12 +243,12 @@ go
 -- the
 CREATE TABLE the
 (
-    MaThe       CHAR(5) NOT NULL,
+    MaThe       CHAR(6) NOT NULL,
     CCCD        CHAR(12) NOT NULL,
     NgayLap     DATETIME NOT NULL,
     LoaiThe     VARCHAR(10) NOT NULL,
     TieuDung    FLOAT(24) DEFAULT(0),
-    NhanVienLap CHAR(5) NULL,
+    NhanVienLap CHAR(6) NULL,
     CapNhat     DATETIME,
 
     PRIMARY KEY(MaThe),
@@ -288,7 +288,7 @@ GO
 -- tham gia chuong trinh
 CREATE TABLE tham_gia_chuong_trinh
 (
-    MaPhieu CHAR(5) NOT NULL,
+    MaPhieu CHAR(6) NOT NULL,
     MaChuongTrinh INT NOT NULL,
     PRIMARY KEY(MaPhieu, MaChuongTrinh),
     CONSTRAINT FK_thamGiaChuongTrinh_chuongTrinh_MaChuongTrinh
@@ -300,7 +300,7 @@ GO
 
 CREATE TABLE danh_gia
 (
-    MaPhieu CHAR(5) PRIMARY KEY,
+    MaPhieu CHAR(6) PRIMARY KEY,
     DiemPhucVu INT NOT NULL,
     DiemViTri INT NOT NULL,
     DiemChatLuong INT NOT NULL,
@@ -342,7 +342,7 @@ CREATE TABLE account(
 go
 
 
-create function calc_bill(@maphieu char(5))
+create function calc_bill(@maphieu char(6))
 returns table
 as
     return
@@ -355,7 +355,7 @@ as
 ;
 go
 
-create function tong_giam_gia(@maphieu char(5))
+create function tong_giam_gia(@maphieu char(6))
 returns table
 as
     return
@@ -375,7 +375,7 @@ as
 ;
 go
 
-CREATE PROCEDURE calc_hoa_don(@MaPhieu CHAR(5))
+CREATE PROCEDURE calc_hoa_don(@MaPhieu CHAR(6))
 AS
 BEGIN
 

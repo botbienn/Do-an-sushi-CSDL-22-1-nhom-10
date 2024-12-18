@@ -15,7 +15,7 @@ for i in range(1,4):
 
 MaMon_list = []
 for i in range(1,4): 
-    MaMon_list.extend(["MM"+ "0"*(3-len(str(x))) + str(x) for x in range(1, M_COUNT+1)])
+    MaMon_list.extend(["MM"+ "0"*(4-len(str(x))) + str(x) for x in range(1, M_COUNT+1)])
 
 data = {
     "MaKhuVuc": MaKhuVuc_list,

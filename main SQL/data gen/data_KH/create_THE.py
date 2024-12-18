@@ -8,9 +8,10 @@ from datetime import datetime, timedelta
 fake = Faker('vi_VN')
 
 # Định dạng các file đầu vào và thư mục output
-base_dir = os.path.join(os.path.dirname(__file__), "output")
-khach_hang_file = os.path.join(base_dir, "khach_hang_data.csv")
-nhan_vien_file = os.path.join(base_dir, "nhan_vien_data.csv")
+base_dir = os.path.join(os.path.dirname(__file__), "../data_final")
+# base_dir = '../data_final'
+khach_hang_file = os.path.join(base_dir, "khach_hang.csv")
+nhan_vien_file = os.path.join(base_dir, "nhan_vien.csv")
 
 # Đọc dữ liệu khách hàng và nhân viên, đảm bảo CCCD và MaNV giữ nguyên chuỗi có số 0 ở đầu
 khach_hang_df = pd.read_csv(khach_hang_file, dtype={'CCCD': str})
@@ -28,7 +29,7 @@ loai_the_choices = ["member", "silver", "gold"]
 
 # Hàm tạo mã thẻ (tăng dần từ 00001)
 def generate_mathe(index):
-    return f"{index:05d}"
+    return f"{index:06d}"
 
 # Hàm tạo ngày ngẫu nhiên trong khoảng 2 năm qua
 def generate_random_date():
@@ -86,7 +87,7 @@ the_df = pd.DataFrame(data)
 os.makedirs(base_dir, exist_ok=True)
 
 # Lưu file CSV trong thư mục output
-output_file = os.path.join(base_dir, "the_data.csv")
+output_file = os.path.join(base_dir, "the.csv")
 the_df.to_csv(output_file, index=False, encoding='utf-8-sig')
 
 print(f"Dữ liệu bảng thẻ đã được tạo và lưu tại: {os.path.abspath(output_file)}")

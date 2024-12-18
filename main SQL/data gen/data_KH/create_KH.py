@@ -62,11 +62,12 @@ data = {
 df = pd.DataFrame(data)
 
 # Tạo thư mục output nếu chưa tồn tại
-output_folder = os.path.join(os.path.dirname(__file__), "output")
-os.makedirs(output_folder, exist_ok=True)
+output_folder = os.path.join(os.path.dirname(__file__), "../data_final")
+# output_folder = "../data_final"
+# os.makedirs(output_folder, exist_ok=True)
 
 # Đường dẫn file CSV trong thư mục output
-output_file = os.path.join(output_folder, "khach_hang_data.csv")
+output_file = os.path.join(output_folder, "khach_hang.csv")
 
 # Lưu file CSV
 df.to_csv(output_file, index=False, encoding='utf-8-sig')

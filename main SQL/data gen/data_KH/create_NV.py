@@ -35,7 +35,7 @@ with open('street_name.txt', 'r', encoding='utf-8') as f:
 
 # Hàm tạo mã nhân viên (5 ký tự tăng dàn)
 def generate_manv(index):
-    return f"{index:05d}"
+    return f"{index:06d}"
 
 # Hàm tạo ngày sinh ngẫu nhiên (tuổi từ 15 đến 60)
 def generate_birth_date():
@@ -65,7 +65,7 @@ def generate_address():
 
 # Tạo dữ liệu ngẫu nhiên
 data = {
-    "MaNV": [str(generate_manv(i + 1)) for i in range(num_rows)],
+    "MaNV": [generate_manv(i + 1) for i in range(num_rows)],
     "HoTen": [generate_full_name() for _ in range(num_rows)],
     "SoNha": [generate_address()[0] for _ in range(num_rows)],
     "Duong": [generate_address()[1] for _ in range(num_rows)],
@@ -73,7 +73,7 @@ data = {
     "ThanhPho": [generate_address()[3] for _ in range(num_rows)],
     "NgaySinh": [generate_birth_date() for _ in range(num_rows)],
     "Phai": [random.choice(gender_choices) for _ in range(num_rows)],
-    "BoPhan": [random.choice(bo_phan_choices) for _ in range(num_rows)],
+    "BoPhan": [random.choice(bo_phan_choices) if ((i) % 20 != 0) else 5 for i in range(num_rows)],
     "ChiNhanh": [str(i // (num_rows // 15) + 1) for i in range(num_rows)],
     "Luong": [random.randint(7000000, 30000000) for _ in range(num_rows)],
     "DangLamViec": [random.choice([0, 1]) for _ in range(num_rows)]
@@ -83,11 +83,12 @@ data = {
 nhan_vien_df = pd.DataFrame(data)
 
 # Tạo thư mục output nếu chưa tồn tại
-output_folder = os.path.join(os.path.dirname(__file__), "output")
-os.makedirs(output_folder, exist_ok=True)
+output_folder = os.path.join(os.path.dirname(__file__), "../data_final")
+# output_folder = '../data_final'
+# os.makedirs(output_folder, exist_ok=True)
 
 # Đường dẫn file CSV
-output_file = os.path.join(output_folder, "nhan_vien_data.csv")
+output_file = os.path.join(output_folder, "nhan_vien.csv")
 nhan_vien_df.to_csv(output_file, index=False, encoding='utf-8-sig')
 
 print(f"Dữ liệu bảng nhân viên đã được tạo và lưu tại: {os.path.abspath(output_file)}")

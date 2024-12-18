@@ -17,7 +17,7 @@ END_DATE = "05/01/2024"
 # 1 history record per employee
 
 data = {
-    "MaNV": ["0" * (5 - len(str(x))) + str(x) for x in range(1, NV_COUNT + 1)],
+    "MaNV": ["0" * (6 - len(str(x))) + str(x) for x in range(1, NV_COUNT + 1)],
     "DienThoai": [f'093{random_with_N_digits(8)}' for _ in range (NV_COUNT)]
 }
 
