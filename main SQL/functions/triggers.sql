@@ -361,7 +361,7 @@ GO
 --Nhân viên quản lý phải đang làm việc tại chi nhánh đó trong thời gian hiện tại.
 CREATE TRIGGER trg_Check_Manager_Working_Current
 ON chi_nhanh
-FOR INSERT, UPDATE
+FOR UPDATE
 AS
 BEGIN
     -- DECLARE @NVQuanLy CHAR(5);
@@ -383,13 +383,13 @@ BEGIN
         --     nhan_vien nv ON new.NVQuanLy = nv.MaNV AND
         --                     new.MaCN != nv.ChiNhanh
 
-        IF NOT EXISTS (SELECT 1 
-                        FROM inserted new JOIN 
-                        nhan_vien nv ON new.NVQuanLy = nv.MaNV)
-        BEGIN
-            RAISERROR ('Nhân viên quản lý không nằm trong danh sách nhân viên', 16, 1);
-            ROLLBACK TRANSACTION;
-        END
+        -- IF NOT EXISTS (SELECT 1 
+        --                 FROM inserted new JOIN 
+        --                 nhan_vien nv ON new.NVQuanLy = nv.MaNV)
+        -- BEGIN
+        --     RAISERROR ('Nhân viên quản lý không nằm trong danh sách nhân viên', 16, 1);
+        --     ROLLBACK TRANSACTION;
+        -- END
 
 
         IF EXISTS (

@@ -1,5 +1,5 @@
 ﻿MaNV,HoTen,SoNha,Duong,Quan,ThanhPho,NgaySinh,Phai,BoPhan,ChiNhanh,Luong,DangLamViec
-00001,Lục Quang Linh,812,Hùng Vương,Quận 5,Hà Nội,11/21/1976,Nam,4,1,28549476,1
+00001,Lục Quang Linh,812,Hùng Vương,Quận 5,Hà Nội,11/21/1976,Nam,5,1,28549476,1
 00002,Hà Ngọc Thiện,654B,Nguyễn Thị Minh Khai,Sơn Trà,Đà Nẵng,06/09/1977,Nữ,2,1,10910799,1
 00003,Mẫn Tuyết Mai,764A,Ngô Quyền,Hai Bà Trưng,Hồ Chí Minh,06/05/1976,Nữ,5,1,15170638,1
 00004,Diệp Hữu Vượng,737A,Lý Tự Trọng,Thanh Xuân,Hà Nội,12/04/1987,Nữ,2,1,10757225,1
@@ -39,7 +39,7 @@
 00038,Lý Thụy Khanh,720C,Bà Triệu,Quận 12,Hồ Chí Minh,01/06/2008,Nữ,4,2,26535212,0
 00039,Vũ Bảo Hân,291,Võ Nguyên Giáp,Hoàng Mai,Đà Nẵng,08/18/2005,Nam,2,2,25860457,1
 00040,Quỳnh Huệ Lan,861D,Xà Cừ,Thanh Khê,Hà Nội,12/02/1971,Nữ,3,2,17472256,1
-00041,Mai Tiểu Mi,274,Phan Châu Trinh,Thanh Xuân,Hà Nội,01/03/1965,Nữ,4,3,15258316,1
+00041,Mai Tiểu Mi,274,Phan Châu Trinh,Thanh Xuân,Hà Nội,01/03/1965,Nữ,5,3,15258316,1
 00042,Mẫn Mạnh Quỳnh,345,Tam Đảo,Thanh Khê,Đà Nẵng,07/18/1996,Nam,3,3,19499112,1
 00043,Châu Ðức Siêu,857,Hàm Thuận Nam,Hai Bà Trưng,Hà Nội,02/22/1974,Nữ,1,3,19173091,0
 00044,Tôn Nhật Huy,85,Nguyễn Đình Tứ,Liên Chiểu,Hà Nội,01/10/2001,Nữ,4,3,7142719,0
@@ -59,7 +59,7 @@
 00058,Đoàn Hoàn Vũ,912,Phạm Ngũ Lão,Quận 5,Đà Nẵng,12/16/1986,Nam,4,3,20782642,1
 00059,Quách Huyền Linh,785,Huỳnh Thúc Kháng,Quận 9,Đà Nẵng,04/01/1969,Nữ,4,3,7773221,0
 00060,Hầu Hà Tiên,963,Tôn Thất Tùng,Quận 5,Đà Nẵng,05/19/1998,Nam,1,3,10079712,1
-00061,Mang Bảo Huynh,921,Nguyễn Văn Linh,Cẩm Lệ,Hà Nội,10/18/1989,Nữ,4,4,8644781,1
+00061,Mang Bảo Huynh,921,Nguyễn Văn Linh,Cẩm Lệ,Hà Nội,10/18/1989,Nữ,5,4,8644781,1
 00062,Tôn Văn Minh,748D,Lê Quang Đạo,Quận 4,Hồ Chí Minh,10/14/2006,Nữ,2,4,19645726,0
 00063,Hàn Duy Hạnh,401,Xoài,Quận 5,Hà Nội,02/23/2003,Nữ,4,4,26133138,0
 00064,Sa Anh Quốc,529A,Chiến Thắng,Ngũ Hành Sơn,Hồ Chí Minh,09/14/1994,Nữ,5,4,17831875,0
@@ -99,7 +99,7 @@
 00098,Lò Quang Sáng,636D,Nguyễn Trãi,Quận 2,Đà Nẵng,05/05/1968,Nữ,1,5,21361978,0
 00099,Xà Uyển Nhã,814,Nguyễn Đình Chiểu,Tân Phú,Đà Nẵng,06/19/1971,Nam,5,5,17421864,1
 00100,Vừ Nam Hải,401,Nguyễn Đình Chiểu,Tây Hồ,Hà Nội,12/14/1981,Nam,3,5,13484463,1
-00101,Sầm Bình Ðịnh,556,Hai Bà Trưng,Thanh Xuân,Hồ Chí Minh,11/27/2004,Nữ,4,6,26914486,0
+00101,Sầm Bình Ðịnh,556,Hai Bà Trưng,Thanh Xuân,Hồ Chí Minh,11/27/2004,Nữ,5,6,26914486,0
 00102,Lý Hiền Hòa,168,Xoài,Quận 5,Đà Nẵng,02/14/2004,Nam,4,6,10345698,1
 00103,Bạch Từ Ân,468,Quang Trung,Bắc Từ Liêm,Hồ Chí Minh,04/16/1970,Nam,1,6,24174764,1
 00104,Đoàn Gia Minh,980,Lạc Long Quân,Quận 2,Hà Nội,07/29/1966,Nữ,5,6,7551766,1
@@ -119,7 +119,7 @@
 00118,Bùi Thủy Trang,331,Trường Chinh,Quận 6,Hà Nội,05/21/1966,Nam,2,6,20777807,0
 00119,Kiều Thanh Mai,865,Anh Đào,Hải Châu,Hồ Chí Minh,04/20/1977,Nữ,1,6,10741227,1
 00120,Ông Chí Công,664B,Hồ Xuân Hương,Quận 7,Hồ Chí Minh,03/11/1981,Nữ,4,6,19672393,1
-00121,Đinh Hòa Giang,310A,Bạch Mai,Quận 10,Đà Nẵng,05/14/1991,Nữ,3,7,27461953,0
+00121,Đinh Hòa Giang,310A,Bạch Mai,Quận 10,Đà Nẵng,05/14/1991,Nữ,5,7,27461953,0
 00122,Mạc Thanh Ðạo,311,Ngô Quyền,Liên Chiểu,Hồ Chí Minh,10/27/1989,Nữ,4,7,7099232,0
 00123,Ứng Xuân Hòa,552C,Mít,Ngũ Hành Sơn,Hà Nội,04/20/2008,Nữ,1,7,29254344,0
 00124,Giáp Hải Vy,406,Võ Thị Sáu,Quận 12,Đà Nẵng,07/01/1984,Nam,4,7,16147665,0
@@ -139,7 +139,7 @@
 00138,Diệp Hạnh My,741C,Châu Văn Liêm,Quận 9,Hồ Chí Minh,05/10/2008,Nam,3,7,12405132,0
 00139,Ngô Hải Sơn,130,Cách Mạng Tháng Tám,Hải Châu,Đà Nẵng,03/16/1986,Nữ,4,7,16415761,1
 00140,Hồng Minh Dũng,171,Nguyễn Văn Linh,Cẩm Lệ,Hồ Chí Minh,01/16/1969,Nam,3,7,14110633,1
-00141,Hoàng Nguyên Nhân,759A,Cúc,Ba Đình,Đà Nẵng,06/03/2002,Nam,1,8,19007309,1
+00141,Hoàng Nguyên Nhân,759A,Cúc,Ba Đình,Đà Nẵng,06/03/2002,Nam,5,8,19007309,1
 00142,Quỳnh Trọng Tường,349A,Hoàng Sa,Hoàng Mai,Đà Nẵng,02/22/2006,Nam,2,8,22002432,0
 00143,Trương Ngọc Quang,500,Sao Đen,Quận 11,Hồ Chí Minh,03/14/1978,Nam,3,8,10060061,1
 00144,Thái Trọng Tấn,786,Trần Hưng Đạo,Hà Đông,Hà Nội,04/24/2003,Nữ,3,8,17453181,0
@@ -159,7 +159,7 @@
 00158,Khảm Hữu Ðạt,751,Châu Văn Liêm,Sơn Trà,Hà Nội,07/24/1976,Nam,4,8,23462516,0
 00159,Ứng Minh Thông,254,Xà Cừ,Thanh Khê,Đà Nẵng,12/08/1977,Nam,2,8,10973498,1
 00160,Mè Quang Vinh,498C,Nguyễn Phúc Nguyên,Thanh Xuân,Hà Nội,12/30/1986,Nữ,2,8,8391529,1
-00161,Ứng Anh Ðức,775D,Cam,Quận 9,Hà Nội,09/27/2008,Nam,4,9,9267836,0
+00161,Ứng Anh Ðức,775D,Cam,Quận 9,Hà Nội,09/27/2008,Nam,5,9,9267836,0
 00162,Bế Tuấn Anh,104B,Đồng Khởi,Quận 4,Hà Nội,11/07/1998,Nam,5,9,29932283,1
 00163,Khổng Quốc Vinh,439A,Độc Lập,Quận 10,Đà Nẵng,06/07/2003,Nữ,1,9,11252943,0
 00164,Viên Thanh Sơn,664,Ngô Quyền,Liên Chiểu,Hà Nội,06/07/2009,Nữ,3,9,25666556,1
@@ -179,7 +179,7 @@
 00178,Lương Hiệp Hà,221,Phượng Vĩ,Thanh Khê,Hà Nội,11/28/2002,Nam,3,9,9453013,1
 00179,Thạch Đăng Khương,12,Nguyễn Huệ,Hoàng Mai,Hà Nội,11/23/1982,Nam,4,9,8136936,0
 00180,Diệp Quý Khánh,230A,Phan Xích Long,Thanh Xuân,Hồ Chí Minh,01/16/1977,Nam,5,9,9159917,1
-00181,Bùi Công Bằng,908D,Phạm Văn Đồng,Tây Hồ,Hà Nội,10/11/1986,Nữ,1,10,13329508,1
+00181,Bùi Công Bằng,908D,Phạm Văn Đồng,Tây Hồ,Hà Nội,10/11/1986,Nữ,5,10,13329508,1
 00182,Phạm Thiên An,542,Trần Phú,Cẩm Lệ,Đà Nẵng,08/27/1982,Nữ,5,10,13050171,0
 00183,Đỗ Ánh Nguyệt,111A,Lê Thánh Tôn,Bắc Từ Liêm,Hồ Chí Minh,05/06/1996,Nữ,4,10,17638923,1
 00184,Tô Tuyết Trinh,691,Duy Tân,Tây Hồ,Hà Nội,02/09/1989,Nam,4,10,20232206,0
@@ -199,7 +199,7 @@
 00198,Chế Gia Bình,779C,Nguyễn Thiện Thuật,Hoàng Mai,Đà Nẵng,07/15/1969,Nữ,3,10,28102474,0
 00199,Vi Diễm Khuê,714,Điện Biên Phủ,Bình Tân,Đà Nẵng,01/25/1980,Nữ,3,10,24415582,1
 00200,Vũ Thụy Du,214,Bạch Mai,Sơn Trà,Đà Nẵng,01/20/1966,Nam,5,10,24896229,1
-00201,Cao Thường Xuân,395,Trần Quang Diệu,Cẩm Lệ,Hồ Chí Minh,07/10/1994,Nam,1,11,17761386,0
+00201,Cao Thường Xuân,395,Trần Quang Diệu,Cẩm Lệ,Hồ Chí Minh,07/10/1994,Nam,5,11,17761386,0
 00202,Tôn Ðức Quang,79,Phan Châu Trinh,Sơn Trà,Hà Nội,12/27/2000,Nam,5,11,16801288,0
 00203,Huỳnh Thu Sinh,419C,Nguyễn Đình Chiểu,Long Biên,Đà Nẵng,04/06/1984,Nam,3,11,12769220,0
 00204,Chế Gia Hưng,217D,Thanh Niên,Hải Châu,Hồ Chí Minh,05/27/1989,Nam,5,11,21810169,0
@@ -219,7 +219,7 @@
 00218,Hồng Hoàng Linh,632,Giảng Võ,Cẩm Lệ,Đà Nẵng,02/09/1998,Nam,1,11,9117270,0
 00219,Vĩnh Quang Danh,13B,Hương Giang,Long Biên,Hồ Chí Minh,11/22/1985,Nam,1,11,17173014,0
 00220,Lô Bảo Huỳnh,81A,Quang Trung,Ngũ Hành Sơn,Hà Nội,10/22/1990,Nữ,2,11,21561583,0
-00221,Khổng Nam Thanh,456C,Cúc,Quận 9,Đà Nẵng,05/12/1978,Nữ,2,12,9535299,1
+00221,Khổng Nam Thanh,456C,Cúc,Quận 9,Đà Nẵng,05/12/1978,Nữ,5,12,9535299,1
 00222,Thái Trung Chuyên,959,Nguyễn Trãi,Hải Châu,Hồ Chí Minh,08/12/1978,Nam,4,12,27720770,0
 00223,Đường Hạnh Tường,174B,Trần Bình Trọng,Tân Bình,Hà Nội,04/05/1980,Nữ,4,12,12182140,0
 00224,Bế Việt Trinh,581C,Đồng Khởi,Quận 4,Hồ Chí Minh,02/15/1975,Nữ,3,12,27420866,1
@@ -239,7 +239,7 @@
 00238,Tô Phi Long,704,Nguyễn Đình Tứ,Quận 12,Hà Nội,07/24/1979,Nữ,2,12,29621135,0
 00239,Lâm Diễm Hằng,173C,Tôn Đức Thắng,Hải Châu,Đà Nẵng,04/13/2004,Nữ,5,12,22388933,1
 00240,Ứng Dạ Lan,950A,Trường Sa,Quận 1,Hà Nội,04/11/1974,Nữ,3,12,25303961,1
-00241,Hồ Anh Tài,329C,Nguyễn Thiện Thuật,Ngũ Hành Sơn,Đà Nẵng,08/07/2005,Nam,2,13,7002333,1
+00241,Hồ Anh Tài,329C,Nguyễn Thiện Thuật,Ngũ Hành Sơn,Đà Nẵng,08/07/2005,Nam,5,13,7002333,1
 00242,Tăng Phú Bình,551,Mai Vàng,Bình Tân,Hồ Chí Minh,07/25/2006,Nam,4,13,23070684,0
 00243,Bồ Thượng Khang,364,Lý Tự Trọng,Hà Đông,Hà Nội,09/19/2005,Nam,3,13,15770798,1
 00244,Tạ Bá Long,970,Võ Nguyên Giáp,Quận 10,Đà Nẵng,04/30/2004,Nam,2,13,21641486,1
@@ -279,7 +279,7 @@
 00278,Phạm Thiên Lương,401B,Xà Cừ,Quận 12,Đà Nẵng,04/15/1976,Nữ,1,14,29072326,1
 00279,Nông Long Giang,856,Đinh Tiên Hoàng,Ngũ Hành Sơn,Hồ Chí Minh,10/07/1965,Nam,5,14,29068449,1
 00280,Tăng Tùy Linh,387,Nguyễn Công Trứ,Quận 6,Đà Nẵng,01/12/2009,Nữ,4,14,28805938,0
-00281,Hạnh Minh Tân,728,Bằng Lăng,Quận 12,Hà Nội,03/27/1976,Nam,1,15,22101113,1
+00281,Hạnh Minh Tân,728,Bằng Lăng,Quận 12,Hà Nội,03/27/1976,Nam,5,15,22101113,1
 00282,Bạch Thục Trinh,152B,Nguyễn Hồng Đào,Quận 3,Hà Nội,01/01/1997,Nữ,5,15,7952326,0
 00283,Ứng Nhân Văn,387,Độc Lập,Đống Đa,Hà Nội,06/14/1977,Nữ,3,15,14971614,0
 00284,Phan Tùng Quân,612D,Lang Biang,Hải Châu,Hà Nội,03/02/1973,Nữ,1,15,18342058,0
