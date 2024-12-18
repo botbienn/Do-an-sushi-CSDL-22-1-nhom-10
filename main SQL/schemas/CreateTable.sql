@@ -333,13 +333,19 @@ CREATE TABLE danh_gia
 go
 
 CREATE TABLE account(
-    userID INT IDENTITY(1,1) PRIMARY KEY, 
-    accUserName VARCHAR(50) UNIQUE,
+    userID CHAR(5), 
+    accUserName VARCHAR(50),
     accPassword VARCHAR(50),
     userType INT, 
-    CONSTRAINT ck_account_type CHECK (userType in (0,1,2,3,4))
+    CONSTRAINT PK_account PRIMARY KEY (accUserName, accPassword)
+    CONSTRAINT ck_account_type CHECK (userType in (1,2,3))
 );
 go
+
+INSERT INTO account (userID, accUserName, accPassword, userType) VALUES
+('MT009', 'thanhdat', '123', 1),
+('NV002', 'duybac', '321', 2),
+('NV002', 'chidanh', '456', 3)
 
 
 create function calc_bill(@maphieu char(6))
