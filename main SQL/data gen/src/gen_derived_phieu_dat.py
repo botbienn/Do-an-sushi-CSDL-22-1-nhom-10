@@ -37,10 +37,10 @@ print(tai_cho_df.head())
 
 online_map = {
     "MaPhieu": MP_online,
-    "KhuVuc": [random.randint(1, 4) for _ in range(len(MP_online))],
+    "KhuVuc": [random.randint(1, 3) for _ in range(len(MP_online))],
     "SoLuongKhach": [random.randint(2, 11) for _ in range(len(MP_online))],
     "GioDen": [
-        f"{random.randint(9,21):02d}:{random.randint(0,60):02d}:00"
+        f"{random.randint(9,21):02d}:{random.randint(0,50):02d}:00"
         for _ in range(len(MP_online))
     ],
     "GhiChu": ["" for _ in range(len(MP_online))],
@@ -51,11 +51,11 @@ print(online_df.head())
 giao_hang_map = {
     "MaPhieu": MP_giao_hang,
     "ThoiDiemOnline": [
-        f"{random.randint(9,21):02d}:{random.randint(0,60):02d}:00"
+        f"{random.randint(9,21):02d}:{random.randint(0,50):02d}:00"
         for _ in range(len(MP_giao_hang))
     ],
     "ThoiGianOnline": [
-        f"{random.randint(0,1):02d}:{random.randint(0,60):02d}:00"
+        f"{random.randint(0,1):02d}:{random.randint(0,50):02d}:00"
         for _ in range(len(MP_giao_hang))
     ],
 }

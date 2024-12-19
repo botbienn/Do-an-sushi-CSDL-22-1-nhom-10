@@ -207,7 +207,6 @@ CREATE TABLE giao_hang
     ThoiDiemOnline TIME NOT NULL,
     ThoiGianOnline TIME NOT NULL,
     CONSTRAINT FK_giao_hang_order_MaPhieu FOREIGN KEY (MaPhieu) REFERENCES phieu_dat (MaPhieu),
-    CONSTRAINT CK_ThoiGianOnline CHECK (ThoiGianOnline > '00:00:00')
 ); 
 go
 CREATE TABLE ma_mon_phieu_dat
@@ -337,7 +336,7 @@ CREATE TABLE account(
     accUserName VARCHAR(50),
     accPassword VARCHAR(50),
     userType INT, 
-    CONSTRAINT PK_account PRIMARY KEY (accUserName, accPassword)
+    CONSTRAINT PK_account PRIMARY KEY (accUserName, accPassword),
     CONSTRAINT ck_account_type CHECK (userType in (1,2,3))
 );
 go
@@ -346,6 +345,7 @@ INSERT INTO account (userID, accUserName, accPassword, userType) VALUES
 ('MT009', 'thanhdat', '123', 1),
 ('NV002', 'duybac', '321', 2),
 ('NV002', 'chidanh', '456', 3)
+GO
 
 
 create function calc_bill(@maphieu char(6))

@@ -10,15 +10,14 @@ phieuDat_df = pd.read_csv(DATA_PATH + "/phieu_dat.csv", sep=',', encoding='utf-8
 
 MaPhieu_list = phieuDat_df["MaPhieu"].to_list()
 
-MaPhieu_temp = [elem for item in MaPhieu_list for elem in (item, item)]
 """
     MaPhieu CHAR(6) NOT NULL,
     MaChuongTrinh INT NOT NULL,
 """
 
 result = {
-    "MaPhieu": MaPhieu_temp,
-    "MaChuongTrinh": [random.randint(1,21) for _ in range(len(MaPhieu_temp))]
+    "MaPhieu": MaPhieu_list,
+    "MaChuongTrinh": [random.randint(1,21) for _ in range(len(MaPhieu_list))]
 }
 
 resultdf = pd.DataFrame(result)

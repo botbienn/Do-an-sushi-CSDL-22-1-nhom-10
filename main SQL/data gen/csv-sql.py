@@ -49,6 +49,15 @@ def read_and_convert():
         # Get attributes names
         attributes = df.columns.tolist()
 
+        if filename == "ma_mon_phieu_dat":
+            for i, row in enumerate(df.iloc):
+                clean_row = [x if str(x) != "nan" else "" for x in row.tolist()]
+                output_file.writelines(
+                    f"EXEC ma_mon_phieu_dat @MaPhieu = {clean_row[0]}, @MaMon = {clean_row[1]}, @SoLuong = {clean_row[2]}, @DatTruoc = {clean_row[3]}\n"
+                )
+            continue
+
+
         # main file content
         output_file.writelines(
             f"INSERT INTO {filename}({', '.join(attributes)}) VALUES\n"
@@ -92,6 +101,7 @@ def read_and_convert():
             output_file.write("\n")
 
         output_file.write("\n")
+
 
     output_file.close()
 

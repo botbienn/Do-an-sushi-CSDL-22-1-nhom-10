@@ -50,7 +50,7 @@ for i in range(1,16):
     NhanVienLap_list.extend([gen_NV(i) for _ in range(PARTITION)])
 NhanVienLap_list.extend([gen_NV(15) for _ in range(100000 - (15 * PARTITION))])
 
-cccd_df = pd.read_csv(DATA_PATH + '/khach_hang.csv')
+cccd_df = pd.read_csv(DATA_PATH + '/khach_hang.csv', dtype=object)
 cccd_temp = cccd_df["CCCD"].to_list()
 print(len(cccd_df.index))
 
