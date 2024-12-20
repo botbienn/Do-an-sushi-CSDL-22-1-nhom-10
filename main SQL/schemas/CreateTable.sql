@@ -281,6 +281,9 @@ CREATE TABLE giam_gia
     PRIMARY KEY(MaChuongTrinh, LoaiThe),
     CONSTRAINT FK_giamGia_chuongTrinh_MaChuongTrinh
     FOREIGN KEY (MaChuongTrinh) REFERENCES chuong_trinh(MaChuongTrinh),
+    CONSTRAINT CK_UuDai CHECK ( UuDaiChietKhau >= 0 AND UuDaiChietKhau <= 100 ),
+    CONSTRAINT CK_GiamGia_phantram CHECK ( GiamGia >= 0 )
+
 )
 GO
 
@@ -347,71 +350,62 @@ INSERT INTO account (userID, accUserName, accPassword, userType) VALUES
 ('NV002', 'chidanh', '456', 3)
 GO
 
-
-create function calc_bill(@maphieu char(6))
-returns table
-as
-    return
-    (
-        select sum(mon.gia * mmpd.soluong) as tongtien
-        from ma_mon_phieu_dat mmpd
-        join mon_an mon on mmpd.mamon = mon.mamon
-        where mmpd.maphieu = @maphieu
-    )
-;
-go
-
-create function tong_giam_gia(@maphieu char(6))
-returns table
-as
-    return
-    (
-        select tgct.maphieu, sum(gg.giamgia) as giamgia
-        from tham_gia_chuong_trinh tgct
-        join chuong_trinh ct on ct.machuongtrinh = tgct.machuongtrinh
-        join phieu_dat o on o.maphieu = @maphieu
-        join the t on t.cccd = o.cccd
-        join
-            giam_gia gg
-            on gg.machuongtrinh = ct.machuongtrinh
-            and gg.loaithe = t.loaithe
-        where tgct.maphieu = @maphieu
-        group by (tgct.maphieu)
-    )
-;
-go
-
-CREATE PROCEDURE calc_hoa_don(@MaPhieu CHAR(6))
+CREATE or alter PROCEDURE calc_hoa_don(@MaPhieu CHAR(6))
 AS
 BEGIN
+    if EXISTS (SELECT 1 from hoa_don h where h.MaPhieu = @MaPhieu)
+        RAISERROR('đã có hoá đơn cho phiếu đặt tương ứng: %s',16,1, @MaPhieu)
+        RETURN
 
+    DECLARE @bill FLOAT(24)
+    DECLARE @discount_val TABLE (CCCD char(12),GiamGia FLOAT(24), UuDai FLOAT(24))
+    DECLARE @discount_money FLOAT(24)
+    DECLARE @final FLOAT(24)
+
+
+    select @bill = sum(mon.gia * mmpd.soluong)
+    from ma_mon_phieu_dat mmpd
+    join mon_an mon on mmpd.mamon = mon.mamon
+    where mmpd.maphieu = @MaPhieu
+
+    INSERT INTO @discount_val (CCCD ,GiamGia, UuDai)
+    SELECT
+        o.CCCD,
+        ISNULL(sum(gg.giamgia),0) as GiamGia,
+        ISNULL(sum(gg.UuDaiChietKhau),0) as UuDai
+    FROM tham_gia_chuong_trinh tgct
+    JOIN chuong_trinh ct on ct.machuongtrinh = tgct.machuongtrinh
+    JOIN phieu_dat o on o.maphieu = tgct.MaPhieu
+    JOIN the t on t.CCCD = o.CCCD
+    JOIN
+        giam_gia gg
+        ON gg.machuongtrinh = ct.machuongtrinh
+        AND gg.loaithe = t.loaithe
+    WHERE tgct.maphieu = @MaPhieu
+    GROUP BY tgct.maphieu, o.CCCD
+
+    select @discount_money = ((@bill * (d.UuDai / 100)) + d.GiamGia)
+    from @discount_val d
+
+    SET @discount_money = ISNULL(@discount_money,0)
+
+    SET @final = @bill - @discount_money
+    IF @final < 0
+    SET @final = 0
+    
     INSERT INTO hoa_don (MaPhieu, TongTien, GiamGia, ThanhTien, DiemTichLuy)
     SELECT @MaPhieu AS MaPhieu,
-            bill.tongtien AS TongTien, 
-            bill.tongtien * tgg.giamgia AS GiamGia, 
-            bill.tongtien * (1 - tgg.giamgia / 100) AS ThanhTien, 
-            CAST((bill.tongtien * (1 - tgg.giamgia / 100) / 10000) AS INT) AS DiemTichLuy
-    FROM calc_bill(@MaPhieu) AS bill JOIN 
-          tong_giam_gia(@MaPhieu) AS tgg ON tgg.MaPhieu = @MaPhieu 
-    
-    SELECT * FROM hoa_don h WHERE
-    h.MaPhieu = @MaPhieu
+            @bill AS TongTien, 
+            @discount_money AS GiamGia,   
+            (@final) AS ThanhTien, 
+            CAST((@final / 10000) AS INT) AS DiemTichLuy
 
     DECLARE @cccd_khach_hang CHAR(12)
-    DECLARE @DiemTichLuy FLOAT(24)
-
     SELECT @cccd_khach_hang = t.CCCD 
-    FROM the t JOIN 
-    phieu_dat o ON t.CCCD = o.CCCD 
-    WHERE o.MaPhieu = @MaPhieu
-
-    SELECT @DiemTichLuy = h.DiemTichLuy 
-    FROM hoa_don h 
-    WHERE h.MaPhieu = @MaPhieu
-
+    FROM @discount_val t
+    
     UPDATE the
-    SET TieuDung = TieuDung + @DiemTichLuy
+    SET TieuDung = CAST(TieuDung + (@final / 10000) AS INT)
     WHERE CCCD = @cccd_khach_hang
 END;
 go
-

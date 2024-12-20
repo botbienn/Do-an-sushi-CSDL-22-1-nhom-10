@@ -1,7 +1,8 @@
 CREATE OR ALTER PROCEDURE them_ma_mon_phieu_dat
-    @MaPhieu CHAR(5),
-    @MaMon   CHAR(5),
-    @SoLuong INT
+    @MaPhieu CHAR(6),
+    @MaMon   CHAR(6),
+    @SoLuong INT,
+    @DatTruoc BIT
 AS 
 BEGIN
     IF EXISTS(
@@ -19,9 +20,9 @@ BEGIN
     ELSE 
     BEGIN
         INSERT INTO ma_mon_phieu_dat
-        (MaPhieu, MaMon, SoLuong)
+        (MaPhieu, MaMon, SoLuong, DatTruoc)
         VALUES 
-        (@MaPhieu, @MaMon, @SoLuong)
+        (@MaPhieu, @MaMon, @SoLuong, @DatTruoc)
     END
 END;
 go
