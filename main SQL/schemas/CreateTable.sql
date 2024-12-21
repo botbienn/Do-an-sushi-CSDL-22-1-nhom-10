@@ -354,8 +354,10 @@ CREATE or alter PROCEDURE calc_hoa_don(@MaPhieu CHAR(6))
 AS
 BEGIN
     if EXISTS (SELECT 1 from hoa_don h where h.MaPhieu = @MaPhieu)
+    BEGIN
         RAISERROR('đã có hoá đơn cho phiếu đặt tương ứng: %s',16,1, @MaPhieu)
         RETURN
+    END
 
     DECLARE @bill FLOAT(24)
     DECLARE @discount_val TABLE (CCCD char(12),GiamGia FLOAT(24), UuDai FLOAT(24))
