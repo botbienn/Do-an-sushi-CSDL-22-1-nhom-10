@@ -250,7 +250,7 @@ CREATE TABLE the
     NhanVienLap CHAR(6) NULL,
     CapNhat     DATETIME,
 
-    PRIMARY KEY(MaThe),
+    CONSTRAINT PK_the_MaThe PRIMARY KEY (MaThe),
     CONSTRAINT FK_the_khachHang_CCCD FOREIGN KEY (CCCD) REFERENCES khach_hang(CCCD),
 
     CONSTRAINT FK_the_nhanVien_NhanVienLap 
