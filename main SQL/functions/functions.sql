@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE ChuyenNhanSu
-@MaNV CHAR(5),
+@MaNV CHAR(6),
 @MaChiNhanhMoi INT,
 @MaBoPhanMoi INT = NULL
 AS
@@ -31,7 +31,7 @@ GO
 
 
 CREATE OR ALTER PROCEDURE ThemNhanVien
-	@MaNV CHAR(5),
+	@MaNV CHAR(6),
     @TenNV NVARCHAR(50),
 	@SoNha NVARCHAR(50),
 	@Duong NVARCHAR(50),
@@ -54,7 +54,7 @@ GO
 ------------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE xoa_nhan_vien
-    @MaNV CHAR(5) 
+    @MaNV CHAR(6) 
 AS
 BEGIN
     UPDATE nhan_vien
@@ -66,7 +66,7 @@ go
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE xoa_mon_an
-    @MaMon   CHAR(5)
+    @MaMon   CHAR(6)
 AS
 BEGIN
     DELETE FROM mon_an_khu_vuc
@@ -80,7 +80,7 @@ go
 
 CREATE OR ALTER PROCEDURE xoa_mon_an_chi_nhanh
     @MaCN     INT, 
-    @MaMon    CHAR(5)
+    @MaMon    CHAR(6)
 AS
 BEGIN
     DELETE FROM mon_an_chi_nhanh 
@@ -90,7 +90,7 @@ END;
 go 
 
 CREATE OR ALTER PROCEDURE xoa_mon_an_khu_vuc
-    @MaMon    CHAR(5),
+    @MaMon    CHAR(6),
     @MaKV     INT  
 AS
 BEGIN
@@ -103,7 +103,7 @@ go
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE tim_mon_an_ma_mon 
-    @ma_mon CHAR(5)
+    @ma_mon CHAR(6)
 AS
 BEGIN
     SELECT * from mon_an mm
@@ -122,7 +122,7 @@ go
 
 -----------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE them_mon_an
-    @MaMon   CHAR(5),
+    @MaMon   CHAR(6),
     @TenMon  NVARCHAR(50),
     @Gia     INT,
     @Loai    NVARCHAR(50)
@@ -137,7 +137,7 @@ go
 
 CREATE OR ALTER PROCEDURE them_mon_an_chi_nhanh
     @MaCN     INT, 
-    @MaMon    CHAR(5),
+    @MaMon    CHAR(6),
     @GiaoHang BIT
 AS
 BEGIN
@@ -148,7 +148,7 @@ END;
 go 
 
 CREATE OR ALTER PROCEDURE them_mon_an_khu_vuc
-    @MaMon    CHAR(5),
+    @MaMon    CHAR(6),
     @MaKV     INT  
 AS
 BEGIN
@@ -192,10 +192,10 @@ go
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE them_dat_ban_online
-    @MaPhieu      CHAR(5),
+    @MaPhieu      CHAR(6),
     @NgayDat      DATE,
     @MaCN         INT,
-    @NhanVienLap  CHAR(5),
+    @NhanVienLap  CHAR(6),
     @CCCD         CHAR(12),
     @KhuVuc       INT,
     @SoLuongKhach INT,
@@ -219,7 +219,7 @@ CREATE OR ALTER PROCEDURE calc_all_hoa_don
 AS
 BEGIN
     DECLARE @cur CURSOR;
-    DECLARE @IMaPhieu CHAR(5);
+    DECLARE @IMaPhieu CHAR(6);
     
 
     SET @cur = CURSOR FOR
@@ -243,7 +243,7 @@ go
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE alter_nhan_vien 
-    @MaNV        CHAR(5),
+    @MaNV        CHAR(6),
     @HoTen       NVARCHAR(50),
     @SoNha       NVARCHAR(50),
     @Duong       NVARCHAR(50),
@@ -278,7 +278,7 @@ go
 
 -----------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE alter_mon_an
-    @MaMon   CHAR(5),
+    @MaMon   CHAR(6),
     @TenMon  NVARCHAR(50),
     @Gia     INT,
     @Loai    NVARCHAR(50)
@@ -295,7 +295,7 @@ go
 
 CREATE OR ALTER PROCEDURE alter_mon_an_chi_nhanh
     @MaCN     INT, 
-    @MaMon    CHAR(5),
+    @MaMon    CHAR(6),
     @GiaoHang BIT
 AS
 BEGIN
@@ -307,7 +307,7 @@ END;
 go 
 
 CREATE OR ALTER PROCEDURE alter_mon_an_khu_vuc
-    @MaMon    CHAR(5),
+    @MaMon    CHAR(6),
     @MaKV     INT  
 AS
 BEGIN
@@ -440,7 +440,7 @@ END
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE XoaPhieuDat
-    @MaPhieu CHAR(5) 
+    @MaPhieu CHAR(6) 
 AS
 BEGIN
     BEGIN TRY
@@ -571,12 +571,12 @@ GO
 ----------------------------------------------------------------------------- 
 
 CREATE OR ALTER PROCEDURE ThemTheKhachHang
-    @MaThe CHAR(5),          
+    @MaThe CHAR(6),          
     @CCCD CHAR(12),             
     @NgayLap DATETIME,          
     @LoaiThe VARCHAR(10),       
     @TieuDung FLOAT(24) = 0,    
-    @NhanVienLap CHAR(5) = NULL,
+    @NhanVienLap CHAR(6) = NULL,
     @CapNhat DATETIME = NULL   
 AS
 BEGIN
@@ -615,7 +615,7 @@ GO
 --------------------------------------------------------------------------------------------------
 --Xóa thẻ khách hàng
 CREATE OR ALTER PROCEDURE XoaTheKhachHang
-    @MaThe CHAR(5) 
+    @MaThe CHAR(6) 
 AS
 BEGIN
     BEGIN TRY
@@ -639,11 +639,11 @@ GO
 --------------------------------------------------------------------------------------------------
 --Cập nhật thẻ khách hàng
 CREATE OR ALTER PROCEDURE CapNhatTheKhachHang
-    @MaThe CHAR(5),            
+    @MaThe CHAR(6),            
     @CCCD CHAR(12) = NULL,     
     @LoaiThe VARCHAR(10) = NULL, 
     @TieuDung FLOAT(24) = NULL,
-    @NhanVienLap CHAR(5) = NULL, 
+    @NhanVienLap CHAR(6) = NULL, 
     @CapNhat DATETIME = NULL    
 AS
 BEGIN
@@ -682,10 +682,10 @@ GO
 
 --------------------------------------------------------------------------------------------------
 CREATE OR ALTER PROCEDURE CapNhatPhieuDat
-    @MaPhieu CHAR(5),          
+    @MaPhieu CHAR(6),          
     @NgayDat DATE = NULL,     
     @MaCN INT = NULL,           
-    @NhanVienLap CHAR(5) = NULL, 
+    @NhanVienLap CHAR(6) = NULL, 
     @CCCD CHAR(12) = NULL,       
     @LoaiPhieu INT = NULL        
 AS
@@ -822,7 +822,7 @@ end;
 --------------------------------------------------------------------------------------------------
 go
 create or alter procedure proc_updateLuongNhanVien
-	@MaNV char(5), @luongMoi int
+	@MaNV CHAR(6), @luongMoi int
 as
 begin
 	declare @luongHienTai int, @maBP int;
@@ -847,7 +847,7 @@ end
 
 go
 create procedure searchNhanVien
-	@maNV char(5) = null, @hoten nvarchar(50) = null
+	@maNV CHAR(6) = null, @hoten nvarchar(50) = null
 as
 begin
 	select *
@@ -859,10 +859,10 @@ end;
 --------------------------------------------------------------------------------------------------
 
 create procedure sp_themPhieuDat 
-	@MaPhieu     CHAR(5),
+	@MaPhieu     CHAR(6),
     @NgayDat     DATE,
     @MaCN        INT,
-    @NhanVienLap CHAR(5),
+    @NhanVienLap CHAR(6),
     @CCCD        CHAR(12),
     @LoaiPhieu   INT
 as
