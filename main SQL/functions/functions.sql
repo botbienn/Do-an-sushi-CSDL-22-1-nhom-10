@@ -409,25 +409,27 @@ GO
 -----------------------------------------------------------------------------
 -- viết truy vấn xem danh sách nhân viên theo 1 chi nhánh
 go
-CREATE PROC DanhSachNhanVienTheoChiNhanh
+CREATE OR ALTER PROC DanhSachNhanVienTheoChiNhanh
     @MaCN INT
 AS
 BEGIN
     SELECT * FROM nhan_vien WHERE ChiNhanh = @MaCN
 END
+GO
 
 -- Viết truy vấn xem danh sách nhân viên tất cả chi nhánh
 go
-CREATE PROC DanhSachNhanVienCuaTatCaChiNhanh
+CREATE OR ALTER PROC DanhSachNhanVienCuaTatCaChiNhanh
 AS
 BEGIN
     SELECT * FROM nhan_vien
 END
+GO
 
 --Viết truy vấn xem danh sách nhân viên theo chi nhánh với danh sách 
 -- chi nhánh được truyền theo dạng chuỗi với số lượng chưa biết trước
 go
-CREATE PROC DanhSachNhanVienTheoChiNhanhChuoi
+CREATE OR ALTER PROC DanhSachNhanVienTheoChiNhanhChuoi
     @MaCN NVARCHAR(100)
 AS
 BEGIN
@@ -437,6 +439,7 @@ BEGIN
     )
     SELECT * FROM nhan_vien WHERE ChiNhanh IN (SELECT MaChiNhanh FROM DSChiNhanh)
 END
+GO
 -----------------------------------------------------------------------------
 
 CREATE OR ALTER PROCEDURE XoaPhieuDat
@@ -735,7 +738,7 @@ GO
 
 --------------------------------------------------------------------------------------------------
 go
-create procedure getDiemPhucVuByDay 
+CREATE OR ALTER PROC getDiemPhucVuByDay 
 	@Ngay date
 as
 begin
@@ -746,14 +749,14 @@ begin
 	on nv.MaNV = pd.NhanVienLap
 	where pd.NgayDat = @Ngay;
 end;
+go
 
 -- test
 -- exec getDiemPhucVuByDay @Ngay = '2024-01-10'
 
 
 -- điểm phụ vụ của nhân viên theo tháng
-go
-create procedure getDiemPhucVuByMonth
+CREATE OR ALTER PROC getDiemPhucVuByMonth
 	@thang int, @nam int
 as
 begin 
@@ -763,14 +766,14 @@ begin
 	on nv.MaNV = pd.NhanVienLap
 	where @nam = YEAR(pd.NgayDat) and @thang = MONTH(pd.NgayDat)
 end;
+go
 
 -- test
 -- exec getDiemPhucVuByMonth @thang = 5, @nam = 2024;
 
 
 -- điểm phục vụ của nhân viên theo quý
-go
-create procedure getDiemPhucVuByQuarter
+CREATE OR ALTER PROC getDiemPhucVuByQuarter
 	@quarter int, @nam int
 as
 begin
@@ -785,6 +788,7 @@ begin
 	(@quarter = 4 and MONTH(pd.NgayDat) between 10 and 12)
 	);
 end;
+go
 
 -- test
 --exec getDiemPhucVuByQuarter @quarter = 2, @nam = 2024;
@@ -792,8 +796,7 @@ end;
 
 
 -- điểm phục vụ của nhân viên theo năm
-go
-create procedure getDiemPhucVuByYear
+CREATE OR ALTER PROC getDiemPhucVuByYear
 	@nam int
 as
 begin
@@ -803,12 +806,13 @@ begin
 	on nv.MaNV = pd.NhanVienLap
 	where @nam = YEAR(pd.NgayDat)
 end;
+go
 
 -- test
 --exec getDiemPhucVuByYear @nam = 2024
 
 --------------------------------------------------------------------------------------------------
-create procedure sp_GetEmployeeByBranch 
+CREATE OR ALTER PROC sp_GetEmployeeByBranch 
 	@MaChiNhanh int
 as 
 begin
@@ -817,11 +821,11 @@ begin
 	on nv.ChiNhanh = cn.MaCN
 	where cn.MaCN = @MaChiNhanh
 end;
+go
 
 
 --------------------------------------------------------------------------------------------------
-go
-create or alter procedure proc_updateLuongNhanVien
+CREATE OR ALTER procedure proc_updateLuongNhanVien
 	@MaNV CHAR(6), @luongMoi int
 as
 begin
@@ -841,12 +845,12 @@ begin
 		end
 
 end
+go
 
 
 --------------------------------------------------------------------------------------------------
 
-go
-create procedure searchNhanVien
+CREATE OR ALTER PROC searchNhanVien
 	@maNV CHAR(6) = null, @hoten nvarchar(50) = null
 as
 begin
@@ -856,9 +860,10 @@ begin
 	where ( @maNV is null or nv.MaNV like '%' + @maNV + '%' ) and (nv.HoTen like '%' + @hoten + '%' or @hoten is null)
 	order by nv.ChiNhanh ASC
 end;
+go
 --------------------------------------------------------------------------------------------------
 
-create procedure sp_themPhieuDat 
+CREATE OR ALTER PROC sp_themPhieuDat 
 	@MaPhieu     CHAR(6),
     @NgayDat     DATE,
     @MaCN        INT,
@@ -879,6 +884,7 @@ begin
 			rollback;
 			print('Có lỗi xãy ra khi thêm phiếu đặt: ' + error_message());
 		end catch
-end;
+END;
+GO
 
 --------------------------------------------------------------------------------------------------
