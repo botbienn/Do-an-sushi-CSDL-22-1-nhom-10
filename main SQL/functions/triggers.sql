@@ -1,13 +1,6 @@
 --Mã món đặt trước (mamon_phieudat) phải có mã phiếu trùng với mã phiếu của order đặt bàn online 
--- CREATE OR ALTER TRIGGER check_mon_dat_truoc
--- ON ma_mon_phieu_dat
--- AFTER INSERT, UPDATE 
--- AS
--- BEGIN 
--- END;
--- GO
-
 --Món ăn được đặt(mamon_phieudat) phải nằm trong danh sách thực đơn của chi nhánh(mamon_chinhanh).
+-- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
 CREATE OR ALTER TRIGGER check_ma_mon_phieu_dat
 ON ma_mon_phieu_dat
 AFTER INSERT, UPDATE 
@@ -92,19 +85,6 @@ GO
     
 
 
--- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
--- CREATE OR ALTER TRIGGER ma_mon_phieu_dat_check_giao_hang
--- ON ma_mon_phieu_dat
--- AFTER INSERT, UPDATE 
--- AS 
--- BEGIN 
---     -- DECLARE @MaPhieu CHAR(6) 
---     -- SELECT @MaPhieu = NEW.MaPhieu
---
---
--- END;
--- GO
-
 --  Mọi món ăn nằm trong chi nhánh phải nằm trong danh sách món của khu vực mà chi nhánh thuộc về 
 CREATE OR ALTER TRIGGER mon_an_chi_nhanh_trigger
 ON mon_an_chi_nhanh
@@ -128,14 +108,6 @@ ON mon_an_khu_vuc
 AFTER DELETE
 AS
 BEGIN
-
-    -- DELETE FROM mon_an_chi_nhanh
-    -- WHERE MaCN IN (
-    --     SELECT MaCN 
-    --     FROM chi_nhanh
-    --     WHERE MaKhuVuc = @MaKV
-    -- )
-    -- AND MaMon = @MaMon;
 
     DECLARE @cur CURSOR;
     DECLARE @MaKV INT;
@@ -228,110 +200,41 @@ AS
 BEGIN
     -- Điều kiện xuống hạng Membership nếu tiêu dùng < 50 trong 1 năm
     UPDATE the
-    SET LoaiThe = 'Membership',
-        NgayLap = GETDATE(),
-        CapNhat = GETDATE()
-    WHERE LoaiThe = 'Silver'
-      AND DATEDIFF(YEAR, NgayLap, GETDATE()) > 1 -- Quá 1 năm
-      AND TieuDung < 50; -- Tích lũy dưới 50
-
-    -- Điều kiện đạt hạng Silver
-    UPDATE the
-    SET LoaiThe = 'Silver',
-        TieuDung = 0,
-        NgayLap = GETDATE(),
-        CapNhat = GETDATE()
-    WHERE (LoaiThe IS NULL OR LoaiThe = 'Membership') -- Thẻ chưa đạt hạng
-      AND TieuDung >= 100; -- Tích lũy từ 100
-
-    -- Giữ hạng Silver nếu tiêu dùng >= 500 trong 1 năm
-    UPDATE the
-    SET LoaiThe = 'Silver',
-        CapNhat = GETDATE()
-    WHERE LoaiThe = 'Silver'
-      AND DATEDIFF(YEAR, NgayLap, GETDATE()) <= 1 -- Trong 1 năm
-      AND TieuDung >= 50; -- Tích lũy từ 500
-
-    -- Nâng hạng từ Silver lên Gold nếu tiêu dùng >= 1000 trong 1 năm
-    UPDATE the
-    SET LoaiThe = 'Gold',
-        TieuDung = 0,
-        NgayLap = GETDATE(),
-        CapNhat = GETDATE()
-    WHERE LoaiThe = 'Silver'
-      -- AND DATEDIFF(YEAR, NgayLap, GETDATE()) <= 1 -- Trong 1 năm
-      AND TieuDung >= 100; -- Tích lũy từ 1000
-
-    -- Giữ hạng Gold nếu tiêu dùng >= 1000 trong 1 năm
-    UPDATE the
-    SET LoaiThe = 'Gold',
-        CapNhat = GETDATE()
-    WHERE LoaiThe = 'Gold'
-      AND DATEDIFF(YEAR, NgayLap, GETDATE()) <= 1 -- Trong 1 năm
-      AND TieuDung >= 100; -- Tích lũy từ 1000
-
-    -- Xuống hạng từ Gold xuống Silver nếu tiêu dùng < 1000 trong 1 năm
-    UPDATE the
-    SET LoaiThe = 'Silver',
-        NgayLap = GETDATE(),
-        CapNhat = GETDATE()
-    WHERE LoaiThe = 'Gold'
-      AND DATEDIFF(YEAR, NgayLap, GETDATE()) > 1 -- Trong 1 năm
-      AND TieuDung < 100; -- Tích lũy dưới 1000
+    SET LoaiThe = 
+    ( CASE
+    WHEN (
+        (LoaiThe = 'silver'
+        AND DATEDIFF(YEAR, CapNhat, GETDATE()) > 1 -- Quá 1 năm
+        AND TieuDung < 50) -- Tích lũy dưới 50
+    ) THEN 'member'
+    WHEN (
+        ((LoaiThe IS NULL OR LoaiThe = 'member') -- Thẻ chưa đạt hạng
+        AND TieuDung >= 100)   -- Tích lũy từ 100
+        OR
+        (LoaiThe = 'gold'
+        AND DATEDIFF(YEAR, CapNhat, GETDATE()) > 1 -- Trong 1 năm
+        AND TieuDung < 100)-- Tích lũy dưới 1000
+    )
+    THEN 'silver'
+    WHEN (
+        (LoaiThe = 'silver'
+        AND DATEDIFF(YEAR, CapNhat, GETDATE()) <= 1 -- Trong 1 năm
+        AND TieuDung >= 100) -- Tích lũy từ 1000
+    )
+    THEN 'gold'
+    ELSE (LoaiThe)
+    END),
+    CapNhat = GETDATE(),
+    TieuDung = (
+    CASE
+    WHEN (
+        DATEDIFF(YEAR, CapNhat, GETDATE()) > 1 
+    ) THEN 0
+    ELSE (TieuDung)
+    END)
+    WHERE MaThe IN (SELECT new.MaThe FROM INSERTED new)
 END;
 GO
-
--- CREATE OR ALTER TRIGGER check_so_dien_thoai_unique
--- ON dien_thoai_nhan_vien
--- FOR INSERT, UPDATE
--- AS
--- BEGIN
---     -- Khai báo biến để chứa số điện thoại mới thêm vào hoặc cập nhật
---     DECLARE @DienThoai NVARCHAR(11);
---     DECLARE @MaNV CHAR(6);
-
---     -- Lấy số điện thoại và mã nhân viên từ bảng INSERTED (chứa các bản ghi vừa được thêm hoặc cập nhật)
---     SELECT @DienThoai = DienThoai, @MaNV = MaNV
---     FROM INSERTED;
-
---     -- Kiểm tra xem số điện thoại này đã tồn tại trong bảng nhan_vien hay chưa
---     IF EXISTS (SELECT 1 FROM dien_thoai_nhan_vien WHERE DienThoai = @DienThoai AND MaNV <> @MaNV)
---     BEGIN
---         -- Nếu số điện thoại đã tồn tại cho nhân viên khác, hủy thao tác và thông báo lỗi
---         RAISERROR('Số điện thoại này đã được sử dụng bởi nhân viên khác!', 16, 1);
---         ROLLBACK TRANSACTION;
---     END
--- END;
--- GO
-
--- CREATE OR ALTER TRIGGER trg_CheckEndDateBeforeStartDate
--- ON lich_su_lam_viec
--- FOR INSERT, UPDATE
--- AS
--- BEGIN
---     SELECT *
---         FROM lich_su_lam_viec lsv1
---         JOIN inserted i ON lsv1.MaNV = i.MaNV
---         WHERE lsv1.MaNV = i.MaNV
---         AND lsv1.ChiNhanh <> i.ChiNhanh
---         AND lsv1.NgayKetThuc > i.NgayBatDau
---     -- Kiểm tra xem khi nhân viên chuyển chi nhánh, ngày kết thúc tại chi nhánh cũ phải trước ngày bắt đầu tại chi nhánh mới
---     IF EXISTS (
---         SELECT 1
---         FROM lich_su_lam_viec lsv1
---         JOIN inserted i ON lsv1.MaNV = i.MaNV
---         WHERE lsv1.MaNV = i.MaNV
---         AND lsv1.ChiNhanh <> i.ChiNhanh
---         AND lsv1.NgayKetThuc > i.NgayBatDau
---     )
---     BEGIN
---         -- Nếu ngày kết thúc tại chi nhánh cũ không trước ngày bắt đầu tại chi nhánh mới
---         RAISERROR ('Ngày kết thúc phải trước ngày bắt đầu trong lịch sử làm việc của nhân viên', 16, 1);
---         ROLLBACK TRANSACTION; -- Hoàn tác giao dịch
---     END
--- END
--- GO
--- Cùng 1 thời điểm thì 1 nhân viên chỉ được làm việc tại 1 chi nhánh. ( Không có khoảng thời gian chồng chéo cho cùng 1 nhân viên trong bảng Lịch sử làm việc)
 
 CREATE OR ALTER TRIGGER trg_CheckOverlap_WorkTime
 ON lich_su_lam_viec
