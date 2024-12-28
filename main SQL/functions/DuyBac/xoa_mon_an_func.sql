@@ -22,6 +22,7 @@ BEGIN
 END;
 go 
 
+
 CREATE OR ALTER PROCEDURE xoa_mon_an_khu_vuc
     @MaMon    CHAR(5),
     @MaKV     INT  

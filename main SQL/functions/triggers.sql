@@ -1,5 +1,5 @@
 --Mã món đặt trước (mamon_phieudat) phải có mã phiếu trùng với mã phiếu của order đặt bàn online 
--- CREATE TRIGGER check_mon_dat_truoc
+-- CREATE OR ALTER TRIGGER check_mon_dat_truoc
 -- ON ma_mon_phieu_dat
 -- AFTER INSERT, UPDATE 
 -- AS
@@ -8,7 +8,7 @@
 -- GO
 
 --Món ăn được đặt(mamon_phieudat) phải nằm trong danh sách thực đơn của chi nhánh(mamon_chinhanh).
-CREATE TRIGGER check_ma_mon_phieu_dat
+CREATE OR ALTER TRIGGER check_ma_mon_phieu_dat
 ON ma_mon_phieu_dat
 AFTER INSERT, UPDATE 
 AS
@@ -93,12 +93,12 @@ GO
 
 
 -- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
--- CREATE TRIGGER ma_mon_phieu_dat_check_giao_hang
+-- CREATE OR ALTER TRIGGER ma_mon_phieu_dat_check_giao_hang
 -- ON ma_mon_phieu_dat
 -- AFTER INSERT, UPDATE 
 -- AS 
 -- BEGIN 
---     -- DECLARE @MaPhieu CHAR(5) 
+--     -- DECLARE @MaPhieu CHAR(6) 
 --     -- SELECT @MaPhieu = NEW.MaPhieu
 --
 --
@@ -106,7 +106,7 @@ GO
 -- GO
 
 --  Mọi món ăn nằm trong chi nhánh phải nằm trong danh sách món của khu vực mà chi nhánh thuộc về 
-CREATE TRIGGER mon_an_chi_nhanh_trigger
+CREATE OR ALTER TRIGGER mon_an_chi_nhanh_trigger
 ON mon_an_chi_nhanh
 AFTER INSERT, UPDATE 
 AS
@@ -123,35 +123,44 @@ BEGIN
 END;
 GO
 
-CREATE TRIGGER mon_an_khu_vuc_del_trigger
+CREATE OR ALTER TRIGGER mon_an_khu_vuc_del_trigger
 ON mon_an_khu_vuc
 AFTER DELETE
 AS
 BEGIN
+
+    -- DELETE FROM mon_an_chi_nhanh
+    -- WHERE MaCN IN (
+    --     SELECT MaCN 
+    --     FROM chi_nhanh
+    --     WHERE MaKhuVuc = @MaKV
+    -- )
+    -- AND MaMon = @MaMon;
+
     DECLARE @cur CURSOR;
-    DECLARE @macn INT;
-    DECLARE @mamon char(5);
+    DECLARE @MaKV INT;
+    DECLARE @MaMon CHAR(6);
 
     SET @cur = CURSOR FOR 
-    SELECT distinct macn.MaCN, macn.MaMon 
-    FROM chi_nhanh cn JOIN
-    DELETED del ON del.MaKhuVuc = cn.MaKhuVuc JOIN
-    mon_an_chi_nhanh macn ON macn.MaCN = cn.MaCN AND
-                            macn.MaMon = del.MaMon
+    SELECT distinct del.MaKhuVuc, del.MaMon
+    FROM DELETED del 
 
     OPEN @cur
-    FETCH NEXT FROM @cur 
-    INTO @macn, @mamon
+    FETCH NEXT FROM @cur
+    INTO @MaKV, @MaMon
     
     WHILE @@FETCH_STATUS = 0
     BEGIN 
-
         DELETE FROM mon_an_chi_nhanh
-        WHERE MaCN = @macn AND 
-            MaMon = @mamon                   
+        WHERE MaCN IN (
+            SELECT MaCN 
+            FROM chi_nhanh
+            WHERE MaKhuVuc = @MaKV
+        )
+        AND MaMon = @MaMon;
 
         FETCH NEXT FROM @cur 
-        INTO @macn, @mamon
+        INTO @MaKV, @MaMon
     END
     CLOSE @cur;
     DEALLOCATE @cur;
@@ -161,7 +170,7 @@ go
                             
 -- Nhân viên lập phiếu phải là nhân viên của chi nhánh và đang làm việc tại chi nhánh trong thời gian lập phiếu
 
-CREATE TRIGGER order_trigger
+CREATE OR ALTER TRIGGER order_trigger
 ON phieu_dat
 AFTER INSERT, UPDATE
 AS 
@@ -181,7 +190,7 @@ END;
 GO
 
 -- Giờ đến của đặt bàn online phải nằm trong khung giờ hoạt động của chi nhánh
-CREATE TRIGGER dat_ban_online_trigger 
+CREATE OR ALTER TRIGGER dat_ban_online_trigger 
 ON dat_ban_online
 AFTER INSERT, UPDATE
 AS
@@ -212,7 +221,7 @@ GO
 -- 6. loại thẻ phải được điều chỉnh dựa trên tiêu dùng tích lũy này theo các tiêu chí định trước và loại thẻ sẽ ảnh hưởng tới mức ưu đãi, giảm giá cho hóa đơn. 
 	-- silver (10 triệu không tính ngày giới hạn) , ngày hôm nay - ngày cập nhật >= 1 năm -> tiêu dùng phải >= 5 triệu -> sau đó đặt tiêu dùng về 0
 	-- gold ( phải có silver) trong vòng 1 năm phải 10 triệu 
-CREATE TRIGGER Trg_CapNhatLoaiThe
+CREATE OR ALTER TRIGGER Trg_CapNhatLoaiThe
 ON the
 AFTER UPDATE, INSERT
 AS
@@ -272,14 +281,14 @@ BEGIN
 END;
 GO
 
--- CREATE TRIGGER check_so_dien_thoai_unique
+-- CREATE OR ALTER TRIGGER check_so_dien_thoai_unique
 -- ON dien_thoai_nhan_vien
 -- FOR INSERT, UPDATE
 -- AS
 -- BEGIN
 --     -- Khai báo biến để chứa số điện thoại mới thêm vào hoặc cập nhật
 --     DECLARE @DienThoai NVARCHAR(11);
---     DECLARE @MaNV CHAR(5);
+--     DECLARE @MaNV CHAR(6);
 
 --     -- Lấy số điện thoại và mã nhân viên từ bảng INSERTED (chứa các bản ghi vừa được thêm hoặc cập nhật)
 --     SELECT @DienThoai = DienThoai, @MaNV = MaNV
@@ -295,7 +304,7 @@ GO
 -- END;
 -- GO
 
--- CREATE TRIGGER trg_CheckEndDateBeforeStartDate
+-- CREATE OR ALTER TRIGGER trg_CheckEndDateBeforeStartDate
 -- ON lich_su_lam_viec
 -- FOR INSERT, UPDATE
 -- AS
@@ -324,7 +333,7 @@ GO
 -- GO
 -- Cùng 1 thời điểm thì 1 nhân viên chỉ được làm việc tại 1 chi nhánh. ( Không có khoảng thời gian chồng chéo cho cùng 1 nhân viên trong bảng Lịch sử làm việc)
 
-CREATE TRIGGER trg_CheckOverlap_WorkTime
+CREATE OR ALTER TRIGGER trg_CheckOverlap_WorkTime
 ON lich_su_lam_viec
 FOR INSERT, UPDATE
 AS
@@ -369,14 +378,14 @@ END
 GO
 
 --Nhân viên quản lý phải thuộc bộ phận quản lý
-CREATE TRIGGER trg_Check_Employee_Manager_Department
+CREATE OR ALTER TRIGGER trg_Check_Employee_Manager_Department
 ON chi_nhanh
 FOR INSERT, UPDATE
 AS
 BEGIN
     -- Kiểm tra xem nhân viên quản lý có thuộc bộ phận quản lý không
-    -- DECLARE @NVQuanLy CHAR(5);
-    -- DECLARE @MaBoPhan NVARCHAR(5);
+    -- DECLARE @NVQuanLy CHAR(6);
+    -- DECLARE @MaBoPhan NVARCHAR(6);
 
     -- Lấy mã nhân viên quản lý và mã bộ phận từ bảng inserted (dành cho các thao tác INSERT và UPDATE)
     -- SELECT @NVQuanLy = new.NVQuanLy FROM inserted new;
@@ -403,13 +412,13 @@ BEGIN
 END;
 GO
 --Nhân viên quản lý phải đang làm việc tại chi nhánh đó trong thời gian hiện tại.
-CREATE TRIGGER trg_Check_Manager_Working_Current
+CREATE OR ALTER TRIGGER trg_Check_Manager_Working_Current
 ON chi_nhanh
 FOR UPDATE
 AS
 BEGIN
-    -- DECLARE @NVQuanLy CHAR(5);
-    -- DECLARE @MaCN CHAR(5);
+    -- DECLARE @NVQuanLy CHAR(6);
+    -- DECLARE @MaCN CHAR(6);
     -- DECLARE @NgayHienTai DATE;
 
     -- Lấy mã nhân viên quản lý và mã chi nhánh từ bảng inserted (dành cho các thao tác INSERT và UPDATE)
@@ -452,7 +461,7 @@ END;
 GO
 
 
--- CREATE TRIGGER ck_luong_nhan_vien
+-- CREATE OR ALTER TRIGGER ck_luong_nhan_vien
 -- ON nhan_vien
 -- AFTER INSERT, UPDATE 
 -- AS
