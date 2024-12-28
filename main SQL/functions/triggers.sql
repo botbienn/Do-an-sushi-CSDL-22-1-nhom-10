@@ -13,7 +13,6 @@ ON ma_mon_phieu_dat
 AFTER INSERT, UPDATE 
 AS
 BEGIN 
-
     IF EXISTS (SELECT 1 
                 FROM INSERTED new JOIN
                 phieu_dat pd ON pd.MaPhieu = new.MaPhieu
@@ -42,11 +41,56 @@ BEGIN
                 mcn.GiaoHang = 0 AND 
                 o.LoaiPhieu = 3)
     BEGIN 
-            RAISERROR(N'Món ăn đặt trong order giao hàng phải được giao bởi chi nhánh',16, 1);
+        RAISERROR(N'Món ăn đặt trong order giao hàng phải được giao bởi chi nhánh',16, 1);
         ROLLBACK TRANSACTION;
     END 
 END;
 GO
+
+CREATE OR ALTER TRIGGER check_dup_ma_mon_phieu_dat
+ON ma_mon_phieu_dat
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @cur CURSOR;
+    DECLARE @MaPhieu CHAR(6);
+    DECLARE @MaMon CHAR(6);
+    DECLARE @SoLuong int;
+
+    SET @cur = CURSOR FOR
+    SELECT new.MaPhieu, new.MaMon, new.SoLuong FROM
+    ma_mon_phieu_dat mmpd
+    join INSERTED new on mmpd.MaPhieu = new.MaPhieu AND
+    mmpd.MaMon = new.MaMon
+
+    OPEN @cur
+    FETCH NEXT FROM @cur INTO @MaPhieu, @MaMon, @SoLuong
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        UPDATE ma_mon_phieu_dat
+        SET SoLuong = SoLuong + @SoLuong
+        WHERE MaPhieu = @MaPhieu AND MaMon = @MaMon 
+        FETCH NEXT FROM @cur INTO @MaPhieu, @MaMon, @SoLuong
+    END
+    CLOSE @cur
+    DEALLOCATE @cur
+
+    INSERT INTO ma_mon_phieu_dat
+    SELECT new.MaPhieu, new.MaMon, new.SoLuong, new.DatTruoc
+    FROM INSERTED new
+    LEFT JOIN ma_mon_phieu_dat mmpd on mmpd.MaPhieu = new.MaPhieu AND
+    mmpd.MaMon = new.MaMon
+    WHERE mmpd.MaPhieu IS NULL AND mmpd.MaMon IS NULL AND
+    NOT EXISTS (select 1 from INSERTED new1 
+                where new1.MaPhieu = new.MaPhieu AND new1.MaMon = new.MaMon
+                group by new1.MaPhieu, new1.MaMon
+                HAVING count(*) > 1)
+END
+GO
+
+    
+
 
 -- Các món ăn nằm trong đơn giao hàng phải là các món có thể giao (biến bool giaohang  = true trong bảng monan_chinhanh) 
 -- CREATE TRIGGER ma_mon_phieu_dat_check_giao_hang

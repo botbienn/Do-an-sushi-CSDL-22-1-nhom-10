@@ -49,15 +49,15 @@ def read_and_convert():
         # Get attributes names
         attributes = df.columns.tolist()
 
-        if filename == "ma_mon_phieu_dat":
-            for i, row in enumerate(df.iloc):
-                clean_row = [x if str(x) != "nan" else "" for x in row.tolist()]
-                output_file.writelines(
-                    f"EXEC them_ma_mon_phieu_dat @MaPhieu = '{clean_row[0]}', @MaMon = '{clean_row[1]}', @SoLuong = {clean_row[2]}, @DatTruoc = {clean_row[3]}\n"
-                )
-                if i % 1000 == 999:
-                    output_file.writelines('GO\n')
-            continue
+        # if filename == "ma_mon_phieu_dat":
+        #     for i, row in enumerate(df.iloc):
+        #         clean_row = [x if str(x) != "nan" else "" for x in row.tolist()]
+        #         output_file.writelines(
+        #             f"EXEC them_ma_mon_phieu_dat @MaPhieu = '{clean_row[0]}', @MaMon = '{clean_row[1]}', @SoLuong = {clean_row[2]}, @DatTruoc = {clean_row[3]}\n"
+        #         )
+        #         if i % 1000 == 999:
+        #             output_file.writelines('GO\n')
+        #     continue
 
 
         # main file content
