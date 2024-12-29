@@ -335,7 +335,7 @@ CREATE TABLE danh_gia
 go
 
 CREATE TABLE account(
-    userID CHAR(5), 
+    userID CHAR(6), 
     accUserName VARCHAR(50),
     accPassword VARCHAR(50),
     userType INT, 
@@ -345,9 +345,9 @@ CREATE TABLE account(
 go
 
 INSERT INTO account (userID, accUserName, accPassword, userType) VALUES
-('MT009', 'thanhdat', '123', 1),
-('NV002', 'duybac', '321', 2),
-('NV002', 'chidanh', '456', 3)
+('000001', 'thanhdat', '123', 1),
+('000002', 'duybac', '321', 2),
+('000003', 'chidanh', '456', 3)
 GO
 
 CREATE or alter PROCEDURE calc_hoa_don(@MaPhieu CHAR(6))
